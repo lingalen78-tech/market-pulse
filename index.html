@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Pulse | 市場脈動</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2333;
+            --bg-card-hover: #222d3f;
+            --border: #30363d;
+            --gold: #d4a843;
+            --gold-dim: #b8922e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-yellow: #d29922;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --nav-height: 64px;
+            --section-gap: 48px;
+        }
+        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            height: var(--nav-height);
+            background: rgba(13, 17, 23, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            padding: 0 24px;
+        }
+        .nav-brand {
+            font-size: 1.25rem; font-weight: 700; color: var(--gold);
+            white-space: nowrap; margin-right: 32px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-brand .pulse-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(63,185,80,0.4); }
+            50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(63,185,80,0); }
+        }
+        .nav-links {
+            display: flex; gap: 4px; overflow-x: auto;
+            scrollbar-width: none; -ms-overflow-style: none;
+            flex: 1;
+        }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a {
+            color: var(--text-secondary); text-decoration: none;
+            padding: 8px 14px; border-radius: 6px; font-size: 0.875rem;
+            font-weight: 500; white-space: nowrap; transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary); background: var(--bg-card);
+        }
+        .lang-toggle {
+            background: rgba(212,168,67,0.15); border: 1px solid var(--gold-dim);
+            color: var(--gold); cursor: pointer; font-size: 0.8rem;
+            font-weight: 600; padding: 6px 14px; border-radius: 6px;
+            white-space: nowrap; transition: all 0.2s;
+            margin-left: 12px; flex-shrink: 0;
+        }
+        .lang-toggle:hover { background: rgba(212,168,67,0.3); }
+        .hamburger {
+            display: none; background: none; border: none;
+            color: var(--text-primary); cursor: pointer; font-size: 1.5rem;
+            margin-left: 8px; padding: 8px;
+        }
+        /* Mobile Nav */
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links {
+                display: none; position: fixed;
+                top: var(--nav-height); left: 0; right: 0;
+                flex-direction: column; background: var(--bg-secondary);
+                border-bottom: 1px solid var(--border);
+                padding: 12px; gap: 2px;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { padding: 12px 16px; border-radius: 8px; }
+            .lang-toggle { margin-left: auto; }
+        }
+
+        /* ===== LAYOUT ===== */
+        .main-content { padding-top: calc(var(--nav-height) + 24px); max-width: 1400px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+        .section { margin-bottom: var(--section-gap); }
+        .section-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 20px; padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-icon { font-size: 1.3rem; }
+        .section-title { font-size: 1.35rem; font-weight: 600; }
+        .section-badge {
+            font-size: 0.7rem; padding: 3px 10px; border-radius: 12px;
+            background: rgba(212,168,67,0.15); color: var(--gold);
+            font-weight: 600; letter-spacing: 0.5px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center; padding: 40px 20px 24px;
+        }
+        .hero h1 {
+            font-size: 2.2rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--gold) 0%, #f0d78c 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 8px;
+        }
+        .hero p { color: var(--text-secondary); font-size: 1rem; }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 32px;
+            margin-top: 20px; flex-wrap: wrap;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .value { font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+        .hero-stat .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+        /* ===== CHART GRID ===== */
+        .chart-grid {
+            display: grid; gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+        }
+        .chart-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .chart-card:hover { border-color: var(--gold-dim); }
+        .chart-card-header {
+            padding: 12px 16px; display: flex; align-items: center;
+            justify-content: space-between; border-bottom: 1px solid var(--border);
+        }
+        .chart-card-title { font-weight: 600; font-size: 0.95rem; }
+        .chart-card-tag {
+            font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+            font-weight: 600; letter-spacing: 0.3px;
+        }
+        .tag-index { background: rgba(88,166,255,0.15); color: var(--accent-blue); }
+        .tag-stock { background: rgba(63,185,80,0.15); color: var(--accent-green); }
+        .tag-metal { background: rgba(212,168,67,0.15); color: var(--gold); }
+        .tag-energy { background: rgba(248,81,73,0.15); color: var(--accent-red); }
+        .chart-embed { height: 400px; }
+        @media (max-width: 768px) { .chart-embed { height: 320px; } }
+
+        /* ===== SIGNAL CARDS ===== */
+        .signal-grid {
+            display: grid; gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        }
+        .signal-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 16px;
+            transition: all 0.2s;
+        }
+        .signal-card:hover { border-color: var(--gold-dim); transform: translateY(-1px); }
+        .signal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .signal-symbol { font-weight: 700; font-size: 1rem; }
+        .signal-name { font-size: 0.75rem; color: var(--text-muted); }
+        .signal-rows { display: flex; flex-direction: column; gap: 8px; }
+        .signal-row {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.82rem;
+        }
+        .signal-label { color: var(--text-secondary); }
+        .signal-value { font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+        }
+        .dot-green { background: var(--accent-green); box-shadow: 0 0 6px rgba(63,185,80,0.5); }
+        .dot-red { background: var(--accent-red); box-shadow: 0 0 6px rgba(248,81,73,0.5); }
+        .dot-yellow { background: var(--accent-yellow); box-shadow: 0 0 6px rgba(210,153,34,0.5); }
+        .trend-up { color: var(--accent-green); }
+        .trend-down { color: var(--accent-red); }
+        .trend-neutral { color: var(--accent-yellow); }
+
+        /* ===== COMMENTARY ===== */
+        .commentary-list { display: flex; flex-direction: column; gap: 20px; }
+        .commentary-article {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 24px;
+            transition: border-color 0.2s;
+        }
+        .commentary-article:hover { border-color: var(--gold-dim); }
+        .commentary-meta {
+            display: flex; gap: 16px; align-items: center;
+            margin-bottom: 12px; flex-wrap: wrap;
+        }
+        .commentary-date { font-size: 0.8rem; color: var(--text-muted); }
+        .commentary-tag {
+            font-size: 0.7rem; padding: 2px 10px; border-radius: 12px;
+            background: rgba(88,166,255,0.12); color: var(--accent-blue);
+            font-weight: 500;
+        }
+        .commentary-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary); }
+        .commentary-body { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75; }
+        .commentary-body p { margin-bottom: 10px; }
+        .commentary-body p:last-child { margin-bottom: 0; }
+        .commentary-divider { border: none; border-top: 1px dashed var(--border); margin: 14px 0; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center; padding: 32px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: var(--section-gap);
+        }
+        .footer p { color: var(--text-muted); font-size: 0.8rem; }
+        .footer .disclaimer { max-width: 600px; margin: 8px auto 0; font-size: 0.72rem; color: var(--text-muted); opacity: 0.7; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed; bottom: 24px; right: 24px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--gold); color: var(--bg-primary);
+            border: none; cursor: pointer; font-size: 1.2rem;
+            display: none; align-items: center; justify-content: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            transition: transform 0.2s; z-index: 999;
+        }
+        .back-to-top:hover { transform: scale(1.1); }
+        .back-to-top.show { display: flex; }
+
+        /* ===== i18n HIDE/SHOW ===== */
+        [data-lang-en] { display: none; }
+        [data-lang-zh] { display: inline; }
+        body.lang-en [data-lang-en] { display: inline; }
+        body.lang-en [data-lang-zh] { display: none; }
+        /* Block-level bilingual elements */
+        p[data-lang-en], div[data-lang-en], article[data-lang-en] { display: none; }
+        p[data-lang-zh], div[data-lang-zh], article[data-lang-zh] { display: block; }
+        body.lang-en p[data-lang-en], body.lang-en div[data-lang-en], body.lang-en article[data-lang-en] { display: block; }
+        body.lang-en p[data-lang-zh], body.lang-en div[data-lang-zh], body.lang-en article[data-lang-zh] { display: none; }
+        /* Flex for hero-stats */
+        div.hero-stats[data-lang-en] { display: none; }
+        div.hero-stats[data-lang-zh] { display: flex; }
+        body.lang-en div.hero-stats[data-lang-en] { display: flex; }
+        body.lang-en div.hero-stats[data-lang-zh] { display: none; }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="pulse-dot"></span>
+        Market Pulse
+    </div>
+    <div class="nav-links" id="navLinks">
+        <a href="#home" class="active"><span data-lang-zh>首頁</span><span data-lang-en>Home</span></a>
+        <a href="#us-index"><span data-lang-zh>美股指數</span><span data-lang-en>US Stocks</span></a>
+        <a href="#tw-index"><span data-lang-zh>台股</span><span data-lang-en>TW Stocks</span></a>
+        <a href="#tech"><span data-lang-zh>科技股</span><span data-lang-en>Tech</span></a>
+        <a href="#metals"><span data-lang-zh>貴金屬</span><span data-lang-en>Precious Metals</span></a>
+        <a href="#energy"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></a>
+        <a href="#signals"><span data-lang-zh>量化快照</span><span data-lang-en>Quant Signals</span></a>
+        <a href="#commentary"><span data-lang-zh>市場評論</span><span data-lang-en>Commentary</span></a>
+    </div>
+    <button class="lang-toggle" id="langToggle" title="Switch Language">EN / 中文</button>
+    <button class="hamburger" id="hamburger" aria-label="選單">☰</button>
+</nav>
+
+<div class="main-content">
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <h1>Market Pulse | <span data-lang-zh>市場脈動</span><span data-lang-en>Market Pulse</span></h1>
+    <p><span data-lang-zh>全球金融市場即時概覽 · 技術分析 · 量化信號</span><span data-lang-en>Global Markets Overview · Technical Analysis · Quantitative Signals</span></p>
+    <div class="hero-stats" data-lang-zh>
+        <div class="hero-stat">
+            <div class="value">12+</div>
+            <div class="label">追蹤資產</div>
+        </div>
+        <div class="hero-stat">
+            <div class="value">即時</div>
+            <div class="label">K 線圖表</div>
+        </div>
+        <div class="hero-stat">
+            <div class="value">多維</div>
+            <div class="label">量化信號</div>
+        </div>
+    </div>
+    <div class="hero-stats" data-lang-en>
+        <div class="hero-stat">
+            <div class="value">12+</div>
+            <div class="label">Assets Tracked</div>
+        </div>
+        <div class="hero-stat">
+            <div class="value">Live</div>
+            <div class="label">Candlestick Charts</div>
+        </div>
+        <div class="hero-stat">
+            <div class="value">Multi</div>
+            <div class="label">Quant Signals</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== US INDEX ===== -->
+<section class="section" id="us-index">
+    <div class="section-header">
+        <span class="section-icon">🇺🇸</span>
+        <h2 class="section-title"><span data-lang-zh>美股主要指數</span><span data-lang-en>US Major Indices</span></h2>
+        <span class="section-badge">INDEX</span>
+    </div>
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title">S&P 500</span>
+                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"FOREXCOM:SPXUSD","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>NASDAQ 綜合</span><span data-lang-en>NASDAQ Composite</span></span>
+                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"NASDAQ:NDX","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>道瓊工業指數</span><span data-lang-en>Dow Jones Industrial</span></span>
+                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"DJ:DJI","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TW INDEX ===== -->
+<section class="section" id="tw-index">
+    <div class="section-header">
+        <span class="section-icon">🇹🇼</span>
+        <h2 class="section-title"><span data-lang-zh>台灣加權指數</span><span data-lang-en>Taiwan Weighted Index</span></h2>
+        <span class="section-badge">TWSE</span>
+    </div>
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>台灣加權指數 (TWII)</span><span data-lang-en>TAIEX Weighted Index (TWII)</span></span>
+                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"TWSE:TAIEX","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TECH STOCKS ===== -->
+<section class="section" id="tech">
+    <div class="section-header">
+        <span class="section-icon">💻</span>
+        <h2 class="section-title"><span data-lang-zh>科技股</span><span data-lang-en>Tech Stocks</span></h2>
+        <span class="section-badge">TECH</span>
+    </div>
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title">Apple (AAPL)</span>
+                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"NASDAQ:AAPL","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title">NVIDIA (NVDA)</span>
+                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"NASDAQ:NVDA","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>台積電 ADR (TSM)</span><span data-lang-en>TSMC ADR (TSM)</span></span>
+                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"NYSE:TSM","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title">Microsoft (MSFT)</span>
+                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"NASDAQ:MSFT","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title">Alphabet (GOOGL)</span>
+                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"NASDAQ:GOOGL","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRECIOUS METALS ===== -->
+<section class="section" id="metals">
+    <div class="section-header">
+        <span class="section-icon">🥇</span>
+        <h2 class="section-title"><span data-lang-zh>貴金屬</span><span data-lang-en>Precious Metals</span></h2>
+        <span class="section-badge">METALS</span>
+    </div>
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>黃金 (XAU/USD)</span><span data-lang-en>Gold (XAU/USD)</span></span>
+                <span class="chart-card-tag tag-metal"><span data-lang-zh>貴金屬</span><span data-lang-en>Metal</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"TVC:GOLD","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>白銀 (XAG/USD)</span><span data-lang-en>Silver (XAG/USD)</span></span>
+                <span class="chart-card-tag tag-metal"><span data-lang-zh>貴金屬</span><span data-lang-en>Metal</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"TVC:SILVER","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ENERGY ===== -->
+<section class="section" id="energy">
+    <div class="section-header">
+        <span class="section-icon">⛽</span>
+        <h2 class="section-title"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></h2>
+        <span class="section-badge">ENERGY</span>
+    </div>
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title">WTI <span data-lang-zh>原油</span><span data-lang-en>Crude Oil</span> (CL)</span>
+                <span class="chart-card-tag tag-energy"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"TVC:USOIL","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <span class="chart-card-title"><span data-lang-zh>天然氣</span><span data-lang-en>Natural Gas</span> (NG)</span>
+                <span class="chart-card-tag tag-energy"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></span>
+            </div>
+            <div class="chart-embed">
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {"autosize":true,"symbol":"PEPPERSTONE:NATGAS","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== QUANTITATIVE SIGNALS ===== -->
+<section class="section" id="signals">
+    <div class="section-header">
+        <span class="section-icon">📊</span>
+        <h2 class="section-title"><span data-lang-zh>量化分析快照</span><span data-lang-en>Quantitative Snapshot</span></h2>
+        <span class="section-badge">QUANT</span>
+    </div>
+    <p id="signalDesc" style="color:var(--text-muted); font-size:0.82rem; margin-bottom:16px;">
+        <span data-lang-zh>以下信號為靜態示範資料，實際部署後可串接即時 API 更新。紅綠燈系統：🟢 偏多 / 🟡 中性 / 🔴 偏空</span>
+        <span data-lang-en>The following signals are static demo data. Connect to a live API after deployment. Traffic light system: 🟢 Bullish / 🟡 Neutral / 🔴 Bearish</span>
+    </p>
+    <div class="signal-grid" id="signalGrid">
+        <!-- Populated by JS -->
+    </div>
+</section>
+
+<!-- ===== MARKET COMMENTARY ===== -->
+<section class="section" id="commentary">
+    <div class="section-header">
+        <span class="section-icon">📝</span>
+        <h2 class="section-title"><span data-lang-zh>市場評論</span><span data-lang-en>Market Commentary</span></h2>
+        <span class="section-badge">EDITORIAL</span>
+    </div>
+    <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:16px;">
+        <span data-lang-zh>由 Galen 撰寫的市場觀察與分析。如需新增文章，直接編輯下方 HTML 即可。</span>
+        <span data-lang-en>Market observations and analysis by Galen. To add new articles, edit the HTML below.</span>
+    </p>
+    <div class="commentary-list">
+
+        <!-- ====== ARTICLE 1 — ZH ====== -->
+        <article class="commentary-article" data-lang-zh>
+            <div class="commentary-meta">
+                <span class="commentary-date">2026-04-06</span>
+                <span class="commentary-tag">總經觀察</span>
+            </div>
+            <h3 class="commentary-title">聯準會暫停升息後的市場展望：多空交錯的第二季</h3>
+            <div class="commentary-body">
+                <p>隨著聯準會在三月會議後決定維持利率不變，市場進入了一個微妙的觀望期。S&P 500 在突破前高後出現了量能不足的跡象，技術面上 RSI 已經進入超買區域，短期回調的可能性正在增加。</p>
+                <p>值得注意的是，債券殖利率曲線的變化暗示著市場對經濟前景的看法出現分歧。10 年期與 2 年期利差持續收窄，這通常是經濟放緩的先行指標。建議投資人在第二季保持謹慎，適度降低槓桿比例。</p>
+                <hr class="commentary-divider">
+                <p><strong>操作建議：</strong>短線偏空看待，支撐位關注 5,200 點。若跌破則可能下探 5,050 區域。多頭若要重新進場，需等待放量突破 5,400。</p>
+            </div>
+        </article>
+        <!-- ====== ARTICLE 1 — EN ====== -->
+        <article class="commentary-article" data-lang-en>
+            <div class="commentary-meta">
+                <span class="commentary-date">2026-04-06</span>
+                <span class="commentary-tag">Macro Outlook</span>
+            </div>
+            <h3 class="commentary-title">Market Outlook After the Fed Pause: A Mixed Q2</h3>
+            <div class="commentary-body">
+                <p>With the Federal Reserve deciding to hold rates steady after its March meeting, the market has entered a delicate wait-and-see period. The S&P 500 showed signs of weakening volume after breaking previous highs, and technically the RSI has entered overbought territory, increasing the probability of a short-term pullback.</p>
+                <p>Notably, changes in the bond yield curve suggest divergent views on the economic outlook. The 10-year to 2-year spread continues to narrow, which is typically a leading indicator of economic slowdown. We recommend investors remain cautious in Q2 and moderately reduce leverage.</p>
+                <hr class="commentary-divider">
+                <p><strong>Trading Suggestion:</strong> Short-term bearish bias. Watch support at 5,200. A break below could test the 5,050 area. Bulls should wait for a high-volume breakout above 5,400 before re-entering.</p>
+            </div>
+        </article>
+
+        <!-- ====== ARTICLE 2 — ZH ====== -->
+        <article class="commentary-article" data-lang-zh>
+            <div class="commentary-meta">
+                <span class="commentary-date">2026-04-03</span>
+                <span class="commentary-tag">科技股</span>
+            </div>
+            <h3 class="commentary-title">AI 晶片需求持續增長，NVDA 與 TSM 技術面解讀</h3>
+            <div class="commentary-body">
+                <p>NVIDIA 在最新財報後股價創下歷史新高，數據中心收入的爆發性增長超出市場預期。從技術面來看，NVDA 週線呈現強勢的多頭排列，5 週均線與 20 週均線持續擴張，MACD 柱狀體在零軸上方放大。</p>
+                <p>台積電 ADR（TSM）受惠於 AI 訂單的強勁增長，股價在月線級別已確認突破長期箱型整理。然而短期 RSI 已達 72，接近超買區間，追高風險偏高。建議關注回測前高作為支撐時的進場機會。</p>
+                <hr class="commentary-divider">
+                <p><strong>關注焦點：</strong>本週 MSFT 與 GOOGL 將公布財報，若雲端業務數據不如預期，可能引發科技股整體修正。</p>
+            </div>
+        </article>
+        <!-- ====== ARTICLE 2 — EN ====== -->
+        <article class="commentary-article" data-lang-en>
+            <div class="commentary-meta">
+                <span class="commentary-date">2026-04-03</span>
+                <span class="commentary-tag">Tech Stocks</span>
+            </div>
+            <h3 class="commentary-title">AI Chip Demand Continues to Surge: NVDA & TSM Technical Analysis</h3>
+            <div class="commentary-body">
+                <p>NVIDIA hit all-time highs following its latest earnings report, with explosive data center revenue growth exceeding market expectations. Technically, NVDA's weekly chart shows a strong bullish alignment — the 5-week and 20-week moving averages continue to diverge, with the MACD histogram expanding above the zero line.</p>
+                <p>TSMC's ADR (TSM) benefited from robust AI order growth, with the monthly chart confirming a breakout from a long-term consolidation range. However, the short-term RSI has reached 72, approaching overbought territory, making chasing highs risky. Watch for a retest of the previous high as support for entry opportunities.</p>
+                <hr class="commentary-divider">
+                <p><strong>Key Watch:</strong> MSFT and GOOGL report earnings this week. If cloud business numbers disappoint, it could trigger a broader tech correction.</p>
+            </div>
+        </article>
+
+        <!-- ====== ARTICLE 3 — ZH ====== -->
+        <article class="commentary-article" data-lang-zh>
+            <div class="commentary-meta">
+                <span class="commentary-date">2026-03-30</span>
+                <span class="commentary-tag">原物料</span>
+            </div>
+            <h3 class="commentary-title">黃金突破 2,400 後的策略思考</h3>
+            <div class="commentary-body">
+                <p>黃金價格在地緣政治風險與降息預期的雙重推動下，成功站上 2,400 美元關口。從量化角度來看，月線級別的布林帶正在擴張，暗示趨勢可能加速。然而日線 RSI 已連續三天處於超買區域，短期拉回風險不可忽視。</p>
+                <p>原油方面，WTI 受到 OPEC+ 減產協議延長的支撐，但全球經濟放緩的隱憂讓多頭動能受限。目前油價在 80-85 美元區間震盪，突破方向將取決於本月公布的需求數據。</p>
+                <hr class="commentary-divider">
+                <p><strong>操作建議：</strong>黃金維持多頭思維，但短線建議等待回測 2,350 支撐再加碼。原油觀望為主，等待方向確認。</p>
+            </div>
+        </article>
+        <!-- ====== ARTICLE 3 — EN ====== -->
+        <article class="commentary-article" data-lang-en>
+            <div class="commentary-meta">
+                <span class="commentary-date">2026-03-30</span>
+                <span class="commentary-tag">Commodities</span>
+            </div>
+            <h3 class="commentary-title">Strategic Thinking After Gold Breaks $2,400</h3>
+            <div class="commentary-body">
+                <p>Gold prices successfully breached the $2,400 level, driven by a combination of geopolitical risks and rate-cut expectations. From a quantitative perspective, the monthly Bollinger Bands are expanding, suggesting the trend could accelerate. However, the daily RSI has been in overbought territory for three consecutive days — short-term pullback risk should not be ignored.</p>
+                <p>On the crude oil front, WTI is supported by the extension of the OPEC+ production cut agreement, but concerns about global economic slowdown are limiting bullish momentum. Oil is currently oscillating in the $80–85 range, with the breakout direction depending on demand data to be released this month.</p>
+                <hr class="commentary-divider">
+                <p><strong>Trading Suggestion:</strong> Maintain a bullish bias on gold, but wait for a retest of the $2,350 support level before adding positions. Stay on the sidelines for crude oil until direction is confirmed.</p>
+            </div>
+        </article>
+
+        <!-- ====== 新增文章模板 / NEW ARTICLE TEMPLATE ======
+        <article class="commentary-article" data-lang-zh>
+            <div class="commentary-meta">
+                <span class="commentary-date">YYYY-MM-DD</span>
+                <span class="commentary-tag">標籤</span>
+            </div>
+            <h3 class="commentary-title">你的文章標題</h3>
+            <div class="commentary-body">
+                <p>你的文章內容...</p>
+            </div>
+        </article>
+        <article class="commentary-article" data-lang-en>
+            <div class="commentary-meta">
+                <span class="commentary-date">YYYY-MM-DD</span>
+                <span class="commentary-tag">Tag</span>
+            </div>
+            <h3 class="commentary-title">Your Article Title</h3>
+            <div class="commentary-body">
+                <p>Your article content...</p>
+            </div>
+        </article>
+        -->
+
+    </div>
+</section>
+
+</div><!-- /main-content -->
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>Market Pulse | <span data-lang-zh>市場脈動</span><span data-lang-en>Market Pulse</span> &copy; 2026 Galen (Ke Lin)</p>
+    <p class="disclaimer">
+        <span data-lang-zh>本站內容僅供研究參考，不構成任何投資建議。投資有風險，入市需謹慎。圖表數據由 TradingView 提供。</span>
+        <span data-lang-en>This site is for research purposes only and does not constitute investment advice. Investing involves risk. Chart data provided by TradingView.</span>
+    </p>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" aria-label="回到頂部">↑</button>
+
+<script>
+(function() {
+    // ===== LANGUAGE STATE =====
+    var currentLang = 'zh'; // default: Traditional Chinese
+
+    function setLang(lang) {
+        currentLang = lang;
+        if (lang === 'en') {
+            document.body.classList.add('lang-en');
+            document.documentElement.lang = 'en';
+        } else {
+            document.body.classList.remove('lang-en');
+            document.documentElement.lang = 'zh-Hant';
+        }
+        // Re-render signal cards for the new language
+        renderSignals();
+        // Update toggle button text
+        var btn = document.getElementById('langToggle');
+        btn.textContent = lang === 'en' ? '中文 / EN' : 'EN / 中文';
+    }
+
+    // ===== LANGUAGE TOGGLE =====
+    document.getElementById('langToggle').addEventListener('click', function() {
+        setLang(currentLang === 'zh' ? 'en' : 'zh');
+    });
+
+    // ===== HAMBURGER MENU =====
+    var hamburger = document.getElementById('hamburger');
+    var navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', function() { navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() { navLinks.classList.remove('open'); });
+    });
+
+    // ===== ACTIVE NAV HIGHLIGHT =====
+    var sections = document.querySelectorAll('.section, .hero');
+    var navItems = navLinks.querySelectorAll('a');
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var id = entry.target.id;
+                navItems.forEach(function(a) {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+                });
+            }
+        });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function(s) { observer.observe(s); });
+
+    // ===== BACK TO TOP =====
+    var topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+        topBtn.classList.toggle('show', window.scrollY > 600);
+    });
+    topBtn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    // ===== SIGNAL DATA (DEMO) =====
+    var signals = [
+        { symbol: 'S&P 500', name: 'SPX', trend: 'up',
+          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 68, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性偏高', en: 'Neutral-High' }, ma: 'bullish',
+          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
+        { symbol: 'NASDAQ', name: 'NDX', trend: 'up',
+          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 72, rsiStatus: 'warning',
+          rsiLabel: { zh: '接近超買', en: 'Near Overbought' }, ma: 'bullish',
+          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
+        { symbol: { zh: '道瓊', en: 'Dow Jones' }, name: 'DJI', trend: 'neutral',
+          trendLabel: { zh: '盤整', en: 'Consolidating' }, rsi: 55, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'neutral',
+          maLabel: { zh: '糾結', en: 'Tangled' } },
+        { symbol: { zh: '台灣加權', en: 'TAIEX' }, name: 'TWII', trend: 'up',
+          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 63, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'bullish',
+          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
+        { symbol: 'AAPL', name: 'Apple', trend: 'neutral',
+          trendLabel: { zh: '盤整', en: 'Consolidating' }, rsi: 50, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'neutral',
+          maLabel: { zh: '糾結', en: 'Tangled' } },
+        { symbol: 'NVDA', name: 'NVIDIA', trend: 'up',
+          trendLabel: { zh: '強勢多頭', en: 'Strong Bull' }, rsi: 78, rsiStatus: 'danger',
+          rsiLabel: { zh: '超買', en: 'Overbought' }, ma: 'bullish',
+          maLabel: { zh: '強勢多頭', en: 'Strong Bull' } },
+        { symbol: 'TSM', name: { zh: '台積電', en: 'TSMC' }, trend: 'up',
+          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 72, rsiStatus: 'warning',
+          rsiLabel: { zh: '接近超買', en: 'Near Overbought' }, ma: 'bullish',
+          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
+        { symbol: 'MSFT', name: 'Microsoft', trend: 'up',
+          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 65, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'bullish',
+          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
+        { symbol: 'GOOGL', name: 'Alphabet', trend: 'down',
+          trendLabel: { zh: '偏空', en: 'Bearish' }, rsi: 38, rsiStatus: 'warning',
+          rsiLabel: { zh: '接近超賣', en: 'Near Oversold' }, ma: 'bearish',
+          maLabel: { zh: '空頭排列', en: 'Bearish Align' } },
+        { symbol: 'XAU/USD', name: { zh: '黃金', en: 'Gold' }, trend: 'up',
+          trendLabel: { zh: '強勢多頭', en: 'Strong Bull' }, rsi: 76, rsiStatus: 'danger',
+          rsiLabel: { zh: '超買', en: 'Overbought' }, ma: 'bullish',
+          maLabel: { zh: '強勢多頭', en: 'Strong Bull' } },
+        { symbol: 'XAG/USD', name: { zh: '白銀', en: 'Silver' }, trend: 'up',
+          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 64, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'bullish',
+          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
+        { symbol: { zh: 'WTI 原油', en: 'WTI Crude' }, name: 'CL', trend: 'neutral',
+          trendLabel: { zh: '盤整', en: 'Consolidating' }, rsi: 48, rsiStatus: 'neutral',
+          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'neutral',
+          maLabel: { zh: '糾結', en: 'Tangled' } },
+        { symbol: { zh: '天然氣', en: 'Nat Gas' }, name: 'NG', trend: 'down',
+          trendLabel: { zh: '偏空', en: 'Bearish' }, rsi: 32, rsiStatus: 'danger',
+          rsiLabel: { zh: '超賣', en: 'Oversold' }, ma: 'bearish',
+          maLabel: { zh: '空頭排列', en: 'Bearish Align' } },
+    ];
+
+    function t(val) {
+        if (typeof val === 'string') return val;
+        return val[currentLang] || val.zh;
+    }
+
+    function dotClass(status) {
+        if (status === 'danger') return 'dot-red';
+        if (status === 'warning') return 'dot-yellow';
+        return 'dot-green';
+    }
+    function trendClass(tr) {
+        if (tr === 'up') return 'trend-up';
+        if (tr === 'down') return 'trend-down';
+        return 'trend-neutral';
+    }
+    function maDot(ma) {
+        if (ma === 'bullish') return 'dot-green';
+        if (ma === 'bearish') return 'dot-red';
+        return 'dot-yellow';
+    }
+    function trendArrow(tr) {
+        if (tr === 'up') return '&#9650;';
+        if (tr === 'down') return '&#9660;';
+        return '&#9670;';
+    }
+
+    var labelTrend = { zh: '趨勢方向', en: 'Trend' };
+    var labelMA    = { zh: '均線排列', en: 'MA Alignment' };
+
+    function renderSignals() {
+        var grid = document.getElementById('signalGrid');
+        var html = '';
+        signals.forEach(function(s) {
+            html += '<div class="signal-card">' +
+                '<div class="signal-header">' +
+                    '<div>' +
+                        '<div class="signal-symbol">' + t(s.symbol) + '</div>' +
+                        '<div class="signal-name">' + t(s.name) + '</div>' +
+                    '</div>' +
+                    '<span class="' + trendClass(s.trend) + '" style="font-size:1.4rem;">' + trendArrow(s.trend) + '</span>' +
+                '</div>' +
+                '<div class="signal-rows">' +
+                    '<div class="signal-row">' +
+                        '<span class="signal-label">' + t(labelTrend) + '</span>' +
+                        '<span class="signal-value ' + trendClass(s.trend) + '">' + t(s.trendLabel) + '</span>' +
+                    '</div>' +
+                    '<div class="signal-row">' +
+                        '<span class="signal-label">RSI (' + s.rsi + ')</span>' +
+                        '<span class="signal-value"><span class="dot ' + dotClass(s.rsiStatus) + '"></span>' + t(s.rsiLabel) + '</span>' +
+                    '</div>' +
+                    '<div class="signal-row">' +
+                        '<span class="signal-label">' + t(labelMA) + '</span>' +
+                        '<span class="signal-value"><span class="dot ' + maDot(s.ma) + '"></span>' + t(s.maLabel) + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        });
+        grid.innerHTML = html;
+    }
+
+    // Initial render
+    renderSignals();
+})();
+</script>
+
+</body>
+</html>
