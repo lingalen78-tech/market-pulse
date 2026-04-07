@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market Pulse 市場脈動 | 每日30秒掌握全球資產</title>
-<meta name="description" content="Your daily 30-second market briefing. US stocks, Taiwan stocks, precious metals, energy — quantitative signals and analysis in one page.">
-<meta property="og:title" content="Market Pulse 市場脈動 | 每日30秒掌握全球資產">
-<meta property="og:description" content="Your daily 30-second market briefing. US stocks, Taiwan stocks, precious metals, energy — quantitative signals and analysis in one page.">
+<title>Market Pulse 市場脈動 | 每日30秒掌握全球市場</title>
+<meta name="description" content="Daily 30-second market briefing covering US stocks, Taiwan equities, precious metals, and energy. Quantitative signals, technical analysis, and actionable insights.">
+<meta property="og:title" content="Market Pulse 市場脈動">
+<meta property="og:description" content="Your daily 30-second market briefing. One chart. Key levels. Actionable signals.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://lingalen78-tech.github.io/market-pulse/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -34,8 +36,10 @@ body {
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+  font-size: 16px;
 }
 
+/* ── Bilingual system ── */
 body.lang-zh [data-lang-en] { display: none; }
 body.lang-zh [data-lang-zh] { display: inline; }
 body.lang-en [data-lang-zh] { display: none; }
@@ -57,10 +61,7 @@ body.lang-en [data-block-en] { display: block; }
   transition: background 0.3s;
 }
 .navbar.scrolled { background: rgba(10,14,23,0.95); }
-.nav-logo {
-  font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em;
-  color: var(--gold);
-}
+.nav-logo { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; color: var(--gold); }
 .nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
 .nav-links a {
   color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;
@@ -74,21 +75,15 @@ body.lang-en [data-block-en] { display: block; }
   transition: border-color 0.2s;
 }
 .lang-toggle:hover { border-color: var(--gold); }
-.nav-hamburger {
-  display: none; background: none; border: none; color: var(--text);
-  font-size: 1.4rem; cursor: pointer;
-}
+.nav-hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
 
 /* ── Section helpers ── */
-section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 auto; }
+section { padding: 3.5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 auto; }
 .section-label {
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 0.5rem;
 }
-.section-title {
-  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-}
+.section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
 
 /* fade in */
 .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -100,26 +95,25 @@ section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 aut
   align-items: center; justify-content: center; text-align: center;
   padding-top: 60px;
 }
-.hero-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900;
-  letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem;
-}
+.hero-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
 .hero-title .gold { color: var(--gold); }
-.hero-tagline {
-  font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-secondary);
-  font-weight: 400; max-width: 500px; margin-bottom: 0.75rem;
-}
+.hero-tagline { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-secondary); font-weight: 400; max-width: 500px; margin-bottom: 0.75rem; }
 .hero-date { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; }
-.hero-scroll-hint {
-  margin-top: 3rem; font-size: 0.75rem; color: var(--text-secondary);
-  animation: float 2.5s ease-in-out infinite;
-}
+.hero-scroll-hint { margin-top: 3rem; font-size: 0.75rem; color: var(--text-secondary); animation: float 2.5s ease-in-out infinite; }
 @keyframes float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(8px); } }
+
+/* ── Prototype tag ── */
+.prototype-tag {
+  font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 1.5rem;
+  padding: 0.45rem 0.9rem; background: rgba(240,185,11,0.06);
+  border-left: 2px solid var(--gold); border-radius: 0 6px 6px 0; display: inline-block;
+}
+.prototype-tag span { color: var(--gold); font-weight: 500; }
 
 /* ── Snapshot ── */
 .snapshot-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem; margin-bottom: 2rem;
+  gap: 1rem; margin-bottom: 1.5rem;
 }
 .snap-card {
   background: var(--card); border: 1px solid var(--card-border);
@@ -134,69 +128,50 @@ section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 aut
 .snap-card .change.up { color: var(--green); }
 .snap-card .change.down { color: var(--red); }
 .snap-summary { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; }
-.data-source-tag {
-  font-size: 0.72rem; color: var(--text-secondary);
-  margin-top: 0.75rem; display: block;
-}
+.data-source-tag { font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.75rem; display: block; }
 .data-source-tag span { color: var(--gold); font-weight: 500; }
 
 /* ── Gauge ── */
-.gauge-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 2.5rem; }
-.gauge {
-  position: relative; width: 200px; height: 110px; overflow: hidden;
-}
+.gauge-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; }
+.gauge { position: relative; width: 200px; height: 110px; overflow: hidden; }
 .gauge-bg {
   width: 200px; height: 200px; border-radius: 50%;
-  background: conic-gradient(
-    var(--red) 0deg, #ff9100 36deg, var(--gold) 72deg,
-    #a5d6a7 108deg, var(--green) 144deg, var(--green) 180deg,
-    transparent 180deg
-  );
+  background: conic-gradient(var(--red) 0deg, #ff9100 36deg, var(--gold) 72deg, #a5d6a7 108deg, var(--green) 144deg, var(--green) 180deg, transparent 180deg);
   mask: radial-gradient(circle at center, transparent 60px, black 61px);
   -webkit-mask: radial-gradient(circle at center, transparent 60px, black 61px);
 }
 .gauge-needle {
-  position: absolute; bottom: 0; left: 50%;
-  width: 3px; height: 70px; background: var(--text);
+  position: absolute; bottom: 0; left: 50%; width: 3px; height: 70px; background: var(--text);
   border-radius: 2px; transform-origin: bottom center;
-  transform: translateX(-50%) rotate(calc(var(--angle) * 1deg));
-  transition: transform 1s ease;
+  transform: translateX(-50%) rotate(calc(var(--angle) * 1deg)); transition: transform 1s ease;
 }
 .gauge-needle::after {
   content: ''; position: absolute; bottom: -4px; left: 50%;
-  transform: translateX(-50%); width: 10px; height: 10px;
-  background: var(--text); border-radius: 50%;
+  transform: translateX(-50%); width: 10px; height: 10px; background: var(--text); border-radius: 50%;
 }
-.gauge-value {
-  font-size: 2rem; font-weight: 800; margin-top: 0.5rem;
-}
-.gauge-label {
-  font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;
-}
+.gauge-value { font-size: 2rem; font-weight: 800; margin-top: 0.5rem; }
+.gauge-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
 
 /* ── Chart of the Day ── */
 .chart-container {
   background: var(--card); border: 1px solid var(--card-border);
-  border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem;
+  border-radius: 12px; overflow: hidden; margin-bottom: 1.25rem;
 }
-.chart-analysis {
-  color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
+.chart-analysis { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.25rem; }
 .chart-subsections {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem; margin-top: 1.25rem;
+  gap: 1rem; margin-top: 1rem;
 }
 .chart-sub {
   background: var(--card); border: 1px solid var(--card-border);
   border-radius: 10px; padding: 1rem 1.1rem;
 }
-.chart-sub-label {
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;
-}
-.chart-sub p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
-.share-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.chart-sub-label { font-size: 0.82rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+.chart-sub p, .chart-sub div.sub-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+.chart-sub ul { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; padding-left: 1.1rem; margin-top: 0.25rem; }
+.key-level-support { color: var(--green); font-weight: 600; }
+.key-level-resistance { color: var(--red); font-weight: 600; }
+.share-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem; }
 .share-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--card); border: 1px solid var(--card-border);
@@ -207,47 +182,39 @@ section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 aut
 .share-btn:hover { border-color: var(--gold); color: var(--text); }
 
 /* ── Dashboard ── */
-.tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .tab-btn {
   background: var(--card); border: 1px solid var(--card-border);
   color: var(--text-secondary); padding: 8px 18px; border-radius: 8px;
-  font-size: 0.82rem; font-family: inherit; font-weight: 500;
-  cursor: pointer; transition: all 0.2s;
+  font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.2s;
 }
 .tab-btn.active { background: var(--gold); color: #0a0e17; border-color: var(--gold); }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-.signals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin: 1.25rem 0; }
+.signals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.6rem; margin: 1rem 0 0.4rem; }
 .signal-card {
   background: var(--card); border: 1px solid var(--card-border);
-  border-radius: 10px; padding: 1rem; text-align: center;
-  backdrop-filter: var(--blur);
+  border-radius: 10px; padding: 0.85rem; text-align: center; backdrop-filter: var(--blur);
 }
-.signal-card .signal-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
-.signal-card .signal-name { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
-.signal-card .signal-value { font-size: 0.95rem; font-weight: 600; }
+.signal-card .signal-icon { font-size: 1.4rem; margin-bottom: 0.25rem; }
+.signal-card .signal-name { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.2rem; }
+.signal-card .signal-value { font-size: 0.9rem; font-weight: 600; }
 .signal-card .signal-value.bullish { color: var(--green); }
 .signal-card .signal-value.bearish { color: var(--red); }
 .signal-card .signal-value.neutral { color: var(--gold); }
+.indicator-footnote { font-size: 0.75rem; color: var(--text-secondary); opacity: 0.6; margin: 0.35rem 0 0.75rem; }
 .tab-explanation { color: var(--text-secondary); font-size: 0.88rem; margin-top: 0.75rem; line-height: 1.65; }
-.widget-wrapper {
-  border-radius: 10px; overflow: hidden; margin-bottom: 1rem;
-  border: 1px solid var(--card-border);
+.widget-wrapper { border-radius: 10px; overflow: hidden; margin-bottom: 0.75rem; border: 1px solid var(--card-border); }
+.tw-chart-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-secondary); padding: 0.45rem 0.75rem;
+  background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--card-border);
 }
 
 /* ── Methodology ── */
-.method-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem; margin-top: 1.5rem;
-}
-.method-card {
-  background: var(--card); border: 1px solid var(--card-border);
-  border-radius: 10px; padding: 1.1rem 1.2rem;
-}
-.method-card-label {
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
-}
+.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+.method-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 1.1rem 1.2rem; }
+.method-card-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
 .method-card p { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.65; }
 .method-note {
   font-size: 0.82rem; color: var(--text-secondary); margin-top: 1.25rem;
@@ -257,32 +224,33 @@ section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 aut
 
 /* ── Newsletter CTA ── */
 .cta-section {
-  max-width: 100%; padding: 5rem clamp(1rem, 5vw, 4rem);
+  max-width: 100%; padding: 4rem clamp(1rem, 5vw, 4rem);
   background: linear-gradient(135deg, #0d1b3e 0%, #0a1628 100%);
   text-align: center;
 }
 .cta-section .section-title { margin-bottom: 0.5rem; }
 .cta-subtitle { color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 1rem; }
-.cta-disclaimer { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 1.75rem; opacity: 0.75; }
+.cta-what-you-get {
+  display: inline-block; color: var(--text-secondary); font-size: 0.82rem;
+  margin: 0.5rem auto 1.25rem; max-width: 400px; padding: 0.55rem 1rem;
+  border: 1px solid var(--card-border); border-radius: 8px; background: rgba(255,255,255,0.03);
+}
+.cta-disclaimer { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 1.5rem; opacity: 0.75; }
 .cta-form { display: flex; gap: 0.75rem; max-width: 440px; margin: 0 auto; }
 .cta-input {
   flex: 1; padding: 12px 16px; border-radius: 8px;
   border: 1px solid var(--card-border); background: rgba(255,255,255,0.06);
-  color: var(--text); font-family: inherit; font-size: 0.9rem;
-  outline: none; transition: border-color 0.2s;
+  color: var(--text); font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
 }
 .cta-input:focus { border-color: var(--gold); }
 .cta-button {
   background: var(--gold); color: #0a0e17; border: none;
   padding: 12px 24px; border-radius: 8px; font-family: inherit;
-  font-weight: 600; font-size: 0.9rem; cursor: pointer;
-  transition: opacity 0.2s; white-space: nowrap;
+  font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; white-space: nowrap;
 }
 .cta-button:hover { opacity: 0.85; }
-.cta-success {
-  display: none; margin-top: 1rem; color: var(--green);
-  font-size: 0.9rem; font-weight: 500;
-}
+.cta-fine-print { font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.75rem; opacity: 0.6; }
+.cta-success { display: none; margin-top: 1rem; color: var(--green); font-size: 0.9rem; font-weight: 500; }
 .cta-success.show { display: block; }
 
 /* ── About ── */
@@ -297,9 +265,7 @@ section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 aut
 .about-text p { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0.5rem; }
 .about-text a { color: var(--gold); text-decoration: none; font-weight: 500; }
 .about-text a:hover { text-decoration: underline; }
-.about-meta {
-  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--card-border);
-}
+.about-meta { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--card-border); }
 .about-meta p { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.35rem; }
 .about-meta .meta-label { color: var(--gold); font-weight: 600; }
 
@@ -307,15 +273,15 @@ section { padding: 5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 aut
 footer {
   border-top: 1px solid var(--card-border);
   padding: 2rem clamp(1rem, 5vw, 4rem);
-  max-width: 1100px; margin: 0 auto;
-  text-align: center;
+  max-width: 1100px; margin: 0 auto; text-align: center;
 }
 footer p { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.8; }
 footer a { color: var(--text-secondary); text-decoration: none; }
 footer a:hover { color: var(--text); }
 
 /* ── Mobile ── */
-@media (max-width: 720px) {
+@media (max-width: 768px) {
+  body { font-size: 14px; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column;
@@ -324,12 +290,15 @@ footer a:hover { color: var(--text); }
     border-bottom: 1px solid var(--card-border); gap: 1rem;
   }
   .nav-hamburger { display: block; }
+  section { padding: 2.5rem clamp(1rem, 4vw, 2rem); }
   .cta-form { flex-direction: column; }
   .about-content { flex-direction: column; text-align: center; }
   .about-meta { text-align: left; }
   .snapshot-grid { grid-template-columns: 1fr 1fr; }
+  .signals-grid { grid-template-columns: 1fr; }
   .chart-subsections { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
+  .tradingview-widget-container { min-height: 300px; }
 }
 @media (max-width: 420px) {
   .snapshot-grid { grid-template-columns: 1fr; }
@@ -370,6 +339,8 @@ footer a:hover { color: var(--text); }
   <div class="fade-in">
     <p class="section-label"><span data-lang-zh>今日快照</span><span data-lang-en>Today's Snapshot</span></p>
     <h2 class="section-title"><span data-lang-zh>市場概覽</span><span data-lang-en>Market Overview</span></h2>
+
+    <div class="prototype-tag" id="protoTag"></div>
 
     <!-- Gauge -->
     <div class="gauge-wrapper">
@@ -413,11 +384,10 @@ footer a:hover { color: var(--text); }
 <section id="chart">
   <div class="fade-in">
     <p class="section-label"><span data-lang-zh>今日圖表</span><span data-lang-en>Chart of the Day</span></p>
-    <h2 class="section-title">S&amp;P 500</h2>
+    <h2 class="section-title">S&amp;P 500 — SPX</h2>
 
     <div class="chart-container">
-      <!-- TradingView Advanced Chart Widget -->
-      <div class="tradingview-widget-container" style="height:480px;">
+      <div class="tradingview-widget-container" style="height:500px;">
         <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
         {
@@ -435,6 +405,7 @@ footer a:hover { color: var(--text); }
           "allow_symbol_change": true,
           "save_image": false,
           "calendar": false,
+          "studies": ["RSI@tv-basicstudies", "MASimple@tv-basicstudies"],
           "support_host": "https://www.tradingview.com"
         }
         </script>
@@ -446,29 +417,58 @@ footer a:hover { color: var(--text); }
         S&P 500 持續在 5,400 關卡上方整理，市場等待聯準會最新利率決議。科技股帶動大盤反彈，NVIDIA 與 Apple 表現亮眼。台股方面，加權指數站穩兩萬一，外資連續三日買超。短期技術面偏多，但量能未明顯放大，需留意追高風險。
       </p>
       <p data-block-en>
-        The S&P 500 consolidates above the 5,400 level as markets await the Fed's latest rate decision. A tech-led rebound has lifted the index, with NVIDIA and Apple leading gains. In Taiwan, the TAIEX holds firm above 21,000, supported by three consecutive days of foreign net buying.
+        The S&P 500 consolidates above 5,400 as markets await the Fed's latest rate decision. A tech-led rebound has lifted the index, with NVIDIA and Apple leading gains. In Taiwan, the TAIEX holds firm above 21,000, supported by three consecutive days of foreign net buying. Short-term technical bias remains bullish, though volume has not expanded meaningfully — chasing highs carries elevated risk.
       </p>
 
       <div class="chart-subsections">
+        <!-- Key Levels -->
         <div class="chart-sub">
-          <div class="chart-sub-label"><span data-lang-zh>為什麼重要</span><span data-lang-en>Why It Matters</span></div>
-          <p data-block-zh>5,400 是本輪多頭關鍵支撐，若跌破將觸發大量停損單。聯準會態度決定資金是否願意追高，為近期最核心的催化劑。</p>
-          <p data-block-en>5,400 is the key support for this rally — a break below would trigger significant stop-loss cascades. The Fed's tone is the primary near-term catalyst for whether capital continues chasing highs.</p>
+          <div class="chart-sub-label">📌 <span data-lang-zh>關鍵價位</span><span data-lang-en>Key Levels</span></div>
+          <div data-block-zh class="sub-body">
+            <p><span data-lang-zh>支撐：</span><span class="key-level-support">5,380</span>（50日均線）&nbsp;|&nbsp; <span data-lang-zh>阻力：</span><span class="key-level-resistance">5,500</span>（前高）</p>
+            <p style="margin-top:0.35rem;font-size:0.8rem;opacity:0.8;">深度支撐：<span class="key-level-support">5,200</span>（200日均線）</p>
+          </div>
+          <div data-block-en class="sub-body">
+            <p>Support: <span class="key-level-support">5,380</span> (50-day SMA) &nbsp;|&nbsp; Resistance: <span class="key-level-resistance">5,500</span> (prior high)</p>
+            <p style="margin-top:0.35rem;font-size:0.8rem;opacity:0.8;">Deep support: <span class="key-level-support">5,200</span> (200-day SMA)</p>
+          </div>
         </div>
+
+        <!-- Why It Matters -->
         <div class="chart-sub">
-          <div class="chart-sub-label"><span data-lang-zh>未來24小時觀察重點</span><span data-lang-en>Watch Next 24h</span></div>
-          <p data-block-zh>觀察 5,380（50日均線）能否守住。成交量若持續低於 20日均量，則反彈可信度有限。Fed 官員發言需特別留意。</p>
-          <p data-block-en>Watch whether 5,380 (50-day SMA) holds on any dip. Volume below the 20-day average undermines conviction. Monitor any Fed speaker comments for hawkish pivots.</p>
+          <div class="chart-sub-label">🔍 <span data-lang-zh>為什麼重要</span><span data-lang-en>Why It Matters</span></div>
+          <p data-block-zh>5,400 是本輪多頭關鍵支撐，若跌破將觸發大量停損單。聯準會態度決定資金是否願意追高，為近期最核心的催化劑。技術面 RSI 尚未超買，給予上方空間，但成交量需同步放大才算有效突破。</p>
+          <p data-block-en>5,400 is the structural pivot of this rally — a break below would trigger significant stop-loss cascades. The Fed's tone remains the primary near-term catalyst. RSI is not yet overbought, which preserves upside optionality, but volume must expand to confirm any breakout above 5,500.</p>
         </div>
+
+        <!-- Watch Next 24h -->
         <div class="chart-sub">
-          <div class="chart-sub-label"><span data-lang-zh>關鍵價位</span><span data-lang-en>Key Levels</span></div>
-          <p data-block-zh>支撐：5,380（50日均線）／5,200（200日均線）<br>壓力：5,500（前高）／5,600（心理關卡）</p>
-          <p data-block-en>Support: 5,380 (50-day SMA) / 5,200 (200-day SMA)<br>Resistance: 5,500 (prior high) / 5,600 (psychological)</p>
+          <div class="chart-sub-label">⏰ <span data-lang-zh>未來24小時觀察重點</span><span data-lang-en>Watch Next 24h</span></div>
+          <div data-block-zh>
+            <ul>
+              <li>觀察 5,380（50日均線）能否在盤中回測後守穩，跌破則轉短期偏空。</li>
+              <li>Fed 官員發言時程：任何鷹派言論可能壓制反彈動能，需即時因應。</li>
+            </ul>
+          </div>
+          <div data-block-en>
+            <ul>
+              <li>Watch whether 5,380 (50-day SMA) holds on any intraday dip — a close below shifts the near-term bias bearish.</li>
+              <li>Monitor scheduled Fed speaker appearances — any hawkish pivot could cap the rally immediately.</li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Scenarios -->
         <div class="chart-sub">
-          <div class="chart-sub-label"><span data-lang-zh>情境分析</span><span data-lang-en>Scenarios</span></div>
-          <p data-block-zh><strong style="color:var(--green)">基本情境：</strong>守穩 5,380，突破 5,500 測試新高。<br><strong style="color:var(--red)">風險情境：</strong>Fed 鷹派發言引發回落，跌破 5,380 則短期偏空。</p>
-          <p data-block-en><strong style="color:var(--green)">Base case:</strong> Holds 5,380, pushes through 5,500 to test new highs.<br><strong style="color:var(--red)">Risk case:</strong> Hawkish Fed sparks a pullback; break below 5,380 shifts bias bearish near-term.</p>
+          <div class="chart-sub-label">📊 <span data-lang-zh>情境分析</span><span data-lang-en>Scenarios</span></div>
+          <p data-block-zh>
+            <strong style="color:var(--green)">基本情境：</strong>守穩 5,380，放量突破 5,500 測試新高，目標 5,600。<br>
+            <strong style="color:var(--red)">風險情境：</strong>Fed 鷹派言論引發回落，跌破 5,380 則短期偏空，需觀察 5,200 支撐。
+          </p>
+          <p data-block-en>
+            <strong style="color:var(--green)">Base case:</strong> Holds 5,380, pushes through 5,500 on volume to test new highs near 5,600.<br>
+            <strong style="color:var(--red)">Risk case:</strong> Hawkish Fed sparks a pullback; break below 5,380 shifts bias bearish near-term — next key watch: 5,200.
+          </p>
         </div>
       </div>
     </div>
@@ -512,15 +512,13 @@ footer a:hover { color: var(--text); }
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
           {
             "symbols": [["S&P 500","SPX|1D"],["Dow Jones","DJI|1D"],["Nasdaq","IXIC|1D"]],
-            "chartOnly": false, "width": "100%", "height": 320, "locale": "en",
+            "chartOnly": false, "width": "100%", "height": 420, "locale": "en",
             "colorTheme": "dark", "autosize": false, "showVolume": false,
             "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
             "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
-            "fontFamily": "Inter, sans-serif",
-            "fontSize": "10", "noTimeScale": false, "valuesTracking": "1",
-            "changeMode": "price-and-percent", "chartType": "area",
-            "backgroundColor": "rgba(10, 14, 23, 1)",
-            "gridLineColor": "rgba(255, 255, 255, 0.04)"
+            "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
+            "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
+            "backgroundColor": "rgba(10, 14, 23, 1)", "gridLineColor": "rgba(255, 255, 255, 0.04)"
           }
           </script>
         </div>
@@ -542,28 +540,66 @@ footer a:hover { color: var(--text); }
           <div class="signal-value bullish"><span data-lang-zh>多頭排列</span><span data-lang-en>Bullish Cross</span></div>
         </div>
       </div>
+      <p class="indicator-footnote">
+        <span data-lang-zh>定義：Trend = 收盤價 vs 20/50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線黃金/死亡交叉</span>
+        <span data-lang-en>Definitions: Trend = Price vs 20/50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA crossover</span>
+      </p>
       <p class="tab-explanation">
         <span data-lang-zh>RSI 58，尚未進入超買區，均線多頭排列結構完整。S&P 500 需守穩 5,380（50日均線）才算維持多頭結構——若跌破，需重新評估部位。量能尚未顯著放大，追高需謹慎。</span>
         <span data-lang-en>RSI at 58 — room to run before overbought signals. S&P 500 must hold 5,380 (50-day SMA) to maintain bullish structure; a break below warrants re-evaluation. Volume has yet to confirm the move — avoid chasing without confirmation.</span>
       </p>
     </div>
 
-    <!-- TW Equities -->
+    <!-- TW Equities — Advanced Chart (symbol-overview doesn't support Taiwan stocks) -->
     <div class="tab-panel" id="panel-tw">
       <div class="widget-wrapper">
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+        <div class="tw-chart-label">
+          <span data-lang-zh>台股加權指數 (TWII)</span><span data-lang-en>TAIEX — Taiwan Weighted Index (TWII)</span>
+        </div>
+        <div class="tradingview-widget-container" style="height:400px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
           {
-            "symbols": [["TAIEX","TVC:TWII|1D"],["TSMC","NYSE:TSM|1D"]],
-            "chartOnly": false, "width": "100%", "height": 320, "locale": "en",
-            "colorTheme": "dark", "autosize": false, "showVolume": false,
-            "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
-            "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
-            "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
-            "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
+            "autosize": true,
+            "symbol": "TVC:TWII",
+            "interval": "D",
+            "timezone": "Asia/Taipei",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
             "backgroundColor": "rgba(10, 14, 23, 1)",
-            "gridLineColor": "rgba(255, 255, 255, 0.04)"
+            "gridColor": "rgba(255, 255, 255, 0.04)",
+            "hide_top_toolbar": false,
+            "allow_symbol_change": false,
+            "save_image": false,
+            "calendar": false,
+            "support_host": "https://www.tradingview.com"
+          }
+          </script>
+        </div>
+      </div>
+      <div class="widget-wrapper">
+        <div class="tw-chart-label">
+          <span data-lang-zh>台積電 ADR (NYSE:TSM)</span><span data-lang-en>TSMC ADR (NYSE:TSM)</span>
+        </div>
+        <div class="tradingview-widget-container" style="height:320px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+          {
+            "autosize": true,
+            "symbol": "NYSE:TSM",
+            "interval": "D",
+            "timezone": "Asia/Taipei",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "backgroundColor": "rgba(10, 14, 23, 1)",
+            "gridColor": "rgba(255, 255, 255, 0.04)",
+            "hide_top_toolbar": false,
+            "allow_symbol_change": false,
+            "save_image": false,
+            "calendar": false,
+            "support_host": "https://www.tradingview.com"
           }
           </script>
         </div>
@@ -585,6 +621,10 @@ footer a:hover { color: var(--text); }
           <div class="signal-value bullish"><span data-lang-zh>多頭排列</span><span data-lang-en>Bullish Cross</span></div>
         </div>
       </div>
+      <p class="indicator-footnote">
+        <span data-lang-zh>定義：Trend = 收盤價 vs 20/50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線黃金/死亡交叉</span>
+        <span data-lang-en>Definitions: Trend = Price vs 20/50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA crossover</span>
+      </p>
       <p class="tab-explanation">
         <span data-lang-zh>RSI 63，接近但尚未超買。兩萬一為關鍵整數支撐——每日早盤留意外資買賣超數字，外資連續淨買超是趨勢的重要確認信號。台積電若跌破季線，需降低整體台股曝險。</span>
         <span data-lang-en>RSI at 63 — approaching but not yet overbought. 21,000 is the key round-number support — check foreign net buying data each morning as a trend confirmation signal. A TSMC break below its quarterly MA warrants reducing overall TAIEX exposure.</span>
@@ -599,14 +639,13 @@ footer a:hover { color: var(--text); }
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
           {
             "symbols": [["NVDA","NASDAQ:NVDA|1D"],["AAPL","NASDAQ:AAPL|1D"],["MSFT","NASDAQ:MSFT|1D"]],
-            "chartOnly": false, "width": "100%", "height": 320, "locale": "en",
+            "chartOnly": false, "width": "100%", "height": 420, "locale": "en",
             "colorTheme": "dark", "autosize": false, "showVolume": false,
             "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
             "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
             "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
             "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
-            "backgroundColor": "rgba(10, 14, 23, 1)",
-            "gridLineColor": "rgba(255, 255, 255, 0.04)"
+            "backgroundColor": "rgba(10, 14, 23, 1)", "gridLineColor": "rgba(255, 255, 255, 0.04)"
           }
           </script>
         </div>
@@ -628,6 +667,10 @@ footer a:hover { color: var(--text); }
           <div class="signal-value bullish"><span data-lang-zh>多頭排列</span><span data-lang-en>Bullish Cross</span></div>
         </div>
       </div>
+      <p class="indicator-footnote">
+        <span data-lang-zh>定義：Trend = 收盤價 vs 20/50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線黃金/死亡交叉</span>
+        <span data-lang-en>Definitions: Trend = Price vs 20/50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA crossover</span>
+      </p>
       <p class="tab-explanation">
         <span data-lang-zh>RSI 74，歷史統計顯示 RSI 超過 70 後通常在 3–5 個交易日內出現回檔。以 NVDA 為首，觀察是否跌破短期支撐作為警示信號。持有者可考慮部分獲利了結，而非全倉追高。</span>
         <span data-lang-en>RSI at 74 — historically, tech leaders pull back within 3–5 sessions once RSI exceeds 70. Watch NVDA for the first break below near-term support as a warning sign. Holders should consider partial profit-taking rather than adding at current levels.</span>
@@ -642,14 +685,13 @@ footer a:hover { color: var(--text); }
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
           {
             "symbols": [["Gold","TVC:GOLD|1D"],["Silver","TVC:SILVER|1D"],["Platinum","TVC:PLATINUM|1D"]],
-            "chartOnly": false, "width": "100%", "height": 320, "locale": "en",
+            "chartOnly": false, "width": "100%", "height": 420, "locale": "en",
             "colorTheme": "dark", "autosize": false, "showVolume": false,
             "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
             "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
             "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
             "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
-            "backgroundColor": "rgba(10, 14, 23, 1)",
-            "gridLineColor": "rgba(255, 255, 255, 0.04)"
+            "backgroundColor": "rgba(10, 14, 23, 1)", "gridLineColor": "rgba(255, 255, 255, 0.04)"
           }
           </script>
         </div>
@@ -671,8 +713,12 @@ footer a:hover { color: var(--text); }
           <div class="signal-value bullish"><span data-lang-zh>多頭排列</span><span data-lang-en>Bullish Cross</span></div>
         </div>
       </div>
+      <p class="indicator-footnote">
+        <span data-lang-zh>定義：Trend = 收盤價 vs 20/50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線黃金/死亡交叉</span>
+        <span data-lang-en>Definitions: Trend = Price vs 20/50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA crossover</span>
+      </p>
       <p class="tab-explanation">
-        <span data-lang-zh>黃金站穩 3,000 美元是結構性關鍵——央行持續購金提供底部支撐。RSI 55，健康且尚有上漲空間。若全球避險情緒升溫，金價有望成為最先受益的資產類別。</span>
+        <span data-lang-zh>黃金站穩 3,000 美元是結構性關鍵——央行持續購金提供底部支撐。RSI 55，健康且尚有上漲空間。若全球避險情緒升溫，金價有望成為最先受益的資產類別。關注 3,100 能否突破確認延伸漲勢。</span>
         <span data-lang-en>Gold holding above $3,000 is the structural pivot — central bank demand provides a durable floor. RSI at 55 is healthy with room to extend. If global risk-off sentiment rises, gold is likely the first beneficiary; watch for a breakout above $3,100 as the next confirmation.</span>
       </p>
     </div>
@@ -685,14 +731,13 @@ footer a:hover { color: var(--text); }
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
           {
             "symbols": [["Crude Oil","TVC:USOIL|1D"],["Brent","TVC:UKOIL|1D"],["Natural Gas","TVC:NATGAS|1D"]],
-            "chartOnly": false, "width": "100%", "height": 320, "locale": "en",
+            "chartOnly": false, "width": "100%", "height": 420, "locale": "en",
             "colorTheme": "dark", "autosize": false, "showVolume": false,
             "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
             "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
             "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
             "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
-            "backgroundColor": "rgba(10, 14, 23, 1)",
-            "gridLineColor": "rgba(255, 255, 255, 0.04)"
+            "backgroundColor": "rgba(10, 14, 23, 1)", "gridLineColor": "rgba(255, 255, 255, 0.04)"
           }
           </script>
         </div>
@@ -714,6 +759,10 @@ footer a:hover { color: var(--text); }
           <div class="signal-value bearish"><span data-lang-zh>空頭排列</span><span data-lang-en>Bearish Cross</span></div>
         </div>
       </div>
+      <p class="indicator-footnote">
+        <span data-lang-zh>定義：Trend = 收盤價 vs 20/50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線黃金/死亡交叉</span>
+        <span data-lang-en>Definitions: Trend = Price vs 20/50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA crossover</span>
+      </p>
       <p class="tab-explanation">
         <span data-lang-zh>RSI 32 進入超賣，但下跌趨勢中超賣可以持續更久。不要單憑 RSI 接刀——等待 WTI 站穩 80 美元以上並出現收盤確認，再考慮反彈交易。在此之前，能源板塊仍以回避為宜。</span>
         <span data-lang-en>RSI at 32 is technically oversold, but oversold can persist in a downtrend. Don't catch a falling knife on RSI alone — wait for a confirmed close above $80 WTI before considering a bounce trade. Until then, energy remains a sector to avoid or underweight.</span>
@@ -731,22 +780,26 @@ footer a:hover { color: var(--text); }
       <span data-lang-en>Join the Waitlist</span>
     </h2>
     <p class="cta-subtitle">
-      <span data-lang-zh>每天早上，一張圖看懂市場</span>
-      <span data-lang-en>One chart. Every morning.</span>
+      <span data-lang-zh>每日市場簡報即將上線。搶先收到通知。</span>
+      <span data-lang-en>The daily brief is launching soon. Be the first to know.</span>
     </p>
-    <p class="cta-disclaimer">
-      <span data-lang-zh>MVP 開發中。每日電子報上線時第一時間通知你。</span>
-      <span data-lang-en>MVP in progress. Get notified when the daily newsletter goes live.</span>
-    </p>
+    <div class="cta-what-you-get">
+      <span data-lang-zh>每日簡報內容：一張圖 + 三句分析 + 關鍵價位，每個交易日早上準時送達。</span>
+      <span data-lang-en>What you'll get: One chart + 3-sentence analysis + key levels, every market morning.</span>
+    </div>
     <form class="cta-form" id="ctaForm" onsubmit="return false;">
       <input class="cta-input" type="email" placeholder="your@email.com" required>
       <button class="cta-button" type="submit">
-        <span data-lang-zh>加入</span><span data-lang-en>Notify Me</span>
+        <span data-lang-zh>加入通知</span><span data-lang-en>Notify Me</span>
       </button>
     </form>
+    <p class="cta-fine-print">
+      <span data-lang-zh>免費。隨時退訂。絕不濫發廣告。</span>
+      <span data-lang-en>Free. Unsubscribe anytime. No spam.</span>
+    </p>
     <p class="cta-success" id="ctaSuccess">
-      <span data-lang-zh>已加入等候名單！上線時會第一時間通知你。</span>
-      <span data-lang-en>You're on the list! We'll notify you when we launch.</span>
+      <span data-lang-zh>已加入！上線時第一時間通知你。</span>
+      <span data-lang-en>You're on the list. We'll notify you at launch.</span>
     </p>
   </div>
 </div>
@@ -795,12 +848,12 @@ footer a:hover { color: var(--text); }
     <div class="about-content">
       <div class="about-avatar">KL</div>
       <div class="about-text">
-        <p><strong>Ke Lin</strong></p>
-        <p>UCI Paul Merage School of Business &mdash; Master of Finance</p>
-        <p>CFA Candidate</p>
+        <p><strong>Ke Lin &nbsp;|&nbsp; 柯林</strong></p>
+        <p>UCI Paul Merage School of Business &mdash; Master of Finance (STEM)</p>
+        <p>CFA Level I Candidate</p>
         <p style="margin-top:0.75rem;">
-          <span data-lang-zh>我每天花 15 分鐘整理市場，讓你不用花 30 分鐘。</span>
-          <span data-lang-en>I spend 15 minutes on the market daily so you don't have to spend 30.</span>
+          <span data-lang-zh>每日跨資產簡報，涵蓋美股、台股、貴金屬與能源市場。聚焦技術面趨勢轉換與量化信號，面向金融系學生與初入職場的財務專業人士。</span>
+          <span data-lang-en>Daily cross-asset brief covering US equities, Taiwan market, precious metals, and energy. Focused on technical regime shifts and quantitative signals for students and early-career finance professionals.</span>
         </p>
         <p style="margin-top:0.75rem;">
           <a href="https://www.linkedin.com/in/kelin0419/" target="_blank" rel="noopener">LinkedIn &rarr;</a>
@@ -809,11 +862,18 @@ footer a:hover { color: var(--text); }
         </p>
 
         <div class="about-meta">
-          <p><span class="meta-label"><span data-lang-zh>技術架構</span><span data-lang-en>Built with</span>：</span>HTML / CSS / JS &nbsp;&middot;&nbsp; TradingView API &nbsp;&middot;&nbsp; GitHub Pages</p>
+          <p>
+            <span class="meta-label"><span data-lang-zh>技術架構</span><span data-lang-en>Built with</span>：</span>
+            HTML / CSS / JS &nbsp;&middot;&nbsp; TradingView Widgets &nbsp;&middot;&nbsp; GitHub Pages
+          </p>
+          <p>
+            <span class="meta-label"><span data-lang-zh>原始碼</span><span data-lang-en>View source</span>：</span>
+            <a href="https://github.com/lingalen78-tech/market-pulse" target="_blank" rel="noopener">github.com/lingalen78-tech/market-pulse</a>
+          </p>
           <p>
             <span class="meta-label"><span data-lang-zh>開發路線圖</span><span data-lang-en>Roadmap</span>：</span>
-            <span data-lang-zh>即時 API 整合、AI 情緒分析、每日自動化電子報</span>
-            <span data-lang-en>Real-time API integration, AI sentiment analysis, automated daily newsletter</span>
+            <span data-lang-zh>即時 API 整合 &rarr; AI 情緒分析疊加 &rarr; 每日自動化電子報</span>
+            <span data-lang-en>Real-time API integration &rarr; AI sentiment overlay &rarr; Automated daily newsletter</span>
           </p>
         </div>
       </div>
@@ -831,7 +891,7 @@ footer a:hover { color: var(--text); }
     &copy; 2026 Ke Lin &nbsp;&middot;&nbsp;
     <a href="https://www.linkedin.com/in/kelin0419/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;&middot;&nbsp;
     <a href="https://github.com/lingalen78-tech/market-pulse" target="_blank" rel="noopener">GitHub</a> &nbsp;&middot;&nbsp;
-    <a href="#hero">Back to top &uarr;</a>
+    <a href="#hero"><span data-lang-zh>返回頂部</span><span data-lang-en>Back to top</span> &uarr;</a>
   </p>
 </footer>
 
@@ -843,10 +903,14 @@ footer a:hover { color: var(--text); }
   const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
   document.getElementById('heroDate').textContent = d.toLocaleDateString('en-US', opts);
 
-  // ── Last Updated tag ──
-  const tag = document.getElementById('lastUpdatedTag');
+  // ── Prototype preview tag ──
   const timeStr = d.toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' });
-  tag.innerHTML = 'Last updated: <span>' + timeStr + '</span> &nbsp;&middot;&nbsp; Data source: <span>TradingView, Yahoo Finance</span>';
+  const proto = document.getElementById('protoTag');
+  proto.innerHTML = 'Prototype Preview &nbsp;&middot;&nbsp; Last updated: <span>' + timeStr + '</span> &nbsp;&middot;&nbsp; Sources: <span>TradingView, Yahoo Finance</span> &nbsp;&middot;&nbsp; Refresh: <span>Daily at market close</span>';
+
+  // ── Last Updated tag (snapshot section) ──
+  const tag = document.getElementById('lastUpdatedTag');
+  tag.innerHTML = 'Data source: <span>TradingView, Yahoo Finance</span> &nbsp;&middot;&nbsp; Updated: <span>' + timeStr + '</span>';
 
   // ── Language toggle ──
   const body = document.body;
@@ -893,10 +957,10 @@ footer a:hover { color: var(--text); }
   // ── Copy link ──
   document.getElementById('copyLinkBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
-      const btn = document.getElementById('copyLinkBtn');
-      const orig = btn.innerHTML;
-      btn.innerHTML = '<span>&#10003; Copied!</span>';
-      setTimeout(() => btn.innerHTML = orig, 1500);
+      const b = document.getElementById('copyLinkBtn');
+      const orig = b.innerHTML;
+      b.innerHTML = '<span>&#10003; Copied!</span>';
+      setTimeout(() => b.innerHTML = orig, 1500);
     });
   });
 
@@ -908,7 +972,7 @@ footer a:hover { color: var(--text); }
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 })();
 </script>
