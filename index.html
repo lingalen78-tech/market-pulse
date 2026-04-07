@@ -102,6 +102,17 @@ section { padding: 3.5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 a
 .hero-scroll-hint { margin-top: 3rem; font-size: 0.75rem; color: var(--text-secondary); animation: float 2.5s ease-in-out infinite; }
 @keyframes float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(8px); } }
 
+/* ── Hero TOC ── */
+.hero-toc { margin-top: 4rem; }
+.toc-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+.toc-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.toc-links a {
+  font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none;
+  padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+  transition: all 0.3s ease; display: inline-flex; align-items: center;
+}
+.toc-links a:hover { border-color: var(--gold); color: var(--text); background: rgba(240,185,11,0.05); }
+
 /* ── Prototype tag ── */
 .prototype-tag {
   font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 1.5rem;
@@ -299,9 +310,13 @@ footer a:hover { color: var(--text); }
   .chart-subsections { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
   .tradingview-widget-container { min-height: 300px; }
+  .toc-links { gap: 0.5rem; }
+  .toc-links a { font-size: 0.82rem; padding: 0.45rem 0.8rem; }
 }
 @media (max-width: 420px) {
   .snapshot-grid { grid-template-columns: 1fr; }
+  .toc-links { flex-direction: column; }
+  .toc-links a { width: 100%; text-align: center; }
 }
 </style>
 </head>
@@ -332,6 +347,16 @@ footer a:hover { color: var(--text); }
     <p class="hero-date" id="heroDate"></p>
   </div>
   <div class="hero-scroll-hint">&#8595;</div>
+
+  <!-- Quick Navigation -->
+  <div class="hero-toc">
+    <p class="toc-label"><span data-lang-zh>今日內容</span><span data-lang-en>Today's Brief</span></p>
+    <div class="toc-links">
+      <a href="#snapshot"><span data-lang-zh>快照</span><span data-lang-en>Snapshot</span></a>
+      <a href="#chart"><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a>
+      <a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a>
+    </div>
+  </div>
 </section>
 
 <!-- ═══ Today's Snapshot ═══ -->
