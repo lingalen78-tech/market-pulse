@@ -1,0 +1,33 @@
+name: Daily Market Update
+
+on:
+  schedule:
+    - cron: '0 14 * * 1-5'  # 6 AM PT (UTC-8) on weekdays
+  workflow_dispatch:          # Manual trigger from GitHub UI
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas numpy
+
+      - name: Update market data
+        run: python update_market_data.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "Market Pulse Bot"
+          git config user.email "bot@market-pulse.dev"
+          git add -A
+          git diff --staged --quiet || git commit -m "📊 Daily market update $(date -u +%Y-%m-%d)"
+          git push
