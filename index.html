@@ -1,897 +1,1124 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en" data-lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Pulse | 市場脈動</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #1c2333;
-            --bg-card-hover: #222d3f;
-            --border: #30363d;
-            --gold: #d4a843;
-            --gold-dim: #b8922e;
-            --accent-blue: #58a6ff;
-            --accent-green: #3fb950;
-            --accent-red: #f85149;
-            --accent-yellow: #d29922;
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --nav-height: 64px;
-            --section-gap: 48px;
-        }
-        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Pulse | 市場脈動</title>
+<meta name="description" content="Your 30-Second Daily Market Brief. 你的每日30秒市場簡報。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-primary:#0a0e17;
+  --bg-card:rgba(255,255,255,0.04);
+  --bg-card-hover:rgba(255,255,255,0.07);
+  --bg-glass:rgba(15,20,35,0.75);
+  --border-glass:rgba(255,255,255,0.08);
+  --accent:#f0b90b;
+  --accent-hover:#f7cb2e;
+  --green:#00c853;
+  --red:#ff1744;
+  --text-primary:#f0f0f0;
+  --text-secondary:rgba(255,255,255,0.6);
+  --text-muted:rgba(255,255,255,0.35);
+  --nav-height:64px;
+  --radius:16px;
+  --radius-sm:10px;
+  --transition:0.3s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--accent-hover)}
+img{max-width:100%;display:block}
 
-        /* ===== NAVIGATION ===== */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            height: var(--nav-height);
-            background: rgba(13, 17, 23, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center;
-            padding: 0 24px;
-        }
-        .nav-brand {
-            font-size: 1.25rem; font-weight: 700; color: var(--gold);
-            white-space: nowrap; margin-right: 32px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .nav-brand .pulse-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--accent-green);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(63,185,80,0.4); }
-            50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(63,185,80,0); }
-        }
-        .nav-links {
-            display: flex; gap: 4px; overflow-x: auto;
-            scrollbar-width: none; -ms-overflow-style: none;
-            flex: 1;
-        }
-        .nav-links::-webkit-scrollbar { display: none; }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            padding: 8px 14px; border-radius: 6px; font-size: 0.875rem;
-            font-weight: 500; white-space: nowrap; transition: all 0.2s;
-        }
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--text-primary); background: var(--bg-card);
-        }
-        .lang-toggle {
-            background: rgba(212,168,67,0.15); border: 1px solid var(--gold-dim);
-            color: var(--gold); cursor: pointer; font-size: 0.8rem;
-            font-weight: 600; padding: 6px 14px; border-radius: 6px;
-            white-space: nowrap; transition: all 0.2s;
-            margin-left: 12px; flex-shrink: 0;
-        }
-        .lang-toggle:hover { background: rgba(212,168,67,0.3); }
-        .hamburger {
-            display: none; background: none; border: none;
-            color: var(--text-primary); cursor: pointer; font-size: 1.5rem;
-            margin-left: 8px; padding: 8px;
-        }
-        /* Mobile Nav */
-        @media (max-width: 768px) {
-            .hamburger { display: block; }
-            .nav-links {
-                display: none; position: fixed;
-                top: var(--nav-height); left: 0; right: 0;
-                flex-direction: column; background: var(--bg-secondary);
-                border-bottom: 1px solid var(--border);
-                padding: 12px; gap: 2px;
-            }
-            .nav-links.open { display: flex; }
-            .nav-links a { padding: 12px 16px; border-radius: 8px; }
-            .lang-toggle { margin-left: auto; }
-        }
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes gaugeReveal{from{stroke-dashoffset:251}to{stroke-dashoffset:var(--target-offset)}}
+.fade-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-section.visible{opacity:1;transform:translateY(0)}
 
-        /* ===== LAYOUT ===== */
-        .main-content { padding-top: calc(var(--nav-height) + 24px); max-width: 1400px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
-        .section { margin-bottom: var(--section-gap); }
-        .section-header {
-            display: flex; align-items: center; gap: 12px;
-            margin-bottom: 20px; padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        .section-icon { font-size: 1.3rem; }
-        .section-title { font-size: 1.35rem; font-weight: 600; }
-        .section-badge {
-            font-size: 0.7rem; padding: 3px 10px; border-radius: 12px;
-            background: rgba(212,168,67,0.15); color: var(--gold);
-            font-weight: 600; letter-spacing: 0.5px;
-        }
+/* ========== NAVIGATION ========== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-height);
+  background:rgba(10,14,23,0.85);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-glass);
+  transition:background var(--transition);
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;padding:0 24px;
+  height:100%;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem}
+.nav-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(240,185,11,0.5)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links a{
+  padding:8px 14px;border-radius:8px;font-size:0.85rem;font-weight:500;
+  color:var(--text-secondary);transition:all var(--transition);
+}
+.nav-links a:hover{color:var(--text-primary);background:rgba(255,255,255,0.06)}
+.lang-toggle{
+  display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border-glass);
+  background:rgba(255,255,255,0.04);
+}
+.lang-btn{
+  padding:6px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;
+  border:none;background:transparent;color:var(--text-secondary);transition:all var(--transition);
+}
+.lang-btn.active{background:var(--accent);color:#0a0e17}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--text-primary);cursor:pointer;padding:8px}
+.mobile-menu-btn svg{width:24px;height:24px}
 
-        /* ===== HERO ===== */
-        .hero {
-            text-align: center; padding: 40px 20px 24px;
-        }
-        .hero h1 {
-            font-size: 2.2rem; font-weight: 700;
-            background: linear-gradient(135deg, var(--gold) 0%, #f0d78c 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; margin-bottom: 8px;
-        }
-        .hero p { color: var(--text-secondary); font-size: 1rem; }
-        .hero-stats {
-            display: flex; justify-content: center; gap: 32px;
-            margin-top: 20px; flex-wrap: wrap;
-        }
-        .hero-stat {
-            text-align: center;
-        }
-        .hero-stat .value { font-size: 1.6rem; font-weight: 700; color: var(--gold); }
-        .hero-stat .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+@media(max-width:768px){
+  .nav-links{
+    display:none;position:fixed;top:var(--nav-height);left:0;right:0;
+    flex-direction:column;background:rgba(10,14,23,0.97);
+    backdrop-filter:blur(20px);padding:16px;gap:4px;
+    border-bottom:1px solid var(--border-glass);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 16px;width:100%;border-radius:10px}
+  .mobile-menu-btn{display:block}
+}
 
-        /* ===== CHART GRID ===== */
-        .chart-grid {
-            display: grid; gap: 16px;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-        }
-        .chart-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 12px; overflow: hidden;
-            transition: border-color 0.2s;
-        }
-        .chart-card:hover { border-color: var(--gold-dim); }
-        .chart-card-header {
-            padding: 12px 16px; display: flex; align-items: center;
-            justify-content: space-between; border-bottom: 1px solid var(--border);
-        }
-        .chart-card-title { font-weight: 600; font-size: 0.95rem; }
-        .chart-card-tag {
-            font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
-            font-weight: 600; letter-spacing: 0.3px;
-        }
-        .tag-index { background: rgba(88,166,255,0.15); color: var(--accent-blue); }
-        .tag-stock { background: rgba(63,185,80,0.15); color: var(--accent-green); }
-        .tag-metal { background: rgba(212,168,67,0.15); color: var(--gold); }
-        .tag-energy { background: rgba(248,81,73,0.15); color: var(--accent-red); }
-        .chart-embed { height: 400px; }
-        @media (max-width: 768px) { .chart-embed { height: 320px; } }
+/* ========== CONTAINER ========== */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
 
-        /* ===== SIGNAL CARDS ===== */
-        .signal-grid {
-            display: grid; gap: 12px;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-        }
-        .signal-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 10px; padding: 16px;
-            transition: all 0.2s;
-        }
-        .signal-card:hover { border-color: var(--gold-dim); transform: translateY(-1px); }
-        .signal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .signal-symbol { font-weight: 700; font-size: 1rem; }
-        .signal-name { font-size: 0.75rem; color: var(--text-muted); }
-        .signal-rows { display: flex; flex-direction: column; gap: 8px; }
-        .signal-row {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.82rem;
-        }
-        .signal-label { color: var(--text-secondary); }
-        .signal-value { font-weight: 600; display: flex; align-items: center; gap: 5px; }
-        .dot {
-            width: 8px; height: 8px; border-radius: 50%; display: inline-block;
-        }
-        .dot-green { background: var(--accent-green); box-shadow: 0 0 6px rgba(63,185,80,0.5); }
-        .dot-red { background: var(--accent-red); box-shadow: 0 0 6px rgba(248,81,73,0.5); }
-        .dot-yellow { background: var(--accent-yellow); box-shadow: 0 0 6px rgba(210,153,34,0.5); }
-        .trend-up { color: var(--accent-green); }
-        .trend-down { color: var(--accent-red); }
-        .trend-neutral { color: var(--accent-yellow); }
+/* ========== HERO ========== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding-top:calc(var(--nav-height) + 40px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 50% 0%,rgba(240,185,11,0.06) 0%,transparent 50%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:1;max-width:700px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:100px;font-size:0.8rem;font-weight:600;
+  background:rgba(240,185,11,0.1);color:var(--accent);
+  border:1px solid rgba(240,185,11,0.2);margin-bottom:24px;
+}
+.hero-badge .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:900;letter-spacing:-0.03em;line-height:1.1;margin-bottom:12px}
+.hero h1 .accent{color:var(--accent)}
+.hero .tagline{font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--text-secondary);font-weight:400;margin-bottom:8px}
+.hero .date{font-size:0.9rem;color:var(--text-muted);margin-bottom:40px}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 32px;border-radius:12px;font-size:0.95rem;font-weight:600;
+  background:var(--accent);color:#0a0e17;border:none;cursor:pointer;
+  transition:all var(--transition);
+}
+.hero-cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,185,11,0.25)}
+.hero-cta svg{width:18px;height:18px}
 
-        /* ===== COMMENTARY ===== */
-        .commentary-list { display: flex; flex-direction: column; gap: 20px; }
-        .commentary-article {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 12px; padding: 24px;
-            transition: border-color 0.2s;
-        }
-        .commentary-article:hover { border-color: var(--gold-dim); }
-        .commentary-meta {
-            display: flex; gap: 16px; align-items: center;
-            margin-bottom: 12px; flex-wrap: wrap;
-        }
-        .commentary-date { font-size: 0.8rem; color: var(--text-muted); }
-        .commentary-tag {
-            font-size: 0.7rem; padding: 2px 10px; border-radius: 12px;
-            background: rgba(88,166,255,0.12); color: var(--accent-blue);
-            font-weight: 500;
-        }
-        .commentary-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary); }
-        .commentary-body { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75; }
-        .commentary-body p { margin-bottom: 10px; }
-        .commentary-body p:last-child { margin-bottom: 0; }
-        .commentary-divider { border: none; border-top: 1px dashed var(--border); margin: 14px 0; }
+/* ========== SECTION TITLES ========== */
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.8rem;font-weight:600;color:var(--accent);text-transform:uppercase;
+  letter-spacing:0.08em;margin-bottom:12px;
+}
+.section-label::before{content:'';width:24px;height:2px;background:var(--accent);border-radius:2px}
+.section-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:16px}
+.section-sub{color:var(--text-secondary);font-size:1rem;max-width:600px;margin-bottom:40px}
 
-        /* ===== FOOTER ===== */
-        .footer {
-            text-align: center; padding: 32px 20px;
-            border-top: 1px solid var(--border);
-            margin-top: var(--section-gap);
-        }
-        .footer p { color: var(--text-muted); font-size: 0.8rem; }
-        .footer .disclaimer { max-width: 600px; margin: 8px auto 0; font-size: 0.72rem; color: var(--text-muted); opacity: 0.7; }
+/* ========== GLASS CARD ========== */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border-glass);
+  border-radius:var(--radius);
+  padding:24px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:all var(--transition);
+}
+.card:hover{background:var(--bg-card-hover);border-color:rgba(255,255,255,0.12)}
 
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+/* ========== SNAPSHOT (TODAY'S SNAPSHOT) ========== */
+#snapshot{padding-top:20px}
+.snapshot-grid{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:24px;
+  margin-bottom:32px;
+}
+.gauge-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px}
+.gauge-wrapper{position:relative;width:180px;height:180px;margin-bottom:16px}
+.gauge-wrapper svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge-bg{fill:none;stroke:rgba(255,255,255,0.06);stroke-width:10}
+.gauge-fill{
+  fill:none;stroke-width:10;stroke-linecap:round;
+  stroke-dasharray:251;stroke-dashoffset:251;
+  transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1),stroke 0.5s;
+}
+.gauge-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;
+}
+.gauge-value{font-size:2.4rem;font-weight:800;line-height:1}
+.gauge-label-inner{font-size:0.75rem;color:var(--text-secondary);margin-top:4px}
+.gauge-title{font-size:0.9rem;font-weight:600;margin-bottom:4px}
+.gauge-status{font-size:0.8rem;font-weight:600;padding:4px 12px;border-radius:100px}
 
-        /* ===== BACK TO TOP ===== */
-        .back-to-top {
-            position: fixed; bottom: 24px; right: 24px;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: var(--gold); color: var(--bg-primary);
-            border: none; cursor: pointer; font-size: 1.2rem;
-            display: none; align-items: center; justify-content: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-            transition: transform 0.2s; z-index: 999;
-        }
-        .back-to-top:hover { transform: scale(1.1); }
-        .back-to-top.show { display: flex; }
+.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.metric-card{padding:20px}
+.metric-card .metric-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.metric-card .metric-name{font-size:0.8rem;color:var(--text-secondary);font-weight:500}
+.metric-card .metric-flag{font-size:1rem}
+.metric-card .metric-value{font-size:1.8rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px}
+.metric-card .metric-change{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:0.85rem;font-weight:600;padding:3px 10px;border-radius:6px;
+}
+.metric-card .metric-change.up{color:var(--green);background:rgba(0,200,83,0.1)}
+.metric-card .metric-change.down{color:var(--red);background:rgba(255,23,68,0.1)}
 
-        /* ===== i18n HIDE/SHOW ===== */
-        [data-lang-en] { display: none; }
-        [data-lang-zh] { display: inline; }
-        body.lang-en [data-lang-en] { display: inline; }
-        body.lang-en [data-lang-zh] { display: none; }
-        /* Block-level bilingual elements */
-        p[data-lang-en], div[data-lang-en], article[data-lang-en] { display: none; }
-        p[data-lang-zh], div[data-lang-zh], article[data-lang-zh] { display: block; }
-        body.lang-en p[data-lang-en], body.lang-en div[data-lang-en], body.lang-en article[data-lang-en] { display: block; }
-        body.lang-en p[data-lang-zh], body.lang-en div[data-lang-zh], body.lang-en article[data-lang-zh] { display: none; }
-        /* Flex for hero-stats */
-        div.hero-stats[data-lang-en] { display: none; }
-        div.hero-stats[data-lang-zh] { display: flex; }
-        body.lang-en div.hero-stats[data-lang-en] { display: flex; }
-        body.lang-en div.hero-stats[data-lang-zh] { display: none; }
-    </style>
+.snapshot-summary{
+  padding:20px 28px;text-align:center;
+  border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,rgba(240,185,11,0.08),rgba(240,185,11,0.02));
+  border:1px solid rgba(240,185,11,0.15);
+  font-size:0.95rem;color:var(--text-secondary);
+}
+.snapshot-summary strong{color:var(--accent)}
+
+.demo-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:0.7rem;color:var(--text-muted);margin-top:16px;
+  padding:4px 12px;border-radius:100px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);
+}
+
+@media(max-width:860px){
+  .snapshot-grid{grid-template-columns:1fr}
+  .gauge-card{padding:24px}
+}
+@media(max-width:500px){
+  .metrics-grid{grid-template-columns:1fr}
+}
+
+/* ========== DASHBOARD TABS ========== */
+.tab-bar{
+  display:flex;gap:4px;padding:4px;border-radius:12px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border-glass);
+  margin-bottom:28px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.tab-btn{
+  flex:1;min-width:90px;padding:10px 16px;border:none;border-radius:9px;
+  font-size:0.85rem;font-weight:600;cursor:pointer;
+  background:transparent;color:var(--text-secondary);
+  transition:all var(--transition);white-space:nowrap;
+}
+.tab-btn:hover{color:var(--text-primary);background:rgba(255,255,255,0.04)}
+.tab-btn.active{background:var(--accent);color:#0a0e17}
+
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn 0.4s ease}
+
+.dashboard-layout{display:grid;grid-template-columns:1fr 340px;gap:24px}
+.chart-card{min-height:380px;padding:0;overflow:hidden;border-radius:var(--radius)}
+.chart-card .tradingview-widget-container{width:100%;height:380px}
+
+.signals-panel{display:flex;flex-direction:column;gap:16px}
+.signal-card{padding:16px}
+.signal-card .signal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.signal-card .signal-label{font-size:0.8rem;color:var(--text-secondary);font-weight:500}
+.signal-light{
+  width:12px;height:12px;border-radius:50%;
+  box-shadow:0 0 8px currentColor;
+}
+.signal-light.green{background:var(--green);color:var(--green)}
+.signal-light.red{background:var(--red);color:var(--red)}
+.signal-light.yellow{background:#ffc107;color:#ffc107}
+.signal-card .signal-value{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.signal-card .signal-desc{font-size:0.8rem;color:var(--text-secondary);line-height:1.5}
+
+.dashboard-explainer{
+  margin-top:20px;padding:18px 24px;border-radius:var(--radius-sm);
+  background:rgba(255,255,255,0.03);border:1px solid var(--border-glass);
+  font-size:0.88rem;line-height:1.7;color:var(--text-secondary);
+}
+.dashboard-explainer .tag{
+  display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;
+  font-weight:600;margin-right:6px;
+}
+.tag-bull{background:rgba(0,200,83,0.15);color:var(--green)}
+.tag-bear{background:rgba(255,23,68,0.15);color:var(--red)}
+.tag-neutral{background:rgba(255,193,7,0.15);color:#ffc107}
+
+@media(max-width:860px){
+  .dashboard-layout{grid-template-columns:1fr}
+  .chart-card{min-height:300px}
+  .chart-card .tradingview-widget-container{height:300px}
+}
+
+/* ========== ARTICLES ========== */
+.articles-grid{display:grid;gap:32px}
+.article-card{
+  padding:0;overflow:hidden;
+  border-radius:var(--radius);
+  background:var(--bg-card);border:1px solid var(--border-glass);
+  transition:all var(--transition);
+}
+.article-card:hover{border-color:rgba(255,255,255,0.15);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.article-tag{
+  display:inline-block;padding:4px 12px;border-radius:6px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
+}
+.tag-us{background:rgba(59,130,246,0.15);color:#60a5fa}
+.tag-gold{background:rgba(240,185,11,0.15);color:var(--accent)}
+.tag-tw{background:rgba(16,185,129,0.15);color:#34d399}
+.article-body{padding:32px}
+.article-meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px}
+.article-meta span{font-size:0.8rem;color:var(--text-muted)}
+.article-meta .author{color:var(--accent);font-weight:600}
+.article-title{font-size:1.4rem;font-weight:800;letter-spacing:-0.01em;margin-bottom:16px;line-height:1.35}
+.article-excerpt{color:var(--text-secondary);font-size:0.92rem;line-height:1.75;margin-bottom:24px}
+.article-excerpt .term{
+  border-bottom:1px dashed var(--accent);cursor:help;
+  color:var(--text-primary);
+}
+.article-excerpt .term-explain{color:var(--text-muted);font-size:0.85rem}
+.article-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.read-more{
+  font-size:0.85rem;font-weight:600;color:var(--accent);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.read-more:hover{gap:10px}
+.share-btns{display:flex;gap:8px}
+.share-btn{
+  width:36px;height:36px;border-radius:8px;border:1px solid var(--border-glass);
+  background:rgba(255,255,255,0.04);color:var(--text-secondary);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all var(--transition);
+}
+.share-btn:hover{background:rgba(255,255,255,0.08);color:var(--text-primary);border-color:rgba(255,255,255,0.15)}
+.share-btn svg{width:16px;height:16px}
+.copy-toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  padding:10px 20px;border-radius:10px;
+  background:var(--accent);color:#0a0e17;font-weight:600;font-size:0.85rem;
+  opacity:0;transition:all 0.3s ease;pointer-events:none;z-index:9999;
+}
+.copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ========== CTA ========== */
+.cta-section{
+  background:linear-gradient(135deg,#0d1b3e 0%,#0a1229 100%);
+  border:1px solid rgba(240,185,11,0.15);
+  border-radius:var(--radius);
+  padding:64px 40px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;
+  border-radius:50%;background:rgba(240,185,11,0.05);filter:blur(80px);pointer-events:none;
+}
+.cta-title{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;margin-bottom:8px}
+.cta-sub{color:var(--text-secondary);margin-bottom:32px;font-size:0.95rem}
+.cta-form{display:flex;gap:12px;max-width:460px;margin:0 auto 16px}
+.cta-form input{
+  flex:1;padding:14px 20px;border-radius:10px;border:1px solid var(--border-glass);
+  background:rgba(255,255,255,0.06);color:var(--text-primary);font-size:0.95rem;
+  font-family:inherit;outline:none;transition:border var(--transition);
+}
+.cta-form input::placeholder{color:var(--text-muted)}
+.cta-form input:focus{border-color:var(--accent)}
+.cta-form button{
+  padding:14px 28px;border:none;border-radius:10px;
+  background:var(--accent);color:#0a0e17;font-weight:700;font-size:0.9rem;
+  cursor:pointer;transition:all var(--transition);white-space:nowrap;font-family:inherit;
+}
+.cta-form button:hover{background:var(--accent-hover)}
+.cta-note{font-size:0.78rem;color:var(--text-muted)}
+.cta-success{
+  display:none;padding:20px;border-radius:12px;
+  background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.2);
+  color:var(--green);font-weight:600;font-size:0.95rem;
+  max-width:460px;margin:0 auto;
+}
+.cta-success.show{display:block;animation:fadeIn 0.5s ease}
+@media(max-width:500px){
+  .cta-form{flex-direction:column}
+  .cta-section{padding:48px 24px}
+}
+
+/* ========== ABOUT ========== */
+.about-card{
+  display:flex;align-items:center;gap:40px;padding:40px;
+}
+.about-avatar{
+  width:100px;height:100px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),#d4a00a);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.2rem;font-weight:800;color:#0a0e17;
+}
+.about-info{flex:1}
+.about-name{font-size:1.3rem;font-weight:800;margin-bottom:2px}
+.about-role{font-size:0.85rem;color:var(--accent);font-weight:600;margin-bottom:12px}
+.about-bio{font-size:0.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px}
+.about-link{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:8px;font-size:0.85rem;font-weight:600;
+  background:rgba(255,255,255,0.06);border:1px solid var(--border-glass);
+  color:var(--text-primary);transition:all var(--transition);
+}
+.about-link:hover{background:rgba(255,255,255,0.1)}
+.about-link svg{width:16px;height:16px}
+@media(max-width:600px){
+  .about-card{flex-direction:column;text-align:center;gap:24px}
+}
+
+/* ========== FOOTER ========== */
+.site-footer{
+  padding:40px 0;text-align:center;
+  border-top:1px solid var(--border-glass);
+}
+.footer-disclaimer{font-size:0.78rem;color:var(--text-muted);max-width:600px;margin:0 auto 16px;line-height:1.6}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:12px}
+.footer-links a{font-size:0.8rem;color:var(--text-secondary)}
+.footer-links a:hover{color:var(--text-primary)}
+.footer-copy{font-size:0.75rem;color:var(--text-muted)}
+
+/* ========== BILINGUAL ========== */
+[data-lang="en"] [data-zh]{display:none}
+[data-lang="zh"] [data-en]{display:none}
+
+/* ========== SCROLL BAR ========== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}
+
+/* ========== TICKER TAPE ========== */
+.ticker-wrapper{
+  margin-bottom:40px;border-radius:var(--radius-sm);overflow:hidden;
+  border:1px solid var(--border-glass);
+}
+</style>
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-    <div class="nav-brand">
-        <span class="pulse-dot"></span>
-        Market Pulse
-    </div>
-    <div class="nav-links" id="navLinks">
-        <a href="#home" class="active"><span data-lang-zh>首頁</span><span data-lang-en>Home</span></a>
-        <a href="#us-index"><span data-lang-zh>美股指數</span><span data-lang-en>US Stocks</span></a>
-        <a href="#tw-index"><span data-lang-zh>台股</span><span data-lang-en>TW Stocks</span></a>
-        <a href="#tech"><span data-lang-zh>科技股</span><span data-lang-en>Tech</span></a>
-        <a href="#metals"><span data-lang-zh>貴金屬</span><span data-lang-en>Precious Metals</span></a>
-        <a href="#energy"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></a>
-        <a href="#signals"><span data-lang-zh>量化快照</span><span data-lang-en>Quant Signals</span></a>
-        <a href="#commentary"><span data-lang-zh>市場評論</span><span data-lang-en>Commentary</span></a>
-    </div>
-    <button class="lang-toggle" id="langToggle" title="Switch Language">EN / 中文</button>
-    <button class="hamburger" id="hamburger" aria-label="選單">☰</button>
+<!-- ==================== NAVIGATION ==================== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
+      <span class="dot"></span>
+      <span>Market Pulse</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#snapshot" data-en>Snapshot</a><a href="#snapshot" data-zh>今日重點</a></li>
+      <li><a href="#dashboard" data-en>Dashboard</a><a href="#dashboard" data-zh>儀表板</a></li>
+      <li><a href="#analysis" data-en>Analysis</a><a href="#analysis" data-zh>每日分析</a></li>
+      <li><a href="#subscribe" data-en>Subscribe</a><a href="#subscribe" data-zh>訂閱</a></li>
+      <li><a href="#about" data-en>About</a><a href="#about" data-zh>關於</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" onclick="setLang('zh')">中文</button>
+        </div>
+      </li>
+    </ul>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
 </nav>
 
-<div class="main-content">
-
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-    <h1>Market Pulse | <span data-lang-zh>市場脈動</span><span data-lang-en>Market Pulse</span></h1>
-    <p><span data-lang-zh>全球金融市場即時概覽 · 技術分析 · 量化信號</span><span data-lang-en>Global Markets Overview · Technical Analysis · Quantitative Signals</span></p>
-    <div class="hero-stats" data-lang-zh>
-        <div class="hero-stat">
-            <div class="value">12+</div>
-            <div class="label">追蹤資產</div>
-        </div>
-        <div class="hero-stat">
-            <div class="value">即時</div>
-            <div class="label">K 線圖表</div>
-        </div>
-        <div class="hero-stat">
-            <div class="value">多維</div>
-            <div class="label">量化信號</div>
-        </div>
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="live-dot"></span>
+      <span data-en>Live Market Data</span><span data-zh>即時市場數據</span>
     </div>
-    <div class="hero-stats" data-lang-en>
-        <div class="hero-stat">
-            <div class="value">12+</div>
-            <div class="label">Assets Tracked</div>
-        </div>
-        <div class="hero-stat">
-            <div class="value">Live</div>
-            <div class="label">Candlestick Charts</div>
-        </div>
-        <div class="hero-stat">
-            <div class="value">Multi</div>
-            <div class="label">Quant Signals</div>
-        </div>
-    </div>
+    <h1>
+      <span data-en>Market <span class="accent">Pulse</span></span>
+      <span data-zh>市場<span class="accent">脈動</span></span>
+    </h1>
+    <p class="tagline" data-en>Your 30-Second Daily Market Brief</p>
+    <p class="tagline" data-zh>你的每日 30 秒市場簡報</p>
+    <p class="date" id="heroDate"></p>
+    <button class="hero-cta" onclick="document.getElementById('snapshot').scrollIntoView({behavior:'smooth'})">
+      <span data-en>View Today's Brief</span><span data-zh>查看今日簡報</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
 </section>
 
-<!-- ===== US INDEX ===== -->
-<section class="section" id="us-index">
-    <div class="section-header">
-        <span class="section-icon">🇺🇸</span>
-        <h2 class="section-title"><span data-lang-zh>美股主要指數</span><span data-lang-en>US Major Indices</span></h2>
-        <span class="section-badge">INDEX</span>
+<!-- ==================== TODAY'S SNAPSHOT ==================== -->
+<section id="snapshot" class="fade-section">
+  <div class="container">
+    <div class="section-label">
+      <span data-en>Today's Snapshot</span><span data-zh>今日重點</span>
     </div>
-    <div class="chart-grid">
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title">S&P 500</span>
-                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"FOREXCOM:SPXUSD","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
+    <h2 class="section-title" data-en>Market at a Glance</h2>
+    <h2 class="section-title" data-zh>市場一覽</h2>
+    <p class="section-sub" data-en>The most important numbers you need to see right now.</p>
+    <p class="section-sub" data-zh>你現在最需要關注的幾個關鍵數字。</p>
+
+    <div class="snapshot-grid">
+      <!-- Fear & Greed Gauge -->
+      <div class="card gauge-card">
+        <div class="gauge-wrapper">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="40"/>
+            <circle class="gauge-fill" id="gaugeFill" cx="50" cy="50" r="40"/>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-value" id="gaugeValue">72</div>
+            <div class="gauge-label-inner">/ 100</div>
+          </div>
         </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>NASDAQ 綜合</span><span data-lang-en>NASDAQ Composite</span></span>
-                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"NASDAQ:NDX","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
+        <div class="gauge-title" data-en>Fear & Greed Index</div>
+        <div class="gauge-title" data-zh>恐懼與貪婪指數</div>
+        <div class="gauge-status" id="gaugeStatus" style="background:rgba(240,185,11,0.15);color:var(--accent)">
+          <span data-en>Greed</span><span data-zh>貪婪</span>
         </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>道瓊工業指數</span><span data-lang-en>Dow Jones Industrial</span></span>
-                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"DJ:DJI","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
+      </div>
+
+      <!-- 4 Metric Cards -->
+      <div class="metrics-grid">
+        <div class="card metric-card">
+          <div class="metric-header">
+            <span class="metric-name">S&P 500</span>
+            <span class="metric-flag">🇺🇸</span>
+          </div>
+          <div class="metric-value">5,892.47</div>
+          <span class="metric-change up">▲ +1.24%</span>
         </div>
+        <div class="card metric-card">
+          <div class="metric-header">
+            <span class="metric-name" data-en>TAIEX</span>
+            <span class="metric-name" data-zh>台股加權</span>
+            <span class="metric-flag">🇹🇼</span>
+          </div>
+          <div class="metric-value">21,345.80</div>
+          <span class="metric-change up">▲ +0.87%</span>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-header">
+            <span class="metric-name" data-en>Gold</span>
+            <span class="metric-name" data-zh>黃金</span>
+            <span class="metric-flag">🥇</span>
+          </div>
+          <div class="metric-value">$3,042.15</div>
+          <span class="metric-change up">▲ +0.52%</span>
+        </div>
+        <div class="card metric-card">
+          <div class="metric-header">
+            <span class="metric-name" data-en>Crude Oil</span>
+            <span class="metric-name" data-zh>原油</span>
+            <span class="metric-flag">🛢️</span>
+          </div>
+          <div class="metric-value">$78.34</div>
+          <span class="metric-change down">▼ -0.68%</span>
+        </div>
+      </div>
     </div>
+
+    <div class="snapshot-summary" data-en>
+      <strong>Today's Takeaway:</strong> Tech stocks lead the rally, gold hits new highs, market sentiment leans greedy. Watch for potential pullback signals.
+    </div>
+    <div class="snapshot-summary" data-zh>
+      <strong>今日總結：</strong>科技股領漲，黃金創新高，市場情緒偏貪婪。留意潛在回檔信號。
+    </div>
+    <div class="demo-badge" style="text-align:center;display:flex;justify-content:center;margin-top:16px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span data-en>Demo data for illustration</span><span data-zh>示範數據，僅供參考</span>
+    </div>
+  </div>
 </section>
 
-<!-- ===== TW INDEX ===== -->
-<section class="section" id="tw-index">
-    <div class="section-header">
-        <span class="section-icon">🇹🇼</span>
-        <h2 class="section-title"><span data-lang-zh>台灣加權指數</span><span data-lang-en>Taiwan Weighted Index</span></h2>
-        <span class="section-badge">TWSE</span>
+<!-- ==================== MARKET DASHBOARD ==================== -->
+<section id="dashboard" class="fade-section">
+  <div class="container">
+    <div class="section-label">
+      <span data-en>Market Dashboard</span><span data-zh>市場儀表板</span>
     </div>
-    <div class="chart-grid">
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>台灣加權指數 (TWII)</span><span data-lang-en>TAIEX Weighted Index (TWII)</span></span>
-                <span class="chart-card-tag tag-index"><span data-lang-zh>指數</span><span data-lang-en>Index</span></span>
+    <h2 class="section-title" data-en>Deep Dive by Sector</h2>
+    <h2 class="section-title" data-zh>分類深度觀察</h2>
+    <p class="section-sub" data-en>Technical signals and plain-English analysis across key markets.</p>
+    <p class="section-sub" data-zh>各市場的技術信號搭配白話解讀，一看就懂。</p>
+
+    <div class="tab-bar" role="tablist">
+      <button class="tab-btn active" data-tab="us" role="tab" data-en>US Stocks</button>
+      <button class="tab-btn active" data-tab="us" role="tab" data-zh>美股</button>
+      <button class="tab-btn" data-tab="tw" role="tab" data-en>Taiwan</button>
+      <button class="tab-btn" data-tab="tw" role="tab" data-zh>台股</button>
+      <button class="tab-btn" data-tab="tech" role="tab" data-en>Tech</button>
+      <button class="tab-btn" data-tab="tech" role="tab" data-zh>科技股</button>
+      <button class="tab-btn" data-tab="metals" role="tab" data-en>Metals</button>
+      <button class="tab-btn" data-tab="metals" role="tab" data-zh>貴金屬</button>
+      <button class="tab-btn" data-tab="energy" role="tab" data-en>Energy</button>
+      <button class="tab-btn" data-tab="energy" role="tab" data-zh>能源</button>
+    </div>
+
+    <!-- US Tab -->
+    <div class="tab-content active" data-panel="us">
+      <div class="dashboard-layout">
+        <div class="card chart-card" id="chart-us"></div>
+        <div class="signals-panel">
+          <div class="card signal-card">
+            <div class="signal-header">
+              <span class="signal-label" data-en>Trend</span><span class="signal-label" data-zh>趨勢方向</span>
+              <span class="signal-light green"></span>
             </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"TWSE:TAIEX","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
+            <div class="signal-value" data-en>Bullish</div>
+            <div class="signal-value" data-zh>多頭</div>
+            <div class="signal-desc" data-en>Price above 20-day and 50-day moving averages. Uptrend intact.</div>
+            <div class="signal-desc" data-zh>價格站上 20 日和 50 日均線，上升趨勢穩固。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header">
+              <span class="signal-label">RSI (14)</span>
+              <span class="signal-light yellow"></span>
             </div>
+            <div class="signal-value">68.5</div>
+            <div class="signal-desc" data-en>Approaching overbought (70). Plain English: buyers are getting a bit aggressive; a cooldown is possible.</div>
+            <div class="signal-desc" data-zh>接近超買區（70）。白話：買盤有點衝過頭，可能需要喘口氣。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header">
+              <span class="signal-label" data-en>Moving Averages</span><span class="signal-label" data-zh>均線排列</span>
+              <span class="signal-light green"></span>
+            </div>
+            <div class="signal-value" data-en>Aligned Bullish</div>
+            <div class="signal-value" data-zh>多頭排列</div>
+            <div class="signal-desc" data-en>MA20 > MA50 > MA200. All three confirm the uptrend. This is a healthy setup.</div>
+            <div class="signal-desc" data-zh>MA20 > MA50 > MA200，三條均線齊步向上，格局健康。</div>
+          </div>
         </div>
+      </div>
+      <div class="dashboard-explainer" data-en>
+        <span class="tag tag-bull">Bullish</span> The S&P 500 is trending up with strong breadth. RSI near 68 suggests momentum is still with the bulls, but watch for a short-term pullback near 70. If you're a long-term holder, the trend is your friend. Short-term traders: consider tightening stops.
+      </div>
+      <div class="dashboard-explainer" data-zh>
+        <span class="tag tag-bull">偏多</span> S&P 500 在上升趨勢中，整體市場寬度良好。RSI 接近 68，代表動能仍站在多方，但接近 70 時留意短線拉回。長線投資人：趨勢仍是你的朋友。短線交易者：可考慮收緊停損。
+      </div>
     </div>
+
+    <!-- Taiwan Tab -->
+    <div class="tab-content" data-panel="tw">
+      <div class="dashboard-layout">
+        <div class="card chart-card" id="chart-tw"></div>
+        <div class="signals-panel">
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Trend</span><span class="signal-label" data-zh>趨勢方向</span><span class="signal-light green"></span></div>
+            <div class="signal-value" data-en>Bullish</div><div class="signal-value" data-zh>多頭</div>
+            <div class="signal-desc" data-en>TAIEX holding above 21,000 support. Semiconductor sector is the key driver.</div>
+            <div class="signal-desc" data-zh>加權指數守穩 21,000 支撐，半導體族群是主要推手。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label">RSI (14)</span><span class="signal-light yellow"></span></div>
+            <div class="signal-value">64.2</div>
+            <div class="signal-desc" data-en>Healthy range. Not overbought yet. Plain English: still room to run before things get too hot.</div>
+            <div class="signal-desc" data-zh>健康區間，尚未超買。白話：還有空間往上跑，暫時不用太擔心。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Moving Averages</span><span class="signal-label" data-zh>均線排列</span><span class="signal-light green"></span></div>
+            <div class="signal-value" data-en>Aligned Bullish</div><div class="signal-value" data-zh>多頭排列</div>
+            <div class="signal-desc" data-en>Short, medium, and long-term averages all pointing up. A textbook uptrend.</div>
+            <div class="signal-desc" data-zh>短中長期均線全部朝上，教科書等級的上升趨勢。</div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-explainer" data-en><span class="tag tag-bull">Bullish</span> TAIEX is riding the semiconductor wave. TSMC earnings next week could be the next catalyst. Breadth is decent but narrowly led by tech names. Keep an eye on foreign investor flows.</div>
+      <div class="dashboard-explainer" data-zh><span class="tag tag-bull">偏多</span> 台股乘著半導體浪潮前進，下週台積電財報可能是下一個催化劑。市場寬度尚可，但主要由科技股帶動。留意外資動向。</div>
+    </div>
+
+    <!-- Tech Tab -->
+    <div class="tab-content" data-panel="tech">
+      <div class="dashboard-layout">
+        <div class="card chart-card" id="chart-tech"></div>
+        <div class="signals-panel">
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Trend</span><span class="signal-label" data-zh>趨勢方向</span><span class="signal-light green"></span></div>
+            <div class="signal-value" data-en>Strong Bullish</div><div class="signal-value" data-zh>強勢多頭</div>
+            <div class="signal-desc" data-en>NASDAQ outperforming broader market. AI theme continues to drive mega-caps higher.</div>
+            <div class="signal-desc" data-zh>那斯達克表現優於大盤，AI 題材持續推動大型科技股走高。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label">RSI (14)</span><span class="signal-light red"></span></div>
+            <div class="signal-value">72.1</div>
+            <div class="signal-desc" data-en>Overbought territory. Plain English: tech stocks have been running hot; don't chase the rally blindly.</div>
+            <div class="signal-desc" data-zh>已進入超買區。白話：科技股衝太猛了，別盲目追高。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Moving Averages</span><span class="signal-label" data-zh>均線排列</span><span class="signal-light green"></span></div>
+            <div class="signal-value" data-en>Aligned Bullish</div><div class="signal-value" data-zh>多頭排列</div>
+            <div class="signal-desc" data-en>All MAs aligned upward. Gap between MA20 and MA50 is widening — strong momentum.</div>
+            <div class="signal-desc" data-zh>所有均線向上排列，MA20 與 MA50 的差距正在擴大 — 動能強勁。</div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-explainer" data-en><span class="tag tag-bull">Bullish</span> Tech is the market leader. AI capex cycle is real and earnings are backing the narrative. But RSI at 72 means near-term digestion is healthy. Look for buying opportunities on dips to the 20-day MA.</div>
+      <div class="dashboard-explainer" data-zh><span class="tag tag-bull">偏多</span> 科技股是市場領頭羊。AI 資本支出循環是真的，獲利數字也在支撐這個敘事。但 RSI 72 代表短期消化是健康的。留意拉回到 20 日均線時的買進機會。</div>
+    </div>
+
+    <!-- Metals Tab -->
+    <div class="tab-content" data-panel="metals">
+      <div class="dashboard-layout">
+        <div class="card chart-card" id="chart-metals"></div>
+        <div class="signals-panel">
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Trend</span><span class="signal-label" data-zh>趨勢方向</span><span class="signal-light green"></span></div>
+            <div class="signal-value" data-en>Strong Bullish</div><div class="signal-value" data-zh>強勢多頭</div>
+            <div class="signal-desc" data-en>Gold has broken $3,000 convincingly. Central bank buying and geopolitical tensions support the trend.</div>
+            <div class="signal-desc" data-zh>黃金強勢突破 $3,000 關卡。央行買盤和地緣政治緊張局勢支撐趨勢。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label">RSI (14)</span><span class="signal-light yellow"></span></div>
+            <div class="signal-value">66.8</div>
+            <div class="signal-desc" data-en>Elevated but not extreme. Still has room before reaching overbought. Plain English: momentum is with the bulls, but be patient.</div>
+            <div class="signal-desc" data-zh>偏高但不極端，距離超買還有空間。白話：多方有動能，但要有耐心。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Moving Averages</span><span class="signal-label" data-zh>均線排列</span><span class="signal-light green"></span></div>
+            <div class="signal-value" data-en>Aligned Bullish</div><div class="signal-value" data-zh>多頭排列</div>
+            <div class="signal-desc" data-en>Clear uptrend with all moving averages confirming the breakout.</div>
+            <div class="signal-desc" data-zh>明確上升趨勢，所有均線都確認突破。</div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-explainer" data-en><span class="tag tag-bull">Bullish</span> Gold at all-time highs driven by de-dollarization, central bank accumulation, and safe-haven demand. This isn't just inflation hedging — it's a structural shift. $3,100 is the next resistance level to watch.</div>
+      <div class="dashboard-explainer" data-zh><span class="tag tag-bull">偏多</span> 黃金在去美元化、央行囤金和避險需求推動下創歷史新高。這不只是通膨對沖 — 而是結構性轉變。下一個關注的阻力位是 $3,100。</div>
+    </div>
+
+    <!-- Energy Tab -->
+    <div class="tab-content" data-panel="energy">
+      <div class="dashboard-layout">
+        <div class="card chart-card" id="chart-energy"></div>
+        <div class="signals-panel">
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Trend</span><span class="signal-label" data-zh>趨勢方向</span><span class="signal-light yellow"></span></div>
+            <div class="signal-value" data-en>Neutral</div><div class="signal-value" data-zh>中性</div>
+            <div class="signal-desc" data-en>Crude oil rangebound between $75-$82. OPEC+ cuts provide floor but demand concerns cap upside.</div>
+            <div class="signal-desc" data-zh>原油在 $75-$82 區間震盪。OPEC+ 減產提供下檔支撐，但需求疑慮壓制上檔空間。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label">RSI (14)</span><span class="signal-light green"></span></div>
+            <div class="signal-value">48.3</div>
+            <div class="signal-desc" data-en>Dead center. Neither overbought nor oversold. Plain English: market is indecisive — wait for a breakout.</div>
+            <div class="signal-desc" data-zh>正中間位置，不超買也不超賣。白話：市場猶豫不決，等突破再說。</div>
+          </div>
+          <div class="card signal-card">
+            <div class="signal-header"><span class="signal-label" data-en>Moving Averages</span><span class="signal-label" data-zh>均線排列</span><span class="signal-light yellow"></span></div>
+            <div class="signal-value" data-en>Mixed</div><div class="signal-value" data-zh>混合</div>
+            <div class="signal-desc" data-en>MA20 slightly below MA50. No clear direction. Sideways market.</div>
+            <div class="signal-desc" data-zh>MA20 略低於 MA50，沒有明確方向，盤整格局。</div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-explainer" data-en><span class="tag tag-neutral">Neutral</span> Energy is the wait-and-see sector. OPEC+ meetings and China demand data will determine the next move. For now, it's a range trade. No strong conviction to go long or short.</div>
+      <div class="dashboard-explainer" data-zh><span class="tag tag-neutral">中性</span> 能源是「觀望」板塊。OPEC+ 會議和中國需求數據將決定下一步走向。目前是區間操作格局，做多做空都沒有強烈理由。</div>
+    </div>
+
+  </div>
 </section>
 
-<!-- ===== TECH STOCKS ===== -->
-<section class="section" id="tech">
-    <div class="section-header">
-        <span class="section-icon">💻</span>
-        <h2 class="section-title"><span data-lang-zh>科技股</span><span data-lang-en>Tech Stocks</span></h2>
-        <span class="section-badge">TECH</span>
+<!-- ==================== DAILY ANALYSIS ==================== -->
+<section id="analysis" class="fade-section">
+  <div class="container">
+    <div class="section-label">
+      <span data-en>Daily Analysis</span><span data-zh>每日分析</span>
     </div>
-    <div class="chart-grid">
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title">Apple (AAPL)</span>
-                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+    <h2 class="section-title" data-en>In-Depth Reads</h2>
+    <h2 class="section-title" data-zh>深度觀點</h2>
+    <p class="section-sub" data-en>Opinionated analysis, written in plain language. No jargon without explanation.</p>
+    <p class="section-sub" data-zh>有觀點的分析，用白話文寫。專業術語都附白話解釋。</p>
+
+    <div class="articles-grid">
+
+      <!-- Article 1 -->
+      <article class="article-card">
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag tag-us" data-en>US Stocks</span><span class="article-tag tag-us" data-zh>美股</span>
+            <span class="author">Ke Lin</span>
+            <span>Apr 6, 2026</span>
+            <span data-en>5 min read</span><span data-zh>5 分鐘閱讀</span>
+          </div>
+          <h3 class="article-title" data-en>2026 Q2 US Equity Outlook: AI Bubble or the New Normal?</h3>
+          <h3 class="article-title" data-zh>2026 Q2 美股展望：AI 泡沫還是新常態？</h3>
+          <div class="article-excerpt" data-en>
+            <p>The Magnificent 7 now account for over 35% of the S&P 500's market cap. That concentration hasn't been seen since the dot-com era. But here's why I think this time is different — and where the risks actually are.</p>
+            <p style="margin-top:12px">The <span class="term">P/E ratio</span> <span class="term-explain">(price-to-earnings — how much investors pay per dollar of profit)</span> for the NASDAQ sits at 32x, compared to a 10-year average of 25x. Expensive? Yes. But unlike 2000, these companies are generating real cash flows. NVIDIA alone is expected to earn $90B+ in revenue this year from actual AI infrastructure demand.</p>
+            <p style="margin-top:12px">The real risk isn't that AI is fake — it's that the <span class="term">capex cycle</span> <span class="term-explain">(capital expenditure — how much companies invest in infrastructure)</span> could slow if ROI doesn't materialize for enterprise customers. Watch Microsoft and Google cloud earnings this quarter for signals.</p>
+            <p style="margin-top:12px"><strong>My take:</strong> Selectively bullish on AI infrastructure (semis, cloud), cautious on AI application plays with no earnings. The trend is real, but not every stock riding the wave deserves a 40x multiple.</p>
+          </div>
+          <div class="article-excerpt" data-zh>
+            <p>「Magnificent 7」（七大科技巨頭）現在佔 S&P 500 總市值超過 35%。這種集中度自網路泡沫以來未曾見過。但我認為這次不同——風險其實在別的地方。</p>
+            <p style="margin-top:12px">那斯達克的 <span class="term">本益比（P/E ratio）</span><span class="term-explain">（投資人願意為每一塊錢獲利付出多少錢）</span>目前是 32 倍，而過去十年平均是 25 倍。貴嗎？是。但不像 2000 年，這些公司有真正的現金流。光 NVIDIA 今年預估營收就超過 $900 億美元，來自實際的 AI 基礎建設需求。</p>
+            <p style="margin-top:12px">真正的風險不在 AI 是假的——而是<span class="term">資本支出週期（capex cycle）</span><span class="term-explain">（公司在基礎建設上投入多少錢）</span>可能放緩，如果企業客戶的投資報酬率沒跟上的話。這季留意微軟和 Google 雲端財報的訊號。</p>
+            <p style="margin-top:12px"><strong>我的看法：</strong>選擇性看多 AI 基礎建設（半導體、雲端），對沒有獲利的 AI 應用股保持謹慎。趨勢是真的，但不是每檔搭上 AI 浪潮的股票都值得 40 倍本益比。</p>
+          </div>
+          <div class="article-footer">
+            <a class="read-more" href="#" onclick="event.preventDefault()">
+              <span data-en>Read Full Analysis</span><span data-zh>閱讀完整分析</span> →
+            </a>
+            <div class="share-btns">
+              <button class="share-btn" onclick="shareTwitter('2026 Q2 US Equity Outlook: AI Bubble or the New Normal?')" title="Share on X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </button>
+              <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </button>
+              <button class="share-btn" onclick="copyLink()" title="Copy Link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </button>
             </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"NASDAQ:AAPL","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title">NVIDIA (NVDA)</span>
-                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="article-card">
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag tag-gold" data-en>Precious Metals</span><span class="article-tag tag-gold" data-zh>貴金屬</span>
+            <span class="author">Ke Lin</span>
+            <span>Apr 5, 2026</span>
+            <span data-en>4 min read</span><span data-zh>4 分鐘閱讀</span>
+          </div>
+          <h3 class="article-title" data-en>Gold Breaks $3,000: Safe Haven or Inflation Signal?</h3>
+          <h3 class="article-title" data-zh>黃金突破 $3,000：避險需求還是通膨信號？</h3>
+          <div class="article-excerpt" data-en>
+            <p>Gold just crossed the psychologically important $3,000 mark. The financial media is split: is this about fear, or about inflation? My answer: it's about something bigger — a structural shift in how central banks think about reserves.</p>
+            <p style="margin-top:12px">Since 2022, central banks — led by China, India, and Turkey — have been buying gold at a pace not seen in 50 years. This is <span class="term">de-dollarization</span> <span class="term-explain">(countries reducing their dependence on the US dollar)</span> in action. They're not reacting to CPI prints; they're repositioning for a multipolar currency world.</p>
+            <p style="margin-top:12px">For retail investors, the <span class="term">real yield</span> <span class="term-explain">(bond yield minus inflation — what you actually earn after accounting for rising prices)</span> is the key variable. When real yields fall, gold becomes more attractive because holding cash or bonds earns you less. Right now, real yields are declining as the Fed signals rate cuts.</p>
+            <p style="margin-top:12px"><strong>My take:</strong> Gold is in a secular bull market. Short-term pullbacks are buying opportunities. Target: $3,200 by year-end. The biggest risk? A surprise hawkish pivot from the Fed — unlikely given current data.</p>
+          </div>
+          <div class="article-excerpt" data-zh>
+            <p>黃金剛突破心理關卡 $3,000。財經媒體意見分歧：這是恐慌驅動，還是通膨信號？我的答案：是更大的東西——央行對儲備思維的結構性轉變。</p>
+            <p style="margin-top:12px">從 2022 年起，以中國、印度和土耳其為首的各國央行，正以 50 年來最快速度買進黃金。這就是<span class="term">去美元化（de-dollarization）</span><span class="term-explain">（各國減少對美元的依賴）</span>的實際行動。他們不是在反應 CPI 數字；而是在為多極貨幣世界做準備。</p>
+            <p style="margin-top:12px">對散戶投資人來說，<span class="term">實質殖利率（real yield）</span><span class="term-explain">（債券殖利率減掉通膨——考慮物價上漲後你實際賺到多少）</span>是關鍵變數。實質殖利率下降時，黃金更有吸引力，因為持有現金或債券賺得更少。目前聯準會釋出降息訊號，實質殖利率正在走低。</p>
+            <p style="margin-top:12px"><strong>我的看法：</strong>黃金處於長期多頭市場。短期拉回是買進機會。目標：年底前 $3,200。最大風險？聯準會意外轉鷹——以目前數據來看不太可能。</p>
+          </div>
+          <div class="article-footer">
+            <a class="read-more" href="#" onclick="event.preventDefault()">
+              <span data-en>Read Full Analysis</span><span data-zh>閱讀完整分析</span> →
+            </a>
+            <div class="share-btns">
+              <button class="share-btn" onclick="shareTwitter('Gold Breaks $3,000: Safe Haven or Inflation Signal?')" title="Share on X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </button>
+              <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </button>
+              <button class="share-btn" onclick="copyLink()" title="Copy Link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </button>
             </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"NASDAQ:NVDA","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>台積電 ADR (TSM)</span><span data-lang-en>TSMC ADR (TSM)</span></span>
-                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="article-card">
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag tag-tw" data-en>Taiwan Market</span><span class="article-tag tag-tw" data-zh>台股</span>
+            <span class="author">Ke Lin</span>
+            <span>Apr 4, 2026</span>
+            <span data-en>4 min read</span><span data-zh>4 分鐘閱讀</span>
+          </div>
+          <h3 class="article-title" data-en>TAIEX Above 21,000: Semiconductor-Led or Broad Bull Market?</h3>
+          <h3 class="article-title" data-zh>台股加權站上兩萬一：半導體帶動還是全面牛市？</h3>
+          <div class="article-excerpt" data-en>
+            <p>The TAIEX has been on a tear, pushing past 21,000 for the first time. But peel back the index, and you'll notice something important: this rally has a very specific driver.</p>
+            <p style="margin-top:12px">TSMC alone accounts for about 30% of the TAIEX's weight. When TSMC moves, the index moves. The company's <span class="term">forward P/E</span> <span class="term-explain">(price relative to next year's expected earnings — tells you how much you're paying for future growth)</span> is at 22x, which is reasonable given its near-monopoly in advanced chips.</p>
+            <p style="margin-top:12px">The concern: <span class="term">market breadth</span> <span class="term-explain">(how many stocks are participating in the rally — a healthy market has broad participation)</span> tells a different story. Only about 40% of listed stocks are above their 200-day moving average. That means most of the market isn't keeping up with the headline index.</p>
+            <p style="margin-top:12px"><strong>My take:</strong> This is a semiconductor-led rally, not a broad bull market. If you own TSMC and its supply chain, you're happy. If you're in traditional sectors, you might be wondering why your portfolio doesn't match the headlines. For new entries: wait for breadth to improve before going all-in on the index.</p>
+          </div>
+          <div class="article-excerpt" data-zh>
+            <p>台股加權指數一路飆升，首次站上 21,000。但仔細看指數內部，你會發現一件重要的事：這波漲勢有非常明確的推手。</p>
+            <p style="margin-top:12px">光是台積電就佔了加權指數約 30% 的權重。台積電動，指數就動。台積電的<span class="term">預估本益比（forward P/E）</span><span class="term-explain">（股價相對於明年預期獲利——告訴你為未來成長付了多少錢）</span>在 22 倍，考慮到它在先進製程的近乎壟斷地位，算是合理的。</p>
+            <p style="margin-top:12px">值得擔憂的是：<span class="term">市場寬度（market breadth）</span><span class="term-explain">（有多少股票參與漲勢——健康的市場是多數股票一起漲）</span>說了不同的故事。只有約 40% 的上市股票站在 200 日均線以上，代表大部分股票跟不上指數的腳步。</p>
+            <p style="margin-top:12px"><strong>我的看法：</strong>這是半導體帶動的漲勢，不是全面性牛市。如果你持有台積電和它的供應鏈，你很開心。如果你在傳統產業，你可能在想為什麼你的投資組合跟頭條數字對不上。新進場的人：等市場寬度改善再考慮大舉加碼指數。</p>
+          </div>
+          <div class="article-footer">
+            <a class="read-more" href="#" onclick="event.preventDefault()">
+              <span data-en>Read Full Analysis</span><span data-zh>閱讀完整分析</span> →
+            </a>
+            <div class="share-btns">
+              <button class="share-btn" onclick="shareTwitter('TAIEX Above 21,000: Semiconductor-Led or Broad Bull Market?')" title="Share on X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </button>
+              <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </button>
+              <button class="share-btn" onclick="copyLink()" title="Copy Link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </button>
             </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"NYSE:TSM","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title">Microsoft (MSFT)</span>
-                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"NASDAQ:MSFT","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title">Alphabet (GOOGL)</span>
-                <span class="chart-card-tag tag-stock"><span data-lang-zh>個股</span><span data-lang-en>Stock</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"NASDAQ:GOOGL","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
-        </div>
+      </article>
+
     </div>
+  </div>
 </section>
 
-<!-- ===== PRECIOUS METALS ===== -->
-<section class="section" id="metals">
-    <div class="section-header">
-        <span class="section-icon">🥇</span>
-        <h2 class="section-title"><span data-lang-zh>貴金屬</span><span data-lang-en>Precious Metals</span></h2>
-        <span class="section-badge">METALS</span>
+<!-- ==================== EMAIL CTA ==================== -->
+<section id="subscribe" class="fade-section">
+  <div class="container">
+    <div class="cta-section">
+      <div class="section-label" style="justify-content:center">
+        <span data-en>Stay Informed</span><span data-zh>保持同步</span>
+      </div>
+      <h2 class="cta-title" data-en>Get the Daily Brief in Your Inbox</h2>
+      <h2 class="cta-title" data-zh>每天早上收到市場簡報</h2>
+      <p class="cta-sub" data-en>Join <strong>0</strong> investors who start their morning with Market Pulse.</p>
+      <p class="cta-sub" data-zh>加入 <strong>0</strong> 位投資者的行列，用市場脈動開啟每一天。</p>
+      <div id="ctaFormWrapper">
+        <form class="cta-form" id="ctaForm" onsubmit="handleSubscribe(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email address">
+          <button type="submit" data-en>Subscribe</button>
+          <button type="submit" data-zh>訂閱</button>
+        </form>
+        <p class="cta-note" data-en>Free forever. Unsubscribe anytime. No spam.</p>
+        <p class="cta-note" data-zh>永久免費，隨時取消，絕不寄垃圾信。</p>
+      </div>
+      <div class="cta-success" id="ctaSuccess">
+        <span data-en>🎉 Thanks for subscribing! You'll hear from us tomorrow morning.</span>
+        <span data-zh>🎉 感謝訂閱！明天早上就會收到第一封簡報。</span>
+      </div>
     </div>
-    <div class="chart-grid">
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>黃金 (XAU/USD)</span><span data-lang-en>Gold (XAU/USD)</span></span>
-                <span class="chart-card-tag tag-metal"><span data-lang-zh>貴金屬</span><span data-lang-en>Metal</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"TVC:GOLD","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>白銀 (XAG/USD)</span><span data-lang-en>Silver (XAG/USD)</span></span>
-                <span class="chart-card-tag tag-metal"><span data-lang-zh>貴金屬</span><span data-lang-en>Metal</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"TVC:SILVER","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </section>
 
-<!-- ===== ENERGY ===== -->
-<section class="section" id="energy">
-    <div class="section-header">
-        <span class="section-icon">⛽</span>
-        <h2 class="section-title"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></h2>
-        <span class="section-badge">ENERGY</span>
+<!-- ==================== ABOUT ==================== -->
+<section id="about" class="fade-section">
+  <div class="container">
+    <div class="section-label">
+      <span data-en>About the Author</span><span data-zh>關於作者</span>
     </div>
-    <div class="chart-grid">
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title">WTI <span data-lang-zh>原油</span><span data-lang-en>Crude Oil</span> (CL)</span>
-                <span class="chart-card-tag tag-energy"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"TVC:USOIL","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <span class="chart-card-title"><span data-lang-zh>天然氣</span><span data-lang-en>Natural Gas</span> (NG)</span>
-                <span class="chart-card-tag tag-energy"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></span>
-            </div>
-            <div class="chart-embed">
-                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                    {"autosize":true,"symbol":"PEPPERSTONE:NATGAS","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","hide_top_toolbar":false,"hide_legend":false,"allow_symbol_change":true,"save_image":false,"calendar":false,"hide_volume":false,"support_host":"https://www.tradingview.com","studies":["STD;SMA","STD;RSI","STD;MACD"]}
-                    </script>
-                </div>
-            </div>
-        </div>
+    <h2 class="section-title" data-en>Meet Ke Lin</h2>
+    <h2 class="section-title" data-zh>認識 Ke Lin</h2>
+    <div class="card about-card">
+      <div class="about-avatar">KL</div>
+      <div class="about-info">
+        <div class="about-name">Ke Lin</div>
+        <div class="about-role">UCI Paul Merage School of Business · Master of Finance · CFA Candidate</div>
+        <p class="about-bio" data-en>I spend 15 minutes each morning digesting market data so you don't have to spend 30. Market Pulse distills complex financial markets into clear, actionable insights — written for humans, not algorithms.</p>
+        <p class="about-bio" data-zh>我每天花 15 分鐘整理市場動態，讓你不用自己花 30 分鐘。Market Pulse 將複雜的金融市場濃縮成清晰、可操作的洞察——為人寫的，不是給演算法看的。</p>
+        <a class="about-link" href="https://www.linkedin.com/in/kelin" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ===== QUANTITATIVE SIGNALS ===== -->
-<section class="section" id="signals">
-    <div class="section-header">
-        <span class="section-icon">📊</span>
-        <h2 class="section-title"><span data-lang-zh>量化分析快照</span><span data-lang-en>Quantitative Snapshot</span></h2>
-        <span class="section-badge">QUANT</span>
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-disclaimer" data-en>Disclaimer: The content on this site is for informational and educational purposes only. It does not constitute investment advice. Always do your own research and consult a licensed financial advisor before making investment decisions.</p>
+    <p class="footer-disclaimer" data-zh>免責聲明：本站內容僅供參考和教育用途，不構成投資建議。在做任何投資決定前，請自行研究並諮詢持牌金融顧問。</p>
+    <div class="footer-links">
+      <a href="https://github.com/kelin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/kelin" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-    <p id="signalDesc" style="color:var(--text-muted); font-size:0.82rem; margin-bottom:16px;">
-        <span data-lang-zh>以下信號為靜態示範資料，實際部署後可串接即時 API 更新。紅綠燈系統：🟢 偏多 / 🟡 中性 / 🔴 偏空</span>
-        <span data-lang-en>The following signals are static demo data. Connect to a live API after deployment. Traffic light system: 🟢 Bullish / 🟡 Neutral / 🔴 Bearish</span>
-    </p>
-    <div class="signal-grid" id="signalGrid">
-        <!-- Populated by JS -->
-    </div>
-</section>
-
-<!-- ===== MARKET COMMENTARY ===== -->
-<section class="section" id="commentary">
-    <div class="section-header">
-        <span class="section-icon">📝</span>
-        <h2 class="section-title"><span data-lang-zh>市場評論</span><span data-lang-en>Market Commentary</span></h2>
-        <span class="section-badge">EDITORIAL</span>
-    </div>
-    <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:16px;">
-        <span data-lang-zh>由 Galen 撰寫的市場觀察與分析。如需新增文章，直接編輯下方 HTML 即可。</span>
-        <span data-lang-en>Market observations and analysis by Galen. To add new articles, edit the HTML below.</span>
-    </p>
-    <div class="commentary-list">
-
-        <!-- ====== ARTICLE 1 — ZH ====== -->
-        <article class="commentary-article" data-lang-zh>
-            <div class="commentary-meta">
-                <span class="commentary-date">2026-04-06</span>
-                <span class="commentary-tag">總經觀察</span>
-            </div>
-            <h3 class="commentary-title">聯準會暫停升息後的市場展望：多空交錯的第二季</h3>
-            <div class="commentary-body">
-                <p>隨著聯準會在三月會議後決定維持利率不變，市場進入了一個微妙的觀望期。S&P 500 在突破前高後出現了量能不足的跡象，技術面上 RSI 已經進入超買區域，短期回調的可能性正在增加。</p>
-                <p>值得注意的是，債券殖利率曲線的變化暗示著市場對經濟前景的看法出現分歧。10 年期與 2 年期利差持續收窄，這通常是經濟放緩的先行指標。建議投資人在第二季保持謹慎，適度降低槓桿比例。</p>
-                <hr class="commentary-divider">
-                <p><strong>操作建議：</strong>短線偏空看待，支撐位關注 5,200 點。若跌破則可能下探 5,050 區域。多頭若要重新進場，需等待放量突破 5,400。</p>
-            </div>
-        </article>
-        <!-- ====== ARTICLE 1 — EN ====== -->
-        <article class="commentary-article" data-lang-en>
-            <div class="commentary-meta">
-                <span class="commentary-date">2026-04-06</span>
-                <span class="commentary-tag">Macro Outlook</span>
-            </div>
-            <h3 class="commentary-title">Market Outlook After the Fed Pause: A Mixed Q2</h3>
-            <div class="commentary-body">
-                <p>With the Federal Reserve deciding to hold rates steady after its March meeting, the market has entered a delicate wait-and-see period. The S&P 500 showed signs of weakening volume after breaking previous highs, and technically the RSI has entered overbought territory, increasing the probability of a short-term pullback.</p>
-                <p>Notably, changes in the bond yield curve suggest divergent views on the economic outlook. The 10-year to 2-year spread continues to narrow, which is typically a leading indicator of economic slowdown. We recommend investors remain cautious in Q2 and moderately reduce leverage.</p>
-                <hr class="commentary-divider">
-                <p><strong>Trading Suggestion:</strong> Short-term bearish bias. Watch support at 5,200. A break below could test the 5,050 area. Bulls should wait for a high-volume breakout above 5,400 before re-entering.</p>
-            </div>
-        </article>
-
-        <!-- ====== ARTICLE 2 — ZH ====== -->
-        <article class="commentary-article" data-lang-zh>
-            <div class="commentary-meta">
-                <span class="commentary-date">2026-04-03</span>
-                <span class="commentary-tag">科技股</span>
-            </div>
-            <h3 class="commentary-title">AI 晶片需求持續增長，NVDA 與 TSM 技術面解讀</h3>
-            <div class="commentary-body">
-                <p>NVIDIA 在最新財報後股價創下歷史新高，數據中心收入的爆發性增長超出市場預期。從技術面來看，NVDA 週線呈現強勢的多頭排列，5 週均線與 20 週均線持續擴張，MACD 柱狀體在零軸上方放大。</p>
-                <p>台積電 ADR（TSM）受惠於 AI 訂單的強勁增長，股價在月線級別已確認突破長期箱型整理。然而短期 RSI 已達 72，接近超買區間，追高風險偏高。建議關注回測前高作為支撐時的進場機會。</p>
-                <hr class="commentary-divider">
-                <p><strong>關注焦點：</strong>本週 MSFT 與 GOOGL 將公布財報，若雲端業務數據不如預期，可能引發科技股整體修正。</p>
-            </div>
-        </article>
-        <!-- ====== ARTICLE 2 — EN ====== -->
-        <article class="commentary-article" data-lang-en>
-            <div class="commentary-meta">
-                <span class="commentary-date">2026-04-03</span>
-                <span class="commentary-tag">Tech Stocks</span>
-            </div>
-            <h3 class="commentary-title">AI Chip Demand Continues to Surge: NVDA & TSM Technical Analysis</h3>
-            <div class="commentary-body">
-                <p>NVIDIA hit all-time highs following its latest earnings report, with explosive data center revenue growth exceeding market expectations. Technically, NVDA's weekly chart shows a strong bullish alignment — the 5-week and 20-week moving averages continue to diverge, with the MACD histogram expanding above the zero line.</p>
-                <p>TSMC's ADR (TSM) benefited from robust AI order growth, with the monthly chart confirming a breakout from a long-term consolidation range. However, the short-term RSI has reached 72, approaching overbought territory, making chasing highs risky. Watch for a retest of the previous high as support for entry opportunities.</p>
-                <hr class="commentary-divider">
-                <p><strong>Key Watch:</strong> MSFT and GOOGL report earnings this week. If cloud business numbers disappoint, it could trigger a broader tech correction.</p>
-            </div>
-        </article>
-
-        <!-- ====== ARTICLE 3 — ZH ====== -->
-        <article class="commentary-article" data-lang-zh>
-            <div class="commentary-meta">
-                <span class="commentary-date">2026-03-30</span>
-                <span class="commentary-tag">原物料</span>
-            </div>
-            <h3 class="commentary-title">黃金突破 2,400 後的策略思考</h3>
-            <div class="commentary-body">
-                <p>黃金價格在地緣政治風險與降息預期的雙重推動下，成功站上 2,400 美元關口。從量化角度來看，月線級別的布林帶正在擴張，暗示趨勢可能加速。然而日線 RSI 已連續三天處於超買區域，短期拉回風險不可忽視。</p>
-                <p>原油方面，WTI 受到 OPEC+ 減產協議延長的支撐，但全球經濟放緩的隱憂讓多頭動能受限。目前油價在 80-85 美元區間震盪，突破方向將取決於本月公布的需求數據。</p>
-                <hr class="commentary-divider">
-                <p><strong>操作建議：</strong>黃金維持多頭思維，但短線建議等待回測 2,350 支撐再加碼。原油觀望為主，等待方向確認。</p>
-            </div>
-        </article>
-        <!-- ====== ARTICLE 3 — EN ====== -->
-        <article class="commentary-article" data-lang-en>
-            <div class="commentary-meta">
-                <span class="commentary-date">2026-03-30</span>
-                <span class="commentary-tag">Commodities</span>
-            </div>
-            <h3 class="commentary-title">Strategic Thinking After Gold Breaks $2,400</h3>
-            <div class="commentary-body">
-                <p>Gold prices successfully breached the $2,400 level, driven by a combination of geopolitical risks and rate-cut expectations. From a quantitative perspective, the monthly Bollinger Bands are expanding, suggesting the trend could accelerate. However, the daily RSI has been in overbought territory for three consecutive days — short-term pullback risk should not be ignored.</p>
-                <p>On the crude oil front, WTI is supported by the extension of the OPEC+ production cut agreement, but concerns about global economic slowdown are limiting bullish momentum. Oil is currently oscillating in the $80–85 range, with the breakout direction depending on demand data to be released this month.</p>
-                <hr class="commentary-divider">
-                <p><strong>Trading Suggestion:</strong> Maintain a bullish bias on gold, but wait for a retest of the $2,350 support level before adding positions. Stay on the sidelines for crude oil until direction is confirmed.</p>
-            </div>
-        </article>
-
-        <!-- ====== 新增文章模板 / NEW ARTICLE TEMPLATE ======
-        <article class="commentary-article" data-lang-zh>
-            <div class="commentary-meta">
-                <span class="commentary-date">YYYY-MM-DD</span>
-                <span class="commentary-tag">標籤</span>
-            </div>
-            <h3 class="commentary-title">你的文章標題</h3>
-            <div class="commentary-body">
-                <p>你的文章內容...</p>
-            </div>
-        </article>
-        <article class="commentary-article" data-lang-en>
-            <div class="commentary-meta">
-                <span class="commentary-date">YYYY-MM-DD</span>
-                <span class="commentary-tag">Tag</span>
-            </div>
-            <h3 class="commentary-title">Your Article Title</h3>
-            <div class="commentary-body">
-                <p>Your article content...</p>
-            </div>
-        </article>
-        -->
-
-    </div>
-</section>
-
-</div><!-- /main-content -->
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <p>Market Pulse | <span data-lang-zh>市場脈動</span><span data-lang-en>Market Pulse</span> &copy; 2026 Galen (Ke Lin)</p>
-    <p class="disclaimer">
-        <span data-lang-zh>本站內容僅供研究參考，不構成任何投資建議。投資有風險，入市需謹慎。圖表數據由 TradingView 提供。</span>
-        <span data-lang-en>This site is for research purposes only and does not constitute investment advice. Investing involves risk. Chart data provided by TradingView.</span>
-    </p>
+    <p class="footer-copy">&copy; 2026 Ke Lin. All rights reserved.</p>
+  </div>
 </footer>
 
-<!-- Back to Top -->
-<button class="back-to-top" id="backToTop" aria-label="回到頂部">↑</button>
+<!-- Copy Toast -->
+<div class="copy-toast" id="copyToast">
+  <span data-en>Link copied!</span><span data-zh>連結已複製！</span>
+</div>
 
+<!-- ==================== TRADINGVIEW WIDGETS ==================== -->
 <script>
-(function() {
-    // ===== LANGUAGE STATE =====
-    var currentLang = 'zh'; // default: Traditional Chinese
+// TradingView widget loader
+function loadTVWidget(containerId, symbol, width) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = `
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+    </div>`;
+  const script = document.createElement('script');
+  script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    autosize: true,
+    symbol: symbol,
+    interval: "D",
+    timezone: "Etc/UTC",
+    theme: "dark",
+    style: "1",
+    locale: "en",
+    backgroundColor: "rgba(10, 14, 23, 1)",
+    gridColor: "rgba(255, 255, 255, 0.04)",
+    hide_top_toolbar: false,
+    hide_legend: false,
+    allow_symbol_change: true,
+    save_image: false,
+    calendar: false,
+    hide_volume: false,
+    support_host: "https://www.tradingview.com"
+  });
+  container.querySelector('.tradingview-widget-container').appendChild(script);
+}
 
-    function setLang(lang) {
-        currentLang = lang;
-        if (lang === 'en') {
-            document.body.classList.add('lang-en');
-            document.documentElement.lang = 'en';
-        } else {
-            document.body.classList.remove('lang-en');
-            document.documentElement.lang = 'zh-Hant';
-        }
-        // Re-render signal cards for the new language
-        renderSignals();
-        // Update toggle button text
-        var btn = document.getElementById('langToggle');
-        btn.textContent = lang === 'en' ? '中文 / EN' : 'EN / 中文';
-    }
+// ==================== MAIN JS ====================
+document.addEventListener('DOMContentLoaded', function() {
 
-    // ===== LANGUAGE TOGGLE =====
-    document.getElementById('langToggle').addEventListener('click', function() {
-        setLang(currentLang === 'zh' ? 'en' : 'zh');
+  // -- Date --
+  const now = new Date();
+  const optionsEn = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  const optionsZh = { year:'numeric', month:'long', day:'numeric', weekday:'long' };
+  const dateEn = now.toLocaleDateString('en-US', optionsEn);
+  const dateZh = now.toLocaleDateString('zh-TW', optionsZh);
+  document.getElementById('heroDate').innerHTML =
+    `<span data-en>${dateEn}</span><span data-zh>${dateZh}</span>`;
+
+  // -- Fear & Greed Gauge --
+  const gaugeValue = 72;
+  const circumference = 2 * Math.PI * 40; // ~251
+  const offset = circumference - (gaugeValue / 100) * circumference;
+  const gaugeFill = document.getElementById('gaugeFill');
+  gaugeFill.style.setProperty('--target-offset', offset);
+
+  // Color based on value
+  let gaugeColor = '#f0b90b';
+  if (gaugeValue <= 25) gaugeColor = '#ff1744';
+  else if (gaugeValue <= 45) gaugeColor = '#ff9100';
+  else if (gaugeValue <= 55) gaugeColor = '#ffc107';
+  else if (gaugeValue <= 75) gaugeColor = '#f0b90b';
+  else gaugeColor = '#00c853';
+  gaugeFill.style.stroke = gaugeColor;
+
+  setTimeout(() => {
+    gaugeFill.style.strokeDashoffset = offset;
+  }, 300);
+
+  // -- Tabs --
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      // Activate both EN and ZH buttons for same tab
+      document.querySelectorAll(`.tab-btn[data-tab="${tab}"]`).forEach(b => b.classList.add('active'));
+      tabPanels.forEach(p => {
+        p.classList.remove('active');
+        if (p.dataset.panel === tab) p.classList.add('active');
+      });
+      // Load chart on first activation
+      loadChartForTab(tab);
     });
+  });
 
-    // ===== HAMBURGER MENU =====
-    var hamburger = document.getElementById('hamburger');
-    var navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', function() { navLinks.classList.toggle('open'); });
-    navLinks.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function() { navLinks.classList.remove('open'); });
+  const chartsLoaded = {};
+  function loadChartForTab(tab) {
+    if (chartsLoaded[tab]) return;
+    chartsLoaded[tab] = true;
+    const map = {
+      us: ['chart-us', 'SP:SPX'],
+      tw: ['chart-tw', 'TWSE:TAIEX'],
+      tech: ['chart-tech', 'NASDAQ:QQQ'],
+      metals: ['chart-metals', 'TVC:GOLD'],
+      energy: ['chart-energy', 'TVC:USOIL']
+    };
+    if (map[tab]) loadTVWidget(map[tab][0], map[tab][1]);
+  }
+  // Load first chart
+  loadChartForTab('us');
+
+  // -- Mobile menu --
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  mobileBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  // Close on link click
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // -- Fade in sections --
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
     });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-section').forEach(s => observer.observe(s));
 
-    // ===== ACTIVE NAV HIGHLIGHT =====
-    var sections = document.querySelectorAll('.section, .hero');
-    var navItems = navLinks.querySelectorAll('a');
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                var id = entry.target.id;
-                navItems.forEach(function(a) {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-                });
-            }
-        });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    sections.forEach(function(s) { observer.observe(s); });
-
-    // ===== BACK TO TOP =====
-    var topBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-        topBtn.classList.toggle('show', window.scrollY > 600);
+  // -- Smooth scroll for nav links --
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
     });
-    topBtn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  });
 
-    // ===== SIGNAL DATA (DEMO) =====
-    var signals = [
-        { symbol: 'S&P 500', name: 'SPX', trend: 'up',
-          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 68, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性偏高', en: 'Neutral-High' }, ma: 'bullish',
-          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
-        { symbol: 'NASDAQ', name: 'NDX', trend: 'up',
-          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 72, rsiStatus: 'warning',
-          rsiLabel: { zh: '接近超買', en: 'Near Overbought' }, ma: 'bullish',
-          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
-        { symbol: { zh: '道瓊', en: 'Dow Jones' }, name: 'DJI', trend: 'neutral',
-          trendLabel: { zh: '盤整', en: 'Consolidating' }, rsi: 55, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'neutral',
-          maLabel: { zh: '糾結', en: 'Tangled' } },
-        { symbol: { zh: '台灣加權', en: 'TAIEX' }, name: 'TWII', trend: 'up',
-          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 63, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'bullish',
-          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
-        { symbol: 'AAPL', name: 'Apple', trend: 'neutral',
-          trendLabel: { zh: '盤整', en: 'Consolidating' }, rsi: 50, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'neutral',
-          maLabel: { zh: '糾結', en: 'Tangled' } },
-        { symbol: 'NVDA', name: 'NVIDIA', trend: 'up',
-          trendLabel: { zh: '強勢多頭', en: 'Strong Bull' }, rsi: 78, rsiStatus: 'danger',
-          rsiLabel: { zh: '超買', en: 'Overbought' }, ma: 'bullish',
-          maLabel: { zh: '強勢多頭', en: 'Strong Bull' } },
-        { symbol: 'TSM', name: { zh: '台積電', en: 'TSMC' }, trend: 'up',
-          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 72, rsiStatus: 'warning',
-          rsiLabel: { zh: '接近超買', en: 'Near Overbought' }, ma: 'bullish',
-          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
-        { symbol: 'MSFT', name: 'Microsoft', trend: 'up',
-          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 65, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'bullish',
-          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
-        { symbol: 'GOOGL', name: 'Alphabet', trend: 'down',
-          trendLabel: { zh: '偏空', en: 'Bearish' }, rsi: 38, rsiStatus: 'warning',
-          rsiLabel: { zh: '接近超賣', en: 'Near Oversold' }, ma: 'bearish',
-          maLabel: { zh: '空頭排列', en: 'Bearish Align' } },
-        { symbol: 'XAU/USD', name: { zh: '黃金', en: 'Gold' }, trend: 'up',
-          trendLabel: { zh: '強勢多頭', en: 'Strong Bull' }, rsi: 76, rsiStatus: 'danger',
-          rsiLabel: { zh: '超買', en: 'Overbought' }, ma: 'bullish',
-          maLabel: { zh: '強勢多頭', en: 'Strong Bull' } },
-        { symbol: 'XAG/USD', name: { zh: '白銀', en: 'Silver' }, trend: 'up',
-          trendLabel: { zh: '偏多', en: 'Bullish' }, rsi: 64, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'bullish',
-          maLabel: { zh: '多頭排列', en: 'Bullish Align' } },
-        { symbol: { zh: 'WTI 原油', en: 'WTI Crude' }, name: 'CL', trend: 'neutral',
-          trendLabel: { zh: '盤整', en: 'Consolidating' }, rsi: 48, rsiStatus: 'neutral',
-          rsiLabel: { zh: '中性', en: 'Neutral' }, ma: 'neutral',
-          maLabel: { zh: '糾結', en: 'Tangled' } },
-        { symbol: { zh: '天然氣', en: 'Nat Gas' }, name: 'NG', trend: 'down',
-          trendLabel: { zh: '偏空', en: 'Bearish' }, rsi: 32, rsiStatus: 'danger',
-          rsiLabel: { zh: '超賣', en: 'Oversold' }, ma: 'bearish',
-          maLabel: { zh: '空頭排列', en: 'Bearish Align' } },
-    ];
+}); // end DOMContentLoaded
 
-    function t(val) {
-        if (typeof val === 'string') return val;
-        return val[currentLang] || val.zh;
-    }
+// -- Language --
+function setLang(lang) {
+  document.documentElement.dataset.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (lang === 'en' ? 'EN' : '中文'));
+  });
+}
 
-    function dotClass(status) {
-        if (status === 'danger') return 'dot-red';
-        if (status === 'warning') return 'dot-yellow';
-        return 'dot-green';
-    }
-    function trendClass(tr) {
-        if (tr === 'up') return 'trend-up';
-        if (tr === 'down') return 'trend-down';
-        return 'trend-neutral';
-    }
-    function maDot(ma) {
-        if (ma === 'bullish') return 'dot-green';
-        if (ma === 'bearish') return 'dot-red';
-        return 'dot-yellow';
-    }
-    function trendArrow(tr) {
-        if (tr === 'up') return '&#9650;';
-        if (tr === 'down') return '&#9660;';
-        return '&#9670;';
-    }
+// -- Subscribe --
+function handleSubscribe(e) {
+  e.preventDefault();
+  document.getElementById('ctaFormWrapper').style.display = 'none';
+  document.getElementById('ctaSuccess').classList.add('show');
+}
 
-    var labelTrend = { zh: '趨勢方向', en: 'Trend' };
-    var labelMA    = { zh: '均線排列', en: 'MA Alignment' };
-
-    function renderSignals() {
-        var grid = document.getElementById('signalGrid');
-        var html = '';
-        signals.forEach(function(s) {
-            html += '<div class="signal-card">' +
-                '<div class="signal-header">' +
-                    '<div>' +
-                        '<div class="signal-symbol">' + t(s.symbol) + '</div>' +
-                        '<div class="signal-name">' + t(s.name) + '</div>' +
-                    '</div>' +
-                    '<span class="' + trendClass(s.trend) + '" style="font-size:1.4rem;">' + trendArrow(s.trend) + '</span>' +
-                '</div>' +
-                '<div class="signal-rows">' +
-                    '<div class="signal-row">' +
-                        '<span class="signal-label">' + t(labelTrend) + '</span>' +
-                        '<span class="signal-value ' + trendClass(s.trend) + '">' + t(s.trendLabel) + '</span>' +
-                    '</div>' +
-                    '<div class="signal-row">' +
-                        '<span class="signal-label">RSI (' + s.rsi + ')</span>' +
-                        '<span class="signal-value"><span class="dot ' + dotClass(s.rsiStatus) + '"></span>' + t(s.rsiLabel) + '</span>' +
-                    '</div>' +
-                    '<div class="signal-row">' +
-                        '<span class="signal-label">' + t(labelMA) + '</span>' +
-                        '<span class="signal-value"><span class="dot ' + maDot(s.ma) + '"></span>' + t(s.maLabel) + '</span>' +
-                    '</div>' +
-                '</div>' +
-            '</div>';
-        });
-        grid.innerHTML = html;
-    }
-
-    // Initial render
-    renderSignals();
-})();
+// -- Sharing --
+function shareTwitter(title) {
+  const text = encodeURIComponent(`${title}\n\nRead more on Market Pulse 📈`);
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+}
+function shareLinkedIn() {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
 </script>
 
 </body>
