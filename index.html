@@ -290,6 +290,94 @@ footer p { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.8; }
 footer a { color: var(--text-secondary); text-decoration: none; }
 footer a:hover { color: var(--text); }
 
+/* ── ETF Analysis ── */
+.etf-tab-btn {
+  background: var(--card); border: 1px solid var(--card-border);
+  color: var(--text-secondary); padding: 8px 18px; border-radius: 8px;
+  font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.etf-tab-btn.active { background: var(--gold); color: #0a0e17; border-color: var(--gold); }
+.etf-tab-panel { display: none; }
+.etf-tab-panel.active { display: block; }
+.etf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem; }
+.etf-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; overflow: hidden;
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.etf-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+.etf-card-header { padding: 1rem 1.1rem 0.65rem; display: flex; align-items: flex-start; justify-content: space-between; }
+.etf-ticker { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+.etf-full-name { font-size: 0.73rem; color: var(--text-secondary); margin-top: 0.15rem; }
+.etf-aum { font-size: 0.68rem; color: var(--text-secondary); opacity: 0.7; font-weight: 500; margin-top: 0.1rem; }
+.etf-signals { display: flex; gap: 0.4rem; padding: 0 1.1rem 1rem; }
+.etf-signal {
+  flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  border-radius: 7px; padding: 0.45rem 0.3rem; text-align: center;
+}
+.etf-signal-name { font-size: 0.62rem; color: var(--text-secondary); margin-bottom: 0.15rem; font-weight: 500; }
+.etf-signal-val { font-size: 0.72rem; font-weight: 700; }
+.etf-signal-val.bullish { color: var(--green); }
+.etf-signal-val.bearish { color: var(--red); }
+.etf-signal-val.neutral { color: var(--gold); }
+
+/* ── Sector Analysis ── */
+.sectors-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; margin-top: 0.5rem;
+}
+.sector-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 12px; overflow: hidden;
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.sector-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+.sector-card-header { padding: 0.75rem 0.85rem 0.35rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+.sector-name-main { font-size: 0.83rem; font-weight: 700; line-height: 1.3; }
+.sector-etf-tag { font-size: 0.7rem; font-weight: 700; color: var(--gold); white-space: nowrap; margin-top: 0.1rem; }
+.trend-badge {
+  display: inline-block; font-size: 0.63rem; font-weight: 700; padding: 2px 7px;
+  border-radius: 4px; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; margin-top: 0.25rem;
+}
+.trend-badge.bullish { background: rgba(0,200,83,0.15); color: var(--green); }
+.trend-badge.bearish { background: rgba(255,23,68,0.15); color: var(--red); }
+.trend-badge.neutral { background: rgba(240,185,11,0.15); color: var(--gold); }
+.sector-desc { font-size: 0.71rem; color: var(--text-secondary); padding: 0 0.85rem 0.8rem; line-height: 1.5; }
+
+/* ── Investment Themes ── */
+.themes-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin-top: 0.5rem;
+}
+.theme-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; padding: 1.2rem 1.3rem;
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.theme-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+.theme-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.55rem; }
+.theme-card-left { display: flex; align-items: center; gap: 0.65rem; }
+.theme-icon { font-size: 1.45rem; line-height: 1; flex-shrink: 0; }
+.theme-name-zh { font-size: 0.9rem; font-weight: 700; line-height: 1.2; }
+.theme-name-sub { font-size: 0.72rem; color: var(--text-secondary); font-weight: 400; }
+.theme-tickers { display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.5rem 0; }
+.theme-ticker-tag {
+  font-size: 0.67rem; font-weight: 700; padding: 2px 7px;
+  border-radius: 4px; background: rgba(240,185,11,0.1); color: var(--gold);
+  border: 1px solid rgba(240,185,11,0.2);
+}
+.theme-desc { font-size: 0.79rem; color: var(--text-secondary); line-height: 1.6; }
+.trend-badge.hot { background: rgba(255,23,68,0.15); color: var(--red); }
+.trend-badge.warm { background: rgba(240,185,11,0.15); color: var(--gold); }
+.trend-badge.cool { background: rgba(100,180,255,0.15); color: #64b4ff; }
+
+@media (max-width: 900px) {
+  .sectors-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ── Mobile ── */
 @media (max-width: 768px) {
   body { font-size: 14px; }
@@ -312,6 +400,11 @@ footer a:hover { color: var(--text); }
   .tradingview-widget-container { min-height: 300px; }
   .toc-links { gap: 0.5rem; }
   .toc-links a { font-size: 0.82rem; padding: 0.45rem 0.8rem; }
+  .etf-grid { grid-template-columns: 1fr; }
+  .themes-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 580px) {
+  .sectors-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 420px) {
   .snapshot-grid { grid-template-columns: 1fr; }
@@ -329,6 +422,9 @@ footer a:hover { color: var(--text); }
     <li><a href="#snapshot"><span data-lang-zh>快照</span><span data-lang-en>Snapshot</span></a></li>
     <li><a href="#chart"><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a></li>
     <li><a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a></li>
+    <li><a href="#etf">ETF</a></li>
+    <li><a href="#sectors"><span data-lang-zh>產業</span><span data-lang-en>Sectors</span></a></li>
+    <li><a href="#themes"><span data-lang-zh>題材</span><span data-lang-en>Themes</span></a></li>
     <li><a href="#subscribe"><span data-lang-zh>訂閱</span><span data-lang-en>Subscribe</span></a></li>
     <li><a href="#methodology"><span data-lang-zh>方法論</span><span data-lang-en>Methodology</span></a></li>
     <li><a href="#about"><span data-lang-zh>關於</span><span data-lang-en>About</span></a></li>
@@ -794,6 +890,619 @@ footer a:hover { color: var(--text); }
   </div>
 </section>
 
+<!-- ═══ ETF Analysis ═══ -->
+<section id="etf">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>ETF 分析</span><span data-lang-en>ETF Analysis</span></p>
+    <h2 class="section-title"><span data-lang-zh>ETF 分析</span><span data-lang-en>ETF Analysis</span></h2>
+
+    <div class="tabs" style="margin-bottom:1.25rem;">
+      <button class="etf-tab-btn active" data-etf-tab="us-etf"><span data-lang-zh>美股 ETF</span><span data-lang-en>US ETF</span></button>
+      <button class="etf-tab-btn" data-etf-tab="tw-etf"><span data-lang-zh>台股 ETF</span><span data-lang-en>TW ETF</span></button>
+    </div>
+
+    <!-- US ETFs -->
+    <div class="etf-tab-panel active" id="etf-panel-us-etf">
+      <div class="etf-grid">
+
+        <!-- SPY -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">SPY</div>
+              <div class="etf-full-name">SPDR S&amp;P 500 ETF Trust</div>
+              <div class="etf-aum">AUM: $500B+</div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"AMEX:SPY","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bearish"><span data-lang-zh>下降</span><span data-lang-en>Down</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">41</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+        <!-- IVV -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">IVV</div>
+              <div class="etf-full-name">iShares Core S&amp;P 500 ETF</div>
+              <div class="etf-aum">AUM: $450B+</div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"AMEX:IVV","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bearish"><span data-lang-zh>下降</span><span data-lang-en>Down</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">41</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+        <!-- VOO -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">VOO</div>
+              <div class="etf-full-name">Vanguard S&amp;P 500 ETF</div>
+              <div class="etf-aum">AUM: $400B+</div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"AMEX:VOO","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bearish"><span data-lang-zh>下降</span><span data-lang-en>Down</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">41</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+        <!-- VTI -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">VTI</div>
+              <div class="etf-full-name">Vanguard Total Stock Market ETF</div>
+              <div class="etf-aum">AUM: $380B+</div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"AMEX:VTI","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bearish"><span data-lang-zh>下降</span><span data-lang-en>Down</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">40</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+        <!-- QQQ -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">QQQ</div>
+              <div class="etf-full-name">Invesco Nasdaq 100 ETF</div>
+              <div class="etf-aum">AUM: $250B+</div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"NASDAQ:QQQ","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bearish"><span data-lang-zh>下降</span><span data-lang-en>Down</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">42</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TW ETFs -->
+    <div class="etf-tab-panel" id="etf-panel-tw-etf">
+      <div class="etf-grid">
+
+        <!-- 0050 -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">0050</div>
+              <div class="etf-full-name"><span data-lang-zh>元大台灣50</span><span data-lang-en>Yuanta Taiwan Top 50</span></div>
+              <div class="etf-aum"><span data-lang-zh>規模最大</span><span data-lang-en>Largest AUM</span></div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TWSE:0050","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val neutral">49</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+        <!-- 0056 -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">0056</div>
+              <div class="etf-full-name"><span data-lang-zh>元大高股息</span><span data-lang-en>Yuanta High Dividend ETF</span></div>
+              <div class="etf-aum"><span data-lang-zh>高股息代表</span><span data-lang-en>High Dividend</span></div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TWSE:0056","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val neutral">50</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+          </div>
+        </div>
+
+        <!-- 00878 -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">00878</div>
+              <div class="etf-full-name"><span data-lang-zh>國泰永續高股息</span><span data-lang-en>Cathay Sustainable High Dividend</span></div>
+              <div class="etf-aum"><span data-lang-zh>ESG 高股息</span><span data-lang-en>ESG High Dividend</span></div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TWSE:00878","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val neutral">48</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+          </div>
+        </div>
+
+        <!-- 00919 -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">00919</div>
+              <div class="etf-full-name"><span data-lang-zh>群益台灣精選高息</span><span data-lang-en>Capital TW Select High Income</span></div>
+              <div class="etf-aum"><span data-lang-zh>精選高息</span><span data-lang-en>Select High Income</span></div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TWSE:00919","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bullish"><span data-lang-zh>上升</span><span data-lang-en>Up</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bullish">53</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val bullish"><span data-lang-zh>多排</span><span data-lang-en>Bull</span></div></div>
+          </div>
+        </div>
+
+        <!-- 00929 -->
+        <div class="etf-card">
+          <div class="etf-card-header">
+            <div>
+              <div class="etf-ticker">00929</div>
+              <div class="etf-full-name"><span data-lang-zh>復華台灣科技優息</span><span data-lang-en>FuHwa TW Tech Income ETF</span></div>
+              <div class="etf-aum"><span data-lang-zh>科技優息</span><span data-lang-en>Tech Income</span></div>
+            </div>
+          </div>
+          <div class="tradingview-widget-container" style="height:200px;">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TWSE:00929","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+          <div class="etf-signals">
+            <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+            <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">44</div></div>
+            <div class="etf-signal"><div class="etf-signal-name">MA</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Sector Analysis ═══ -->
+<section id="sectors">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>產業分析</span><span data-lang-en>Sector Analysis</span></p>
+    <h2 class="section-title"><span data-lang-zh>GICS 11 大產業</span><span data-lang-en>GICS 11 Sectors</span></h2>
+
+    <div class="sectors-grid">
+
+      <!-- XLK -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>資訊科技</span><span data-lang-en>Information Technology</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLK</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLK","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>AI 晶片與雲端服務主導，本季面臨估值壓縮。</span><span data-lang-en>AI chips and cloud services dominate; valuation compression this quarter.</span></div>
+      </div>
+
+      <!-- XLV -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>醫療保健</span><span data-lang-en>Health Care</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLV</div>
+            <span class="trend-badge neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLV","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>GLP-1 藥物與基因治療帶動生技，防禦屬性突出。</span><span data-lang-en>GLP-1 drugs and gene therapy drive biotech; defensive characteristics stand out.</span></div>
+      </div>
+
+      <!-- XLF -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>金融</span><span data-lang-en>Financials</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLF</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLF","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>利率走向與信貸品質是關鍵，銀行股承壓。</span><span data-lang-en>Rate trajectory and credit quality are key; bank stocks under pressure.</span></div>
+      </div>
+
+      <!-- XLY -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>非必需消費</span><span data-lang-en>Consumer Discretionary</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLY</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLY","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>消費信心降溫，電動車與零售股承壓。</span><span data-lang-en>Consumer confidence softening; EV and retail stocks under pressure.</span></div>
+      </div>
+
+      <!-- XLC -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>通訊服務</span><span data-lang-en>Communication Services</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLC</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLC","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>廣告與串流平台受益 AI，監管壓力持續。</span><span data-lang-en>Ad-supported streaming benefits from AI, but regulatory risks persist.</span></div>
+      </div>
+
+      <!-- XLI -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>工業</span><span data-lang-en>Industrials</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLI</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLI","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>基礎建設支出支撐，製造業 PMI 走軟需留意。</span><span data-lang-en>Infrastructure spending supports sector; watch for softening manufacturing PMI.</span></div>
+      </div>
+
+      <!-- XLP -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>必需消費</span><span data-lang-en>Consumer Staples</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLP</div>
+            <span class="trend-badge neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLP","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>防禦屬性強，通膨趨緩有利利潤率擴張。</span><span data-lang-en>Strong defensive characteristics; easing inflation supports margin expansion.</span></div>
+      </div>
+
+      <!-- XLE -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>能源</span><span data-lang-en>Energy</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLE</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLE","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>油價波動加劇，OPEC+ 供給決策為主要變數。</span><span data-lang-en>Crude oil volatility elevated; OPEC+ supply decisions are the primary swing factor.</span></div>
+      </div>
+
+      <!-- XLU -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>公用事業</span><span data-lang-en>Utilities</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLU</div>
+            <span class="trend-badge neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLU","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>AI 資料中心用電需求帶動電力股，利率敏感需留意。</span><span data-lang-en>AI data center power demand boosts utilities; rate sensitivity remains a risk.</span></div>
+      </div>
+
+      <!-- XLRE -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>房地產</span><span data-lang-en>Real Estate</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLRE</div>
+            <span class="trend-badge neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLRE","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>降息預期提振 REIT，辦公大樓空置率仍偏高。</span><span data-lang-en>Rate-cut expectations support REITs; office vacancies remain structurally elevated.</span></div>
+      </div>
+
+      <!-- XLB -->
+      <div class="sector-card">
+        <div class="sector-card-header">
+          <div class="sector-name-main"><span data-lang-zh>原物料</span><span data-lang-en>Materials</span></div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="sector-etf-tag">XLB</div>
+            <span class="trend-badge bearish"><span data-lang-zh>偏空</span><span data-lang-en>Bearish</span></span>
+          </div>
+        </div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:XLB","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+          </script>
+        </div>
+        <div class="sector-desc"><span data-lang-zh>中國需求與全球製造業活動是主要驅動力。</span><span data-lang-en>China demand and global manufacturing activity are the primary demand drivers.</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Investment Themes ═══ -->
+<section id="themes">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>投資題材</span><span data-lang-en>Investment Themes</span></p>
+    <h2 class="section-title"><span data-lang-zh>熱門投資題材</span><span data-lang-en>Trending Investment Themes</span></h2>
+
+    <div class="themes-grid">
+
+      <!-- AI -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">🤖</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>人工智慧</span><span data-lang-en>AI</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>AI</span><span data-lang-en>人工智慧</span></div>
+            </div>
+          </div>
+          <span class="trend-badge hot">🔥 Hot</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">NVDA</span><span class="theme-ticker-tag">MSFT</span><span class="theme-ticker-tag">GOOGL</span><span class="theme-ticker-tag">AMD</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>AI 基礎建設與應用驅動下一波科技週期。</span><span data-lang-en>AI infrastructure and applications driving the next tech cycle.</span></div>
+      </div>
+
+      <!-- EV -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">🔋</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>電動車</span><span data-lang-en>EV</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>EV</span><span data-lang-en>電動車</span></div>
+            </div>
+          </div>
+          <span class="trend-badge cool">❄️ Cool</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">TSLA</span><span class="theme-ticker-tag">RIVN</span><span class="theme-ticker-tag">BYD</span><span class="theme-ticker-tag">LI</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>全球電動車滲透率加速，政策順風持續。</span><span data-lang-en>Global EV adoption accelerating with policy tailwinds.</span></div>
+      </div>
+
+      <!-- Clean Energy -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">⚡</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>綠能</span><span data-lang-en>Clean Energy</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>Clean Energy</span><span data-lang-en>綠能</span></div>
+            </div>
+          </div>
+          <span class="trend-badge warm">🌤 Warm</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">ENPH</span><span class="theme-ticker-tag">FSLR</span><span class="theme-ticker-tag">ICLN</span><span class="theme-ticker-tag">TAN</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>再生能源轉型與電網現代化帶來長期機會。</span><span data-lang-en>Renewable energy transition and grid modernization.</span></div>
+      </div>
+
+      <!-- Cybersecurity -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">🛡️</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>網路安全</span><span data-lang-en>Cybersecurity</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>Cybersecurity</span><span data-lang-en>網路安全</span></div>
+            </div>
+          </div>
+          <span class="trend-badge hot">🔥 Hot</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">CRWD</span><span class="theme-ticker-tag">PANW</span><span class="theme-ticker-tag">ZS</span><span class="theme-ticker-tag">FTNT</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>網路威脅上升推動企業資安支出快速增長。</span><span data-lang-en>Rising cyber threats fueling enterprise security spend.</span></div>
+      </div>
+
+      <!-- Biotech -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">🧬</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>生技</span><span data-lang-en>Biotech</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>Biotech</span><span data-lang-en>生技</span></div>
+            </div>
+          </div>
+          <span class="trend-badge warm">🌤 Warm</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">XBI</span><span class="theme-ticker-tag">MRNA</span><span class="theme-ticker-tag">VRTX</span><span class="theme-ticker-tag">REGN</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>基因療法與 GLP-1 藥物重塑醫療保健版圖。</span><span data-lang-en>Gene therapy and GLP-1 drugs reshaping healthcare.</span></div>
+      </div>
+
+      <!-- Space -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">🛰️</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>太空</span><span data-lang-en>Space</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>Space</span><span data-lang-en>太空</span></div>
+            </div>
+          </div>
+          <span class="trend-badge warm">🌤 Warm</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">RKLB</span><span class="theme-ticker-tag">BA</span><span class="theme-ticker-tag">LMT</span><span class="theme-ticker-tag">ASTS</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>商業太空與衛星通訊迎來爆發性成長。</span><span data-lang-en>Commercial space and satellite communications boom.</span></div>
+      </div>
+
+      <!-- Infrastructure -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">🏗️</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>基礎建設</span><span data-lang-en>Infrastructure</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>Infrastructure</span><span data-lang-en>基礎建設</span></div>
+            </div>
+          </div>
+          <span class="trend-badge warm">🌤 Warm</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">CAT</span><span class="theme-ticker-tag">DE</span><span class="theme-ticker-tag">VMC</span><span class="theme-ticker-tag">URI</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>政府投入道路、橋梁與數位基礎建設。</span><span data-lang-en>Government spending on roads, bridges, and digital infra.</span></div>
+      </div>
+
+      <!-- Semiconductors -->
+      <div class="theme-card">
+        <div class="theme-card-top">
+          <div class="theme-card-left">
+            <span class="theme-icon">💎</span>
+            <div>
+              <div class="theme-name-zh"><span data-lang-zh>半導體</span><span data-lang-en>Semiconductors</span></div>
+              <div class="theme-name-sub"><span data-lang-zh>Semiconductors</span><span data-lang-en>半導體</span></div>
+            </div>
+          </div>
+          <span class="trend-badge hot">🔥 Hot</span>
+        </div>
+        <div class="theme-tickers">
+          <span class="theme-ticker-tag">TSM</span><span class="theme-ticker-tag">AVGO</span><span class="theme-ticker-tag">ASML</span><span class="theme-ticker-tag">LRCX</span>
+        </div>
+        <div class="theme-desc"><span data-lang-zh>AI 晶片需求與先進封裝帶動半導體業高成長。</span><span data-lang-en>AI chip demand and advanced packaging growth.</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══ Newsletter CTA ═══ -->
 <div class="cta-section" id="subscribe">
   <div class="fade-in" style="max-width:1100px;margin:0 auto;">
@@ -984,6 +1693,16 @@ footer a:hover { color: var(--text); }
       const orig = b.innerHTML;
       b.innerHTML = '<span>&#10003; Copied!</span>';
       setTimeout(() => b.innerHTML = orig, 1500);
+    });
+  });
+
+  // ── ETF Tabs ──
+  document.querySelectorAll('.etf-tab-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.etf-tab-btn').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.etf-tab-panel').forEach(p => p.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById('etf-panel-' + b.dataset.etfTab).classList.add('active');
     });
   });
 
