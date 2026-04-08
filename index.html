@@ -373,9 +373,30 @@ footer a:hover { color: var(--text); }
 .trend-badge.hot { background: rgba(255,23,68,0.15); color: var(--red); }
 .trend-badge.warm { background: rgba(240,185,11,0.15); color: var(--gold); }
 .trend-badge.cool { background: rgba(100,180,255,0.15); color: #64b4ff; }
+.trend-badge.hot-fire { background: rgba(255,100,0,0.15); color: #ff6400; }
+
+/* ── Global Markets Grid (Europe/Asia/Crypto/Forex/Futures) ── */
+.markets-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; margin-top: 0.5rem;
+}
+.market-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 12px; overflow: hidden;
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.market-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+.market-card-header { padding: 0.7rem 0.85rem 0.35rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+.market-name-main { font-size: 0.83rem; font-weight: 700; line-height: 1.3; }
+.market-name-sub { font-size: 0.7rem; color: var(--text-secondary); font-weight: 400; }
+.market-card .market-chart { height: 200px; }
+.market-card .market-chart .tradingview-widget-container,
+.market-card .market-chart .tradingview-widget-container__widget { height: 100%; width: 100%; }
 
 @media (max-width: 900px) {
   .sectors-grid { grid-template-columns: repeat(2, 1fr); }
+  .markets-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ── Mobile ── */
@@ -402,6 +423,7 @@ footer a:hover { color: var(--text); }
   .toc-links a { font-size: 0.82rem; padding: 0.45rem 0.8rem; }
   .etf-grid { grid-template-columns: 1fr; }
   .themes-grid { grid-template-columns: 1fr; }
+  .markets-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 580px) {
   .sectors-grid { grid-template-columns: 1fr; }
@@ -425,6 +447,11 @@ footer a:hover { color: var(--text); }
     <li><a href="#etf">ETF</a></li>
     <li><a href="#sectors"><span data-lang-zh>產業</span><span data-lang-en>Sectors</span></a></li>
     <li><a href="#themes"><span data-lang-zh>題材</span><span data-lang-en>Themes</span></a></li>
+    <li><a href="#europe"><span data-lang-zh>歐洲</span><span data-lang-en>Europe</span></a></li>
+    <li><a href="#asia"><span data-lang-zh>亞洲</span><span data-lang-en>Asia</span></a></li>
+    <li><a href="#crypto"><span data-lang-zh>加密</span><span data-lang-en>Crypto</span></a></li>
+    <li><a href="#forex"><span data-lang-zh>貨幣</span><span data-lang-en>Forex</span></a></li>
+    <li><a href="#futures"><span data-lang-zh>期貨</span><span data-lang-en>Futures</span></a></li>
     <li><a href="#subscribe"><span data-lang-zh>訂閱</span><span data-lang-en>Subscribe</span></a></li>
     <li><a href="#methodology"><span data-lang-zh>方法論</span><span data-lang-en>Methodology</span></a></li>
     <li><a href="#about"><span data-lang-zh>關於</span><span data-lang-en>About</span></a></li>
@@ -1497,6 +1524,612 @@ footer a:hover { color: var(--text); }
           <span class="theme-ticker-tag">TSM</span><span class="theme-ticker-tag">AVGO</span><span class="theme-ticker-tag">ASML</span><span class="theme-ticker-tag">LRCX</span>
         </div>
         <div class="theme-desc"><span data-lang-zh>AI 晶片需求與先進封裝帶動半導體業高成長。</span><span data-lang-en>AI chip demand and advanced packaging growth.</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ European Markets ═══ -->
+<section id="europe">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>歐洲股市</span><span data-lang-en>European Markets</span></p>
+    <h2 class="section-title">🌍 <span data-lang-zh>歐洲股市</span><span data-lang-en>European Markets</span></h2>
+    <div class="markets-grid">
+
+      <!-- FTSE 100 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇬🇧 FTSE 100</div>
+            <div class="market-name-sub"><span data-lang-zh>英國富時100指數</span><span data-lang-en>UK FTSE 100</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:UKX","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAX 40 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇩🇪 DAX 40</div>
+            <div class="market-name-sub"><span data-lang-zh>德國DAX指數</span><span data-lang-en>Germany DAX 40</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"XETR:DAX","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAC 40 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇫🇷 CAC 40</div>
+            <div class="market-name-sub"><span data-lang-zh>法國CAC 40指數</span><span data-lang-en>France CAC 40</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:CAC40","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Euro Stoxx 50 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇪🇺 Euro Stoxx 50</div>
+            <div class="market-name-sub"><span data-lang-zh>歐元區50指數</span><span data-lang-en>Euro Stoxx 50</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:SX5E","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMI -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇨🇭 SMI</div>
+            <div class="market-name-sub"><span data-lang-zh>瑞士市場指數</span><span data-lang-en>Swiss Market Index</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:SMI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Asian Markets ═══ -->
+<section id="asia">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>亞洲股市</span><span data-lang-en>Asian Markets</span></p>
+    <h2 class="section-title">🌏 <span data-lang-zh>亞洲股市</span><span data-lang-en>Asian Markets</span></h2>
+    <div class="markets-grid">
+
+      <!-- Nikkei 225 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇯🇵 Nikkei 225</div>
+            <div class="market-name-sub"><span data-lang-zh>日本日經225</span><span data-lang-en>Japan Nikkei 225</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:NI225","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hang Seng -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇭🇰 Hang Seng</div>
+            <div class="market-name-sub"><span data-lang-zh>香港恒生指數</span><span data-lang-en>HK Hang Seng</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:HSI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- KOSPI -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇰🇷 KOSPI</div>
+            <div class="market-name-sub"><span data-lang-zh>韓國綜合股價指數</span><span data-lang-en>Korea KOSPI</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:KOSPI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- STI -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇸🇬 STI</div>
+            <div class="market-name-sub"><span data-lang-zh>新加坡海峽時報指數</span><span data-lang-en>Singapore STI</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:STI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nifty 50 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇮🇳 Nifty 50</div>
+            <div class="market-name-sub"><span data-lang-zh>印度Nifty 50指數</span><span data-lang-en>India Nifty 50</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:NIFTY","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASX 200 -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇦🇺 ASX 200</div>
+            <div class="market-name-sub"><span data-lang-zh>澳洲ASX 200指數</span><span data-lang-en>Australia ASX 200</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"TVC:AS51","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Crypto ═══ -->
+<section id="crypto">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>加密貨幣</span><span data-lang-en>Cryptocurrency</span></p>
+    <h2 class="section-title">🔐 <span data-lang-zh>加密貨幣</span><span data-lang-en>Crypto</span></h2>
+    <div class="markets-grid">
+
+      <!-- Bitcoin -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">₿ Bitcoin</div>
+            <div class="market-name-sub"><span data-lang-zh>比特幣</span><span data-lang-en>BTC / USD</span></div>
+          </div>
+          <span class="trend-badge hot-fire">Hot 🔥</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"BITSTAMP:BTCUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ethereum -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">Ξ Ethereum</div>
+            <div class="market-name-sub"><span data-lang-zh>以太坊</span><span data-lang-en>ETH / USD</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"BITSTAMP:ETHUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solana -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">◎ Solana</div>
+            <div class="market-name-sub"><span data-lang-zh>索拉納</span><span data-lang-en>SOL / USD</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"BINANCE:SOLUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- BNB -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">● BNB</div>
+            <div class="market-name-sub"><span data-lang-zh>幣安幣</span><span data-lang-en>BNB / USD</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"BINANCE:BNBUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- XRP -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">◆ XRP</div>
+            <div class="market-name-sub"><span data-lang-zh>瑞波幣</span><span data-lang-en>XRP / USD</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"BINANCE:XRPUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dogecoin -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🐕 Dogecoin</div>
+            <div class="market-name-sub"><span data-lang-zh>狗狗幣</span><span data-lang-en>DOGE / USD</span></div>
+          </div>
+          <span class="trend-badge hot-fire">Hot 🔥</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"BINANCE:DOGEUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Forex ═══ -->
+<section id="forex">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>外匯市場</span><span data-lang-en>Forex</span></p>
+    <h2 class="section-title">💱 <span data-lang-zh>貨幣</span><span data-lang-en>Forex</span></h2>
+    <div class="markets-grid">
+
+      <!-- EUR/USD -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇪🇺/🇺🇸 EUR/USD</div>
+            <div class="market-name-sub"><span data-lang-zh>歐元/美元</span><span data-lang-en>Euro / US Dollar</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"FX:EURUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- USD/JPY -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇺🇸/🇯🇵 USD/JPY</div>
+            <div class="market-name-sub"><span data-lang-zh>美元/日圓</span><span data-lang-en>US Dollar / Japanese Yen</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"FX:USDJPY","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- GBP/USD -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇬🇧/🇺🇸 GBP/USD</div>
+            <div class="market-name-sub"><span data-lang-zh>英鎊/美元</span><span data-lang-en>British Pound / US Dollar</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"FX:GBPUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- USD/CHF -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇺🇸/🇨🇭 USD/CHF</div>
+            <div class="market-name-sub"><span data-lang-zh>美元/瑞士法郎</span><span data-lang-en>US Dollar / Swiss Franc</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"FX:USDCHF","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUD/USD -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇦🇺/🇺🇸 AUD/USD</div>
+            <div class="market-name-sub"><span data-lang-zh>澳幣/美元</span><span data-lang-en>Australian Dollar / US Dollar</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"FX:AUDUSD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- USD/TWD -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🇺🇸/🇹🇼 USD/TWD</div>
+            <div class="market-name-sub"><span data-lang-zh>美元/新台幣</span><span data-lang-en>US Dollar / Taiwan Dollar</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"FX:USDTWD","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Futures ═══ -->
+<section id="futures">
+  <div class="fade-in">
+    <p class="section-label"><span data-lang-zh>期貨市場</span><span data-lang-en>Futures</span></p>
+    <h2 class="section-title">📊 <span data-lang-zh>期貨</span><span data-lang-en>Futures</span></h2>
+    <div class="markets-grid">
+
+      <!-- S&P 500 E-mini -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">📊 S&amp;P 500 E-mini</div>
+            <div class="market-name-sub"><span data-lang-zh>標普500迷你期貨</span><span data-lang-en>CME E-mini S&amp;P 500</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"CME_MINI:ES1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nasdaq E-mini -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">📊 Nasdaq E-mini</div>
+            <div class="market-name-sub"><span data-lang-zh>那斯達克迷你期貨</span><span data-lang-en>CME E-mini Nasdaq</span></div>
+          </div>
+          <span class="trend-badge bearish">Bearish 📉</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"CME_MINI:NQ1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- WTI Crude Oil -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🛢️ WTI Crude Oil</div>
+            <div class="market-name-sub"><span data-lang-zh>西德克薩斯原油期貨</span><span data-lang-en>NYMEX WTI Crude</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"NYMEX:CL1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gold Futures -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🥇 Gold Futures</div>
+            <div class="market-name-sub"><span data-lang-zh>黃金期貨</span><span data-lang-en>COMEX Gold</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"COMEX:GC1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Corn -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">🌾 Corn</div>
+            <div class="market-name-sub"><span data-lang-zh>玉米期貨</span><span data-lang-en>CBOT Corn</span></div>
+          </div>
+          <span class="trend-badge neutral">Neutral</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"CBOT:ZC1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10Y Treasury -->
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="market-name-main">💵 10Y Treasury</div>
+            <div class="market-name-sub"><span data-lang-zh>美國10年期公債期貨</span><span data-lang-en>CBOT 10-Year Treasury</span></div>
+          </div>
+          <span class="trend-badge bullish">Bullish 📈</span>
+        </div>
+        <div class="market-chart">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {"symbol":"CBOT:ZN1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
+            </script>
+          </div>
+        </div>
       </div>
 
     </div>
