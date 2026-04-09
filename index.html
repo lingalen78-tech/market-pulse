@@ -84,7 +84,6 @@ section { padding: 3.5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 a
   color: var(--gold); margin-bottom: 0.5rem;
 }
 .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
-.section-hook { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1rem; font-weight: 400; line-height: 1.5; }
 
 /* fade in */
 .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -427,8 +426,8 @@ footer a:hover { color: var(--text); }
   .chart-subsections { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
   .tradingview-widget-container { min-height: 300px; }
-  .toc-links { gap: 0.45rem; }
-  .toc-links a { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
+  .toc-links { gap: 0.5rem; }
+  .toc-links a { font-size: 0.82rem; padding: 0.45rem 0.8rem; }
   .etf-grid { grid-template-columns: 1fr; }
   .themes-grid { grid-template-columns: 1fr; }
   .markets-grid { grid-template-columns: 1fr; }
@@ -438,8 +437,8 @@ footer a:hover { color: var(--text); }
 }
 @media (max-width: 420px) {
   .snapshot-grid { grid-template-columns: 1fr; }
-  .toc-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
-  .toc-links a { width: 100%; text-align: center; font-size: 0.78rem; padding: 0.4rem 0.5rem; }
+  .toc-links { flex-direction: column; }
+  .toc-links a { width: 100%; text-align: center; }
 }
 </style>
 </head>
@@ -483,17 +482,9 @@ footer a:hover { color: var(--text); }
   <div class="hero-toc">
     <p class="toc-label"><span data-lang-zh>今日內容</span><span data-lang-en>Today's Brief</span></p>
     <div class="toc-links">
-      <a href="#snapshot"><span data-lang-zh>📊 快照</span><span data-lang-en>📊 Snapshot</span></a>
-      <a href="#chart"><span data-lang-zh>📈 圖表</span><span data-lang-en>📈 Chart</span></a>
-      <a href="#dashboard"><span data-lang-zh>🎛️ 儀表板</span><span data-lang-en>🎛️ Dashboard</span></a>
-      <a href="#etf"><span data-lang-zh>🏦 ETF</span><span data-lang-en>🏦 ETF</span></a>
-      <a href="#sectors"><span data-lang-zh>🏭 產業</span><span data-lang-en>🏭 Sectors</span></a>
-      <a href="#themes"><span data-lang-zh>🔥 題材</span><span data-lang-en>🔥 Themes</span></a>
-      <a href="#europe"><span data-lang-zh>🇪🇺 歐洲</span><span data-lang-en>🇪🇺 Europe</span></a>
-      <a href="#asia"><span data-lang-zh>🌏 亞洲</span><span data-lang-en>🌏 Asia</span></a>
-      <a href="#crypto"><span data-lang-zh>₿ 加密</span><span data-lang-en>₿ Crypto</span></a>
-      <a href="#forex"><span data-lang-zh>💱 貨幣</span><span data-lang-en>💱 Forex</span></a>
-      <a href="#futures"><span data-lang-zh>📉 期貨</span><span data-lang-en>📉 Futures</span></a>
+      <a href="#snapshot"><span data-lang-zh>快照</span><span data-lang-en>Snapshot</span></a>
+      <a href="#chart"><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a>
+      <a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a>
     </div>
   </div>
 </section>
@@ -503,17 +494,16 @@ footer a:hover { color: var(--text); }
   <div class="fade-in">
     <p class="section-label"><span data-lang-zh>今日快照</span><span data-lang-en>Today's Snapshot</span></p>
     <h2 class="section-title"><span data-lang-zh>市場概覽</span><span data-lang-en>Market Overview</span></h2>
-    <p class="section-hook"><span data-lang-zh>一眼看清全球 4 大資產表現與市場情緒指數</span><span data-lang-en>Global assets at a glance — fear & greed gauge, equity moves, and commodity flows</span></p>
 
-    <div class="prototype-tag" id="protoTag">Auto-updated via GitHub Actions &nbsp;&middot;&nbsp; Last updated: <span>2026-04-07 15:13 UTC</span> &nbsp;&middot;&nbsp; Sources: <span>Yahoo Finance (yfinance)</span> &nbsp;&middot;&nbsp; Refresh: <span>Weekdays 6 AM PT</span></div>
+    <div class="prototype-tag" id="protoTag">Auto-updated via GitHub Actions &nbsp;&middot;&nbsp; Last updated: <span>2026-04-09 17:44 UTC</span> &nbsp;&middot;&nbsp; Sources: <span>Yahoo Finance (yfinance)</span> &nbsp;&middot;&nbsp; Refresh: <span>Weekdays 6 AM PT</span></div>
 
     <!-- Gauge -->
     <div class="gauge-wrapper">
       <div class="gauge">
         <div class="gauge-bg"></div>
-        <div id="fear-greed-needle" class="gauge-needle" style="--angle: -18"></div>
+        <div id="fear-greed-needle" class="gauge-needle" style="--angle: 32"></div>
       </div>
-      <div id="fear-greed-value" class="gauge-value">40</div>
+      <div id="fear-greed-value" class="gauge-value">68</div>
       <div class="gauge-label">Fear &amp; Greed &mdash; <span data-lang-zh>貪婪</span><span data-lang-en>Greed</span></div>
     </div>
 
@@ -521,27 +511,27 @@ footer a:hover { color: var(--text); }
     <div class="snapshot-grid">
       <div class="snap-card">
         <div class="label">S&amp;P 500</div>
-        <div><span id="sp500-price" class="value">651.96</span><span id="sp500-change" class="change down">-1.06%</span></div>
+        <div><span id="sp500-price" class="value">680.56</span><span id="sp500-change" class="change up">+0.67%</span></div>
       </div>
       <div class="snap-card">
         <div class="label"><span data-lang-zh>台股加權</span><span data-lang-en>TAIEX</span></div>
-        <div><span id="twii-price" class="value">33,230</span><span id="twii-change" class="change up">+2.02%</span></div>
+        <div><span id="twii-price" class="value">34,761</span><span id="twii-change" class="change up">+4.61%</span></div>
       </div>
       <div class="snap-card">
         <div class="label"><span data-lang-zh>黃金</span><span data-lang-en>Gold</span></div>
-        <div><span id="gold-price" class="value">4,656.50</span><span id="gold-change" class="change down">-0.01%</span></div>
+        <div><span id="gold-price" class="value">4,816.30</span><span id="gold-change" class="change up">+1.41%</span></div>
       </div>
       <div class="snap-card">
         <div class="label"><span data-lang-zh>原油</span><span data-lang-en>Crude Oil</span></div>
-        <div><span id="oil-price" class="value">116.94</span><span id="oil-change" class="change up">+4.03%</span></div>
+        <div><span id="oil-price" class="value">96.19</span><span id="oil-change" class="change up">+1.89%</span></div>
       </div>
     </div>
 
     <p class="snap-summary">
-      <span id="summary-zh" data-lang-zh>市場情緒恐慌，美股下跌、台股上漲，金價走跌，原油走升。</span>
-      <span id="summary-en" data-lang-en>Sentiment: Fear. US equities decline, TW equities rise, gold edges down, crude gains.</span>
+      <span id="summary-zh" data-lang-zh>市場情緒貪婪，美股上漲、台股上漲，金價上揚，原油走升。</span>
+      <span id="summary-en" data-lang-en>Sentiment: Greed. US equities rally, TW equities rise, gold edges up, crude gains.</span>
     </p>
-    <span class="data-source-tag" id="lastUpdatedTag">Data source: <span>Yahoo Finance</span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-07 15:13 UTC</span></span>
+    <span class="data-source-tag" id="lastUpdatedTag">Data source: <span>Yahoo Finance</span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-09 17:44 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-08 17:46 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-08 15:40 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-07 15:13 UTC</span></span>
   </div>
 </section>
 
@@ -587,10 +577,10 @@ footer a:hover { color: var(--text); }
 
     <div class="chart-analysis">
       <p id="chart-analysis-zh" data-block-zh>
-        S&P 500 今日下跌 -1.06%，報 651.96。RSI 位於 41，尚未進入極端區間。均線多頭排列，長期趨勢偏多。恐懼貪婪指數 40（恐慌），市場情緒保守，逢低布局機會可能浮現。
+        S&P 500 今日上漲 +0.67%，報 680.56。RSI 位於 62，尚未進入極端區間。均線多頭排列，長期趨勢偏多。恐懼貪婪指數 68（貪婪），市場樂觀情緒偏高，需留意過熱風險。
       </p>
       <p id="chart-analysis-en" data-block-en>
-        S&P 500 lost -1.06% today to 651.96. RSI at 41 sits in neutral territory. MA50 above MA200 confirms a bullish long-term trend. Fear & Greed at 40 (Fear) — defensive positioning — dip-buying opportunities may emerge.
+        S&P 500 gained +0.67% today to 680.56. RSI at 62 sits in neutral territory. MA50 above MA200 confirms a bullish long-term trend. Fear & Greed at 68 (Greed) — elevated optimism warrants caution.
       </p>
 
       <div class="chart-subsections">
@@ -598,10 +588,10 @@ footer a:hover { color: var(--text); }
         <div class="chart-sub">
           <div class="chart-sub-label">📌 <span data-lang-zh>關鍵價位</span><span data-lang-en>Key Levels</span></div>
           <div id="key-levels-zh" data-block-zh class="sub-body">
-            <p><span data-lang-zh>支撐：</span><span class="key-level-support">629.28</span>（20日低點）&nbsp;|&nbsp; <span data-lang-zh>阻力：</span><span class="key-level-resistance">681.50</span>（20日高點）</p><p style="margin-top:0.35rem;font-size:0.8rem;opacity:0.8;">深度支撐：<span class="key-level-support">659.69</span>（200日均線）</p>
+            <p><span data-lang-zh>支撐：</span><span class="key-level-support">629.28</span>（20日低點）&nbsp;|&nbsp; <span data-lang-zh>阻力：</span><span class="key-level-resistance">681.15</span>（20日高點）</p><p style="margin-top:0.35rem;font-size:0.8rem;opacity:0.8;">深度支撐：<span class="key-level-support">660.58</span>（200日均線）</p>
           </div>
           <div id="key-levels-en" data-block-en class="sub-body">
-            <p>Support: <span class="key-level-support">629.28</span> (20-day low)&nbsp;|&nbsp; Resistance: <span class="key-level-resistance">681.50</span> (20-day high)</p><p style="margin-top:0.35rem;font-size:0.8rem;opacity:0.8;">Deep support: <span class="key-level-support">659.69</span> (200-day SMA)</p>
+            <p>Support: <span class="key-level-support">629.28</span> (20-day low)&nbsp;|&nbsp; Resistance: <span class="key-level-resistance">681.15</span> (20-day high)</p><p style="margin-top:0.35rem;font-size:0.8rem;opacity:0.8;">Deep support: <span class="key-level-support">660.58</span> (200-day SMA)</p>
           </div>
         </div>
 
@@ -698,12 +688,12 @@ footer a:hover { color: var(--text); }
         <div class="signal-card">
           <div class="signal-icon">&#9650;</div>
           <div class="signal-name">Trend</div>
-          <div id="us-trend" class="signal-value bearish"><span data-lang-zh>下降趨勢</span><span data-lang-en>Downtrend</span></div>
+          <div id="us-trend" class="signal-value bullish"><span data-lang-zh>上升趨勢</span><span data-lang-en>Uptrend</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#9679;</div>
           <div class="signal-name">RSI (14)</div>
-          <div id="us-rsi" class="signal-value bearish"><span data-lang-zh>偏空 41</span><span data-lang-en>Bearish 41</span></div>
+          <div id="us-rsi" class="signal-value bullish"><span data-lang-zh>偏多 62</span><span data-lang-en>Bullish 62</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#8593;</div>
@@ -784,7 +774,7 @@ footer a:hover { color: var(--text); }
         <div class="signal-card">
           <div class="signal-icon">&#9679;</div>
           <div class="signal-name">RSI (14)</div>
-          <div id="tw-rsi" class="signal-value neutral"><span data-lang-zh>中性 49</span><span data-lang-en>Neutral 49</span></div>
+          <div id="tw-rsi" class="signal-value bullish"><span data-lang-zh>偏多 55</span><span data-lang-en>Bullish 55</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#8593;</div>
@@ -825,12 +815,12 @@ footer a:hover { color: var(--text); }
         <div class="signal-card">
           <div class="signal-icon">&#9650;</div>
           <div class="signal-name">Trend</div>
-          <div id="tech-trend" class="signal-value bearish"><span data-lang-zh>下降趨勢</span><span data-lang-en>Downtrend</span></div>
+          <div id="tech-trend" class="signal-value bullish"><span data-lang-zh>上升趨勢</span><span data-lang-en>Uptrend</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#9679;</div>
           <div class="signal-name">RSI (14)</div>
-          <div id="tech-rsi" class="signal-value bearish"><span data-lang-zh>偏空 42</span><span data-lang-en>Bearish 42</span></div>
+          <div id="tech-rsi" class="signal-value bullish"><span data-lang-zh>偏多 56</span><span data-lang-en>Bullish 56</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#8593;</div>
@@ -876,7 +866,7 @@ footer a:hover { color: var(--text); }
         <div class="signal-card">
           <div class="signal-icon">&#9679;</div>
           <div class="signal-name">RSI (14)</div>
-          <div id="metals-rsi" class="signal-value bearish"><span data-lang-zh>偏空 38</span><span data-lang-en>Bearish 38</span></div>
+          <div id="metals-rsi" class="signal-value bullish"><span data-lang-zh>偏多 59</span><span data-lang-en>Bullish 59</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#8593;</div>
@@ -922,7 +912,7 @@ footer a:hover { color: var(--text); }
         <div class="signal-card">
           <div class="signal-icon">&#9679;</div>
           <div class="signal-name">RSI (14)</div>
-          <div id="energy-rsi" class="signal-value bearish"><span data-lang-zh>超買 70</span><span data-lang-en>Overbought 70</span></div>
+          <div id="energy-rsi" class="signal-value neutral"><span data-lang-zh>中性 50</span><span data-lang-en>Neutral 50</span></div>
         </div>
         <div class="signal-card">
           <div class="signal-icon">&#8595;</div>
