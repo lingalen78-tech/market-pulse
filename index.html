@@ -427,8 +427,8 @@ footer a:hover { color: var(--text); }
   .chart-subsections { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
   .tradingview-widget-container { min-height: 300px; }
-  .toc-links { gap: 0.5rem; }
-  .toc-links a { font-size: 0.82rem; padding: 0.45rem 0.8rem; }
+  .toc-links { gap: 0.45rem; }
+  .toc-links a { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
   .etf-grid { grid-template-columns: 1fr; }
   .themes-grid { grid-template-columns: 1fr; }
   .markets-grid { grid-template-columns: 1fr; }
@@ -438,8 +438,8 @@ footer a:hover { color: var(--text); }
 }
 @media (max-width: 420px) {
   .snapshot-grid { grid-template-columns: 1fr; }
-  .toc-links { flex-direction: column; }
-  .toc-links a { width: 100%; text-align: center; }
+  .toc-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .toc-links a { width: 100%; text-align: center; font-size: 0.78rem; padding: 0.4rem 0.5rem; }
 }
 </style>
 </head>
@@ -483,9 +483,17 @@ footer a:hover { color: var(--text); }
   <div class="hero-toc">
     <p class="toc-label"><span data-lang-zh>今日內容</span><span data-lang-en>Today's Brief</span></p>
     <div class="toc-links">
-      <a href="#snapshot"><span data-lang-zh>快照</span><span data-lang-en>Snapshot</span></a>
-      <a href="#chart"><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a>
-      <a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a>
+      <a href="#snapshot"><span data-lang-zh>📊 快照</span><span data-lang-en>📊 Snapshot</span></a>
+      <a href="#chart"><span data-lang-zh>📈 圖表</span><span data-lang-en>📈 Chart</span></a>
+      <a href="#dashboard"><span data-lang-zh>🎛️ 儀表板</span><span data-lang-en>🎛️ Dashboard</span></a>
+      <a href="#etf"><span data-lang-zh>🏦 ETF</span><span data-lang-en>🏦 ETF</span></a>
+      <a href="#sectors"><span data-lang-zh>🏭 產業</span><span data-lang-en>🏭 Sectors</span></a>
+      <a href="#themes"><span data-lang-zh>🔥 題材</span><span data-lang-en>🔥 Themes</span></a>
+      <a href="#europe"><span data-lang-zh>🇪🇺 歐洲</span><span data-lang-en>🇪🇺 Europe</span></a>
+      <a href="#asia"><span data-lang-zh>🌏 亞洲</span><span data-lang-en>🌏 Asia</span></a>
+      <a href="#crypto"><span data-lang-zh>₿ 加密</span><span data-lang-en>₿ Crypto</span></a>
+      <a href="#forex"><span data-lang-zh>💱 貨幣</span><span data-lang-en>💱 Forex</span></a>
+      <a href="#futures"><span data-lang-zh>📉 期貨</span><span data-lang-en>📉 Futures</span></a>
     </div>
   </div>
 </section>
