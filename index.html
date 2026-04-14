@@ -440,9 +440,22 @@ footer a:hover { color: var(--text); }
   .toc-links { flex-direction: column; }
   .toc-links a { width: 100%; text-align: center; }
 }
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f0b90b, #f5d060);
+  box-shadow: 0 0 8px rgba(240,185,11,0.4);
+  width: 0%;
+  z-index: 1001;
+  transition: width 0.1s linear;
+}
 </style>
 </head>
 <body class="lang-zh">
+<div class="reading-progress" id="readingProgress"></div>
 
 <!-- ═══ Navbar ═══ -->
 <nav class="navbar" id="navbar">
@@ -1412,7 +1425,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">NVDA</span><span class="theme-ticker-tag">MSFT</span><span class="theme-ticker-tag">GOOGL</span><span class="theme-ticker-tag">AMD</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>AI 基礎建設與應用驅動下一波科技週期。</span><span data-lang-en>AI infrastructure and applications driving the next tech cycle.</span></div>
+        <div class="theme-desc"><span data-lang-zh>晶片供應緊張抬升價格，資料中心投資規模創新高。企業 AI 支出預計 5 年增長 5 倍——贏家壟斷邊際利潤。</span><span data-lang-en>Chip supply tightness lifting prices; data center capex at all-time highs. Enterprise AI spending projected to 5x over 5 years—winners take margins. Watch: H100 allocation, cloud margin expansion.</span></div>
       </div>
 
       <!-- EV -->
@@ -1430,7 +1443,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">TSLA</span><span class="theme-ticker-tag">RIVN</span><span class="theme-ticker-tag">BYD</span><span class="theme-ticker-tag">LI</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>全球電動車滲透率加速，政策順風持續。</span><span data-lang-en>Global EV adoption accelerating with policy tailwinds.</span></div>
+        <div class="theme-desc"><span data-lang-zh>中國補貼退坡製造業洗牌，供應鏈整合加速。美國 IRA 刺激北美產能建設——2025 是關鍵轉折點。</span><span data-lang-en>Chinese subsidy cliff reshaping supply chains; consolidation accelerating. US IRA boosting North American capacity—2025 is the inflection point. Watch: margin compression in legacy players.</span></div>
       </div>
 
       <!-- Clean Energy -->
@@ -1448,7 +1461,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">ENPH</span><span class="theme-ticker-tag">FSLR</span><span class="theme-ticker-tag">ICLN</span><span class="theme-ticker-tag">TAN</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>再生能源轉型與電網現代化帶來長期機會。</span><span data-lang-en>Renewable energy transition and grid modernization.</span></div>
+        <div class="theme-desc"><span data-lang-zh>太陽能成本再跌 15%，儲能系統成為瓶頸與機會。電網現代化投資進入高峰——監管支持前所未有。</span><span data-lang-en>Solar costs dropping 15% further; battery storage now the bottleneck and opportunity. Grid modernization capex at peak—regulatory tailwinds unprecedented. Watch: storage ETF outflow reversal.</span></div>
       </div>
 
       <!-- Cybersecurity -->
@@ -1466,7 +1479,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">CRWD</span><span class="theme-ticker-tag">PANW</span><span class="theme-ticker-tag">ZS</span><span class="theme-ticker-tag">FTNT</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>網路威脅上升推動企業資安支出快速增長。</span><span data-lang-en>Rising cyber threats fueling enterprise security spend.</span></div>
+        <div class="theme-desc"><span data-lang-zh>勒索軟體攻擊成本平均 1,300 萬美元，推動企業零信任架構部署。安全運營中心人才短缺——自動化工具需求爆炸式成長。</span><span data-lang-en>Ransomware avg cost $13M, forcing zero-trust architecture deployment. SOC talent shortage fueling automation demand. Watch: SIEM price hikes and compliance mandate cycles.</span></div>
       </div>
 
       <!-- Biotech -->
@@ -1484,7 +1497,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">XBI</span><span class="theme-ticker-tag">MRNA</span><span class="theme-ticker-tag">VRTX</span><span class="theme-ticker-tag">REGN</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>基因療法與 GLP-1 藥物重塑醫療保健版圖。</span><span data-lang-en>Gene therapy and GLP-1 drugs reshaping healthcare.</span></div>
+        <div class="theme-desc"><span data-lang-zh>GLP-1 市場 2030 年估達 1 千億美元，生產端供應瓶頸帶來高毛利。基因編輯臨床結果即將公佈——罕見病治療將重寫保險模式。</span><span data-lang-en>GLP-1 market to $100B+ by 2030; supply-side bottleneck = high margins. Gene editing trial data imminent—will rewrite rare disease insurance economics. Watch: manufacturing capacity announces.</span></div>
       </div>
 
       <!-- Space -->
@@ -1502,7 +1515,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">RKLB</span><span class="theme-ticker-tag">BA</span><span class="theme-ticker-tag">LMT</span><span class="theme-ticker-tag">ASTS</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>商業太空與衛星通訊迎來爆發性成長。</span><span data-lang-en>Commercial space and satellite communications boom.</span></div>
+        <div class="theme-desc"><span data-lang-zh>國防部衛星通訊支出 2026 增加 40%，軍事應用構築護城河。Starlink 已盈利並計畫上市——商業太空進入獲利周期。</span><span data-lang-en>DoD satellite comms spending +40% in 2026; military applications build moat. Starlink profitable and IPO-bound—commercial space entering profit cycle. Watch: launch cadence accelerations.</span></div>
       </div>
 
       <!-- Infrastructure -->
@@ -1520,7 +1533,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">CAT</span><span class="theme-ticker-tag">DE</span><span class="theme-ticker-tag">VMC</span><span class="theme-ticker-tag">URI</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>政府投入道路、橋梁與數位基礎建設。</span><span data-lang-en>Government spending on roads, bridges, and digital infra.</span></div>
+        <div class="theme-desc"><span data-lang-zh>美國基建法案 1.1 兆美元持續放款，2025-2026 年動工項目集中爆發。建機租賃與混凝土供應將面臨完全飽和。</span><span data-lang-en>US infrastructure bill $1.1T disbursement ramping; project starts clustering 2025-26. Equipment rental and concrete supply at capacity limits. Watch: logistics cost inflation in Q2.</span></div>
       </div>
 
       <!-- Semiconductors -->
@@ -1538,7 +1551,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">TSM</span><span class="theme-ticker-tag">AVGO</span><span class="theme-ticker-tag">ASML</span><span class="theme-ticker-tag">LRCX</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>AI 晶片需求與先進封裝帶動半導體業高成長。</span><span data-lang-en>AI chip demand and advanced packaging growth.</span></div>
+        <div class="theme-desc"><span data-lang-zh>先進製程(3nm以下)良率逼近極限，定價權轉向高端封裝廠。台積電資本支出占總投資 24%，產能不足將維持 2-3 年——價格支撐堅實。</span><span data-lang-en>Advanced nodes (sub-3nm) hitting yield limits; pricing power shifts to advanced packaging. TSMC capex 24% of total spend; capacity shortage persists 2-3 years—price support intact. Watch: packaging margin mix shift.</span></div>
       </div>
 
     </div>
@@ -2277,6 +2290,13 @@ footer a:hover { color: var(--text); }
 
 <!-- ═══ Scripts ═══ -->
 <script>
+window.addEventListener('scroll', function() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  document.getElementById('readingProgress').style.width = scrollPercent + '%';
+}, { passive: true });
+
 (function() {
   // ── Date ──
   const d = new Date();
