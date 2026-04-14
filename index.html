@@ -62,12 +62,15 @@ body.lang-en [data-block-en] { display: block; }
 }
 .navbar.scrolled { background: rgba(10,14,23,0.95); }
 .nav-logo { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; color: var(--gold); }
-.nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+.nav-links { display: flex; align-items: center; gap: 0.9rem; list-style: none; }
 .nav-links a {
-  color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;
+  color: var(--text-secondary); text-decoration: none; font-size: 0.78rem;
   font-weight: 500; transition: color 0.2s;
+  display: flex; align-items: center; gap: 0.28em; white-space: nowrap;
 }
 .nav-links a:hover { color: var(--text); }
+.nav-icon { font-size: 0.88em; line-height: 1; opacity: 0.75; transition: opacity 0.2s; }
+.nav-links a:hover .nav-icon { opacity: 1; }
 .lang-toggle {
   background: var(--card); border: 1px solid var(--card-border);
   color: var(--text); font-size: 0.78rem; padding: 5px 12px;
@@ -461,20 +464,20 @@ footer a:hover { color: var(--text); }
 <nav class="navbar" id="navbar">
   <div class="nav-logo">Market Pulse</div>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#snapshot"><span data-lang-zh>快照</span><span data-lang-en>Snapshot</span></a></li>
-    <li><a href="#chart"><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a></li>
-    <li><a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a></li>
-    <li><a href="#etf">ETF</a></li>
-    <li><a href="#sectors"><span data-lang-zh>產業</span><span data-lang-en>Sectors</span></a></li>
-    <li><a href="#themes"><span data-lang-zh>題材</span><span data-lang-en>Themes</span></a></li>
-    <li><a href="#europe"><span data-lang-zh>歐洲</span><span data-lang-en>Europe</span></a></li>
-    <li><a href="#asia"><span data-lang-zh>亞洲</span><span data-lang-en>Asia</span></a></li>
-    <li><a href="#crypto"><span data-lang-zh>加密</span><span data-lang-en>Crypto</span></a></li>
-    <li><a href="#forex"><span data-lang-zh>貨幣</span><span data-lang-en>Forex</span></a></li>
-    <li><a href="#futures"><span data-lang-zh>期貨</span><span data-lang-en>Futures</span></a></li>
-    <li><a href="#subscribe"><span data-lang-zh>訂閱</span><span data-lang-en>Subscribe</span></a></li>
-    <li><a href="#methodology"><span data-lang-zh>方法論</span><span data-lang-en>Methodology</span></a></li>
-    <li><a href="#about"><span data-lang-zh>關於</span><span data-lang-en>About</span></a></li>
+    <li><a href="#snapshot"><span class="nav-icon">📊</span><span data-lang-zh>快照</span><span data-lang-en>Snap</span></a></li>
+    <li><a href="#chart"><span class="nav-icon">📈</span><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a></li>
+    <li><a href="#dashboard"><span class="nav-icon">🖥</span><span data-lang-zh>儀表板</span><span data-lang-en>Dash</span></a></li>
+    <li><a href="#etf"><span class="nav-icon">🏦</span>ETF</a></li>
+    <li><a href="#sectors"><span class="nav-icon">🏭</span><span data-lang-zh>產業</span><span data-lang-en>Sectors</span></a></li>
+    <li><a href="#themes"><span class="nav-icon">💡</span><span data-lang-zh>題材</span><span data-lang-en>Themes</span></a></li>
+    <li><a href="#europe"><span class="nav-icon">🌍</span><span data-lang-zh>歐洲</span><span data-lang-en>EU</span></a></li>
+    <li><a href="#asia"><span class="nav-icon">🌏</span><span data-lang-zh>亞洲</span><span data-lang-en>Asia</span></a></li>
+    <li><a href="#crypto"><span class="nav-icon">₿</span><span data-lang-zh>加密</span><span data-lang-en>Crypto</span></a></li>
+    <li><a href="#forex"><span class="nav-icon">💱</span><span data-lang-zh>貨幣</span><span data-lang-en>FX</span></a></li>
+    <li><a href="#futures"><span class="nav-icon">⚡</span><span data-lang-zh>期貨</span><span data-lang-en>Futures</span></a></li>
+    <li><a href="#subscribe"><span class="nav-icon">✉️</span><span data-lang-zh>訂閱</span><span data-lang-en>Sub</span></a></li>
+    <li><a href="#methodology"><span class="nav-icon">⚙️</span><span data-lang-zh>方法論</span><span data-lang-en>Method</span></a></li>
+    <li><a href="#about"><span class="nav-icon">ℹ️</span><span data-lang-zh>關於</span><span data-lang-en>About</span></a></li>
     <li><button class="lang-toggle" id="langToggle">EN</button></li>
   </ul>
   <button class="nav-hamburger" id="hamburger">&#9776;</button>
@@ -1425,7 +1428,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">NVDA</span><span class="theme-ticker-tag">MSFT</span><span class="theme-ticker-tag">GOOGL</span><span class="theme-ticker-tag">AMD</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>晶片供應緊張抬升價格，資料中心投資規模創新高。企業 AI 支出預計 5 年增長 5 倍——贏家壟斷邊際利潤。</span><span data-lang-en>Chip supply tightness lifting prices; data center capex at all-time highs. Enterprise AI spending projected to 5x over 5 years—winners take margins. Watch: H100 allocation, cloud margin expansion.</span></div>
+        <div class="theme-desc"><span data-lang-zh>H100 GPU 產能緊張遇上企業支出 5 倍成長，2025 年推論需求迎來轉折點。</span><span data-lang-en>H100 GPU allocation constraints meeting 5x enterprise spending growth. Inference demand inflection expected 2025.</span></div>
       </div>
 
       <!-- EV -->
@@ -1443,7 +1446,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">TSLA</span><span class="theme-ticker-tag">RIVN</span><span class="theme-ticker-tag">BYD</span><span class="theme-ticker-tag">LI</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>中國補貼退坡製造業洗牌，供應鏈整合加速。美國 IRA 刺激北美產能建設——2025 是關鍵轉折點。</span><span data-lang-en>Chinese subsidy cliff reshaping supply chains; consolidation accelerating. US IRA boosting North American capacity—2025 is the inflection point. Watch: margin compression in legacy players.</span></div>
+        <div class="theme-desc"><span data-lang-zh>全球電動車滲透率突破 20%，比亞迪與 Tesla 毛利戰升溫，補貼逐步正常化。</span><span data-lang-en>Global EV adoption past 20% of new sales. BYD and Tesla margin war intensifying as subsidies normalize.</span></div>
       </div>
 
       <!-- Clean Energy -->
@@ -1461,7 +1464,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">ENPH</span><span class="theme-ticker-tag">FSLR</span><span class="theme-ticker-tag">ICLN</span><span class="theme-ticker-tag">TAN</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>太陽能成本再跌 15%，儲能系統成為瓶頸與機會。電網現代化投資進入高峰——監管支持前所未有。</span><span data-lang-en>Solar costs dropping 15% further; battery storage now the bottleneck and opportunity. Grid modernization capex at peak—regulatory tailwinds unprecedented. Watch: storage ETF outflow reversal.</span></div>
+        <div class="theme-desc"><span data-lang-zh>IRA 稅收抵免推動 5,000 億美元電網現代化投資，太陽能交期緊縮至 2026 年。</span><span data-lang-en>IRA tax credits driving $500B+ grid modernization capex. Solar install lead times tightening into 2026.</span></div>
       </div>
 
       <!-- Cybersecurity -->
@@ -1479,7 +1482,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">CRWD</span><span class="theme-ticker-tag">PANW</span><span class="theme-ticker-tag">ZS</span><span class="theme-ticker-tag">FTNT</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>勒索軟體攻擊成本平均 1,300 萬美元，推動企業零信任架構部署。安全運營中心人才短缺——自動化工具需求爆炸式成長。</span><span data-lang-en>Ransomware avg cost $13M, forcing zero-trust architecture deployment. SOC talent shortage fueling automation demand. Watch: SIEM price hikes and compliance mandate cycles.</span></div>
+        <div class="theme-desc"><span data-lang-zh>勒索攻擊每次損失 1,300 萬美元，零信任架構部署潮推升企業資安支出。</span><span data-lang-en>$13M average ransomware cost per breach. Zero-trust architecture deployment wave accelerating enterprise security spend.</span></div>
       </div>
 
       <!-- Biotech -->
@@ -1497,7 +1500,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">XBI</span><span class="theme-ticker-tag">MRNA</span><span class="theme-ticker-tag">VRTX</span><span class="theme-ticker-tag">REGN</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>GLP-1 市場 2030 年估達 1 千億美元，生產端供應瓶頸帶來高毛利。基因編輯臨床結果即將公佈——罕見病治療將重寫保險模式。</span><span data-lang-en>GLP-1 market to $100B+ by 2030; supply-side bottleneck = high margins. Gene editing trial data imminent—will rewrite rare disease insurance economics. Watch: manufacturing capacity announces.</span></div>
+        <div class="theme-desc"><span data-lang-zh>GLP-1 市場 2030 年規模突破 1,000 億美元，基因療法批准與第三期臨床催化劑齊發 2026 年。</span><span data-lang-en>$100B+ GLP-1 market size by 2030. Gene therapy approvals and Phase 3 catalysts loading 2026.</span></div>
       </div>
 
       <!-- Space -->
@@ -1515,7 +1518,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">RKLB</span><span class="theme-ticker-tag">BA</span><span class="theme-ticker-tag">LMT</span><span class="theme-ticker-tag">ASTS</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>國防部衛星通訊支出 2026 增加 40%，軍事應用構築護城河。Starlink 已盈利並計畫上市——商業太空進入獲利周期。</span><span data-lang-en>DoD satellite comms spending +40% in 2026; military applications build moat. Starlink profitable and IPO-bound—commercial space entering profit cycle. Watch: launch cadence accelerations.</span></div>
+        <div class="theme-desc"><span data-lang-zh>2026 年國防部太空預算 +40%，Starlink 衝刺上市，商用衛星星座以創紀錄速度擴張。</span><span data-lang-en>DoD space budget +40% in 2026. Starlink IPO-bound; commercial satellite constellations expanding at record pace.</span></div>
       </div>
 
       <!-- Infrastructure -->
@@ -1533,7 +1536,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">CAT</span><span class="theme-ticker-tag">DE</span><span class="theme-ticker-tag">VMC</span><span class="theme-ticker-tag">URI</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>美國基建法案 1.1 兆美元持續放款，2025-2026 年動工項目集中爆發。建機租賃與混凝土供應將面臨完全飽和。</span><span data-lang-en>US infrastructure bill $1.1T disbursement ramping; project starts clustering 2025-26. Equipment rental and concrete supply at capacity limits. Watch: logistics cost inflation in Q2.</span></div>
+        <div class="theme-desc"><span data-lang-zh>CHIPS 法案與基建法案 2030 年前釋放逾 1 兆美元，建設訂單積壓創 15 年新高。</span><span data-lang-en>CHIPS Act + IIJA deploying $1T+ through 2030. Construction backlog at 15-year highs.</span></div>
       </div>
 
       <!-- Semiconductors -->
@@ -1551,7 +1554,7 @@ footer a:hover { color: var(--text); }
         <div class="theme-tickers">
           <span class="theme-ticker-tag">TSM</span><span class="theme-ticker-tag">AVGO</span><span class="theme-ticker-tag">ASML</span><span class="theme-ticker-tag">LRCX</span>
         </div>
-        <div class="theme-desc"><span data-lang-zh>先進製程(3nm以下)良率逼近極限，定價權轉向高端封裝廠。台積電資本支出占總投資 24%，產能不足將維持 2-3 年——價格支撐堅實。</span><span data-lang-en>Advanced nodes (sub-3nm) hitting yield limits; pricing power shifts to advanced packaging. TSMC capex 24% of total spend; capacity shortage persists 2-3 years—price support intact. Watch: packaging margin mix shift.</span></div>
+        <div class="theme-desc"><span data-lang-zh>AI 晶片需求推升台積電資本支出 +24%，先進封裝產能成為新瓶頸。</span><span data-lang-en>AI chip demand driving TSMC capex +24%. Advanced packaging capacity the new bottleneck.</span></div>
       </div>
 
     </div>
@@ -2388,3 +2391,4 @@ window.addEventListener('scroll', function() {
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
