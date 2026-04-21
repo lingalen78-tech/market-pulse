@@ -455,6 +455,31 @@ footer a:hover { color: var(--text); }
   z-index: 1001;
   transition: width 0.1s linear;
 }
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(240,185,11,0.15);
+  border: 1px solid rgba(240,185,11,0.3);
+  backdrop-filter: blur(10px);
+  color: #f0b90b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { background: rgba(240,185,11,0.3); transform: translateY(-3px); box-shadow: 0 0 15px rgba(240,185,11,0.3); }
+@media (max-width: 768px) { .back-to-top { bottom: 1.5rem; right: 1.5rem; width: 42px; height: 42px; } }
+@media (prefers-reduced-motion: reduce) { .back-to-top { transition: none; } }
 </style>
 </head>
 <body class="lang-zh">
@@ -2388,7 +2413,17 @@ window.addEventListener('scroll', function() {
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 })();
+(function(){
+  var btn = document.getElementById('backToTop');
+  if(!btn) return;
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(function(){ btn.classList.toggle('visible', window.scrollY > 400); ticking = false; }); ticking = true; }
+  }, {passive:true});
+  btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();
 </script>
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="回到頂部">↑</button>
 </body>
 </html>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
