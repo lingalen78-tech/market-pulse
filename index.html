@@ -542,6 +542,15 @@ footer a:hover { color: var(--text); }
   .snap-card::after, .etf-card::after, .theme-card::after, .market-card::after { transition: none !important; }
   .snap-card:hover, .etf-card:hover, .theme-card:hover, .market-card:hover { transform: none; }
 }
+
+/* ── Reading Meta ── */
+.reading-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem .75rem;margin:1.25rem auto 1.5rem;padding:.6rem 1rem;max-width:760px;background:linear-gradient(135deg,rgba(240,185,11,.08),rgba(240,185,11,.02));border:1px solid rgba(240,185,11,.18);border-radius:999px;font-size:.875rem;color:rgba(255,255,255,.78);backdrop-filter:saturate(140%) blur(6px);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;}
+.reading-meta:hover{transform:translateY(-1px);border-color:rgba(240,185,11,.45);box-shadow:0 6px 24px -8px rgba(240,185,11,.35);}
+.reading-meta__chip{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;}
+.reading-meta__chip strong{color:#fff;font-weight:600;}
+.reading-meta__divider{opacity:.35;}
+.reading-meta__icon{font-size:1rem;line-height:1;}
+@media(max-width:640px){.reading-meta{border-radius:14px;padding:.55rem .75rem;font-size:.8rem;gap:.35rem .5rem;}.reading-meta__divider{display:none;}}
 </style>
 </head>
 <body class="lang-zh">
@@ -580,6 +589,14 @@ footer a:hover { color: var(--text); }
     <p class="hero-date" id="heroDate"></p>
   </div>
   <div class="hero-scroll-hint">&#8595;</div>
+
+  <div class="reading-meta" aria-label="閱讀資訊">
+    <span class="reading-meta__chip"><span class="reading-meta__icon">📖</span><span class="reading-meta__label" data-lang-zh>約 <strong id="readingTime">8</strong> 分鐘閱讀</span><span class="reading-meta__label" data-lang-en>~<strong id="readingTimeEn">8</strong> min read</span></span>
+    <span class="reading-meta__divider">·</span>
+    <span class="reading-meta__chip"><span class="reading-meta__icon">🧭</span><span class="reading-meta__label" data-lang-zh><strong id="sectionCount">11</strong> 個章節</span><span class="reading-meta__label" data-lang-en><strong id="sectionCountEn">11</strong> sections</span></span>
+    <span class="reading-meta__divider">·</span>
+    <span class="reading-meta__chip"><span class="reading-meta__icon">📊</span><span class="reading-meta__label" data-lang-zh><strong id="chartCount">6</strong> 張圖表</span><span class="reading-meta__label" data-lang-en><strong id="chartCountEn">6</strong> charts</span></span>
+  </div>
 
   <!-- Quick Navigation -->
   <div class="hero-toc">
@@ -2484,6 +2501,8 @@ window.addEventListener('scroll', function() {
   }, {passive:true});
   btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
 })();
+
+(function(){var m=document.querySelector('main')||document.body;var t=m.innerText||'';var cn=(t.match(/[一-鿿]/g)||[]).length;var en=(t.replace(/[一-鿿]/g,'').trim().split(/\s+/).filter(Boolean)).length;var min=Math.max(1,Math.round((cn/350)+(en/220)));['readingTime','readingTimeEn'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=min;});var secs=document.querySelectorAll('section[id]').length||11;['sectionCount','sectionCountEn'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=secs;});})();
 </script>
 <button class="back-to-top" id="backToTop" aria-label="Back to top" title="回到頂部">↑</button>
 </body>
