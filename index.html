@@ -551,6 +551,15 @@ footer a:hover { color: var(--text); }
 .reading-meta__divider{opacity:.35;}
 .reading-meta__icon{font-size:1rem;line-height:1;}
 @media(max-width:640px){.reading-meta{border-radius:14px;padding:.55rem .75rem;font-size:.8rem;gap:.35rem .5rem;}.reading-meta__divider{display:none;}}
+
+/* ── Section reading time badge ── */
+.section-time-badge{display:inline-flex;align-items:center;gap:.25rem;margin-left:.6rem;padding:.15rem .5rem;font-size:.72rem;font-weight:600;letter-spacing:.02em;color:rgba(240,185,11,.95);background:rgba(240,185,11,.08);border:1px solid rgba(240,185,11,.25);border-radius:6px;vertical-align:middle;}
+@media(max-width:640px){.section-time-badge{font-size:.65rem;padding:.1rem .4rem;}}
+
+/* ── Page load animation ── */
+body{animation:pageIn .6s ease-out;}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:reduce){body{animation:none;}}
 </style>
 </head>
 <body class="lang-zh">
@@ -2280,8 +2289,8 @@ footer a:hover { color: var(--text); }
       <span data-lang-en>Join the Waitlist</span>
     </h2>
     <p class="cta-subtitle">
-      <span data-lang-zh>每日市場簡報即將上線。搶先收到通知。</span>
-      <span data-lang-en>The daily brief is launching soon. Be the first to know.</span>
+      <span data-lang-zh>鎖定每日 5 分鐘市場脈動，不錯過任何關鍵轉折</span>
+      <span data-lang-en>Lock in your daily 5-min market pulse. Never miss a key turning point.</span>
     </p>
     <div class="cta-what-you-get">
       <span data-lang-zh>每日簡報內容：一張圖 + 三句分析 + 關鍵價位，每個交易日早上準時送達。</span>
@@ -2503,6 +2512,26 @@ window.addEventListener('scroll', function() {
 })();
 
 (function(){var m=document.querySelector('main')||document.body;var t=m.innerText||'';var cn=(t.match(/[一-鿿]/g)||[]).length;var en=(t.replace(/[一-鿿]/g,'').trim().split(/\s+/).filter(Boolean)).length;var min=Math.max(1,Math.round((cn/350)+(en/220)));['readingTime','readingTimeEn'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=min;});var secs=document.querySelectorAll('section[id]').length||11;['sectionCount','sectionCountEn'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=secs;});})();
+
+(function(){
+  var secs = document.querySelectorAll('section[id] h2, .section-header');
+  secs.forEach(function(h2){
+    var sec = h2.closest('section') || h2.parentElement;
+    if(!sec) return;
+    var skip = ['subscribe','methodology','about','footer'];
+    if(skip.some(function(s){return (sec.id||'').toLowerCase().indexOf(s)>=0;})) return;
+    var txt = sec.innerText||'';
+    var cn = (txt.match(/[一-鿿]/g)||[]).length;
+    var en = (txt.replace(/[一-鿿]/g,'').trim().split(/\s+/).filter(Boolean)).length;
+    var secs_time = Math.max(15, Math.round((cn/300)*60 + (en/250)*60));
+    var label = secs_time >= 60 ? Math.round(secs_time/60)+'m' : secs_time+'s';
+    var badge = document.createElement('span');
+    badge.className = 'section-time-badge';
+    badge.setAttribute('aria-label','Estimated reading time');
+    badge.innerHTML = '⏱ ~'+label;
+    h2.appendChild(badge);
+  });
+})();
 </script>
 <button class="back-to-top" id="backToTop" aria-label="Back to top" title="回到頂部">↑</button>
 </body>
