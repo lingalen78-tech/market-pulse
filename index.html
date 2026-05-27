@@ -2532,8 +2532,48 @@ window.addEventListener('scroll', function() {
     h2.appendChild(badge);
   });
 })();
+
+(function(){
+  var secs=[];
+  document.querySelectorAll('.hero-toc a[href^="#"]').forEach(function(a){
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t)secs.push(t);
+  });
+  if(!secs.length){document.querySelectorAll('section[id]').forEach(function(s){secs.push(s);});}
+  function getCur(){
+    var y=window.scrollY+100;
+    for(var i=secs.length-1;i>=0;i--){if(secs[i].offsetTop<=y)return i;}
+    return 0;
+  }
+  var help=document.getElementById('kbdHelp');
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.isContentEditable)return;
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    var k=e.key;
+    if(k==='j'){e.preventDefault();var n=Math.min(getCur()+1,secs.length-1);secs[n].scrollIntoView({behavior:'smooth'});}
+    else if(k==='k'){e.preventDefault();var p=Math.max(getCur()-1,0);secs[p].scrollIntoView({behavior:'smooth'});}
+    else if(k>='1'&&k<='9'){var i=parseInt(k)-1;if(i<secs.length){e.preventDefault();secs[i].scrollIntoView({behavior:'smooth'});}}
+    else if(k==='0'){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}
+    else if(k==='s'){e.preventDefault();var sub=document.getElementById('subscribe')||document.querySelector('[id*=waitlist]')||document.querySelector('[id*=newsletter]');if(sub)sub.scrollIntoView({behavior:'smooth'});}
+    else if(k==='?'){e.preventDefault();if(help)help.style.display=help.style.display==='flex'?'none':'flex';}
+  });
+})();
 </script>
 <button class="back-to-top" id="backToTop" aria-label="Back to top" title="回到頂部">↑</button>
+<!-- Keyboard Navigation -->
+<div id="kbdHelp" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div style="background:#1a1a2e;border:1px solid rgba(240,185,11,.3);border-radius:16px;padding:2rem;max-width:420px;width:90%;color:#fff;position:relative;">
+    <button onclick="document.getElementById('kbdHelp').style.display='none'" style="position:absolute;right:12px;top:12px;background:none;border:none;color:#999;font-size:1.2rem;cursor:pointer;">✕</button>
+    <h3 style="margin:0 0 1rem;color:#f0b90b;">⌨️ 鍵盤快捷鍵</h3>
+    <div style="font-size:.85rem;line-height:1.8;">
+      <div><kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">j</kbd> / <kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">k</kbd> — 下一章 / 上一章</div>
+      <div><kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">1</kbd>-<kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">9</kbd> — 跳到第 N 章</div>
+      <div><kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">0</kbd> — 回到頂部</div>
+      <div><kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">s</kbd> — 跳到訂閱區</div>
+      <div><kbd style="background:#333;padding:2px 6px;border-radius:4px;font-size:.8rem;">?</kbd> — 開/關此面板</div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
