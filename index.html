@@ -560,10 +560,27 @@ footer a:hover { color: var(--text); }
 body{animation:pageIn .6s ease-out;}
 @keyframes pageIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 @media(prefers-reduced-motion:reduce){body{animation:none;}}
+
+/* ── Freshness Bar ── */
+.freshness-bar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.6rem 1rem;margin:1rem 0;background:linear-gradient(90deg,rgba(240,185,11,.06),transparent);border-left:3px solid #f0b90b;border-radius:6px;font-size:.85rem;color:rgba(255,255,255,.78)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:livep 2s infinite}
+@keyframes livep{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+
+/* ── Theme Toggle ── */
+.theme-toggle{position:fixed;top:70px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(240,185,11,.3);background:rgba(10,14,23,.8);backdrop-filter:blur(8px);color:#f0b90b;font-size:18px;cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s}
+.theme-toggle:hover{transform:scale(1.1) rotate(15deg);box-shadow:0 0 15px rgba(240,185,11,.3)}
+body.light-mode{background:#f0f2f5!important;color:#1a1a2e!important}
+body.light-mode nav{background:rgba(240,242,245,.95)!important}
+body.light-mode section,body.light-mode .snapshot-card,body.light-mode .theme-card,body.light-mode .market-card,body.light-mode .signal-card,body.light-mode .etf-card,body.light-mode .snap-card{background:rgba(255,255,255,.9)!important;color:#1a1a2e!important;border-color:rgba(0,0,0,.1)!important}
+body.light-mode h1,body.light-mode h2,body.light-mode h3,body.light-mode strong{color:#0a0e17!important}
+body.light-mode .theme-toggle{background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.15)}
+body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,.1),transparent)}
+@media(max-width:640px){.theme-toggle{top:65px;right:12px;width:36px;height:36px;font-size:16px}}
 </style>
 </head>
 <body class="lang-zh">
 <div class="reading-progress" id="readingProgress"></div>
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="切換主題">🌙</button>
 
 <!-- ═══ Navbar ═══ -->
 <nav class="navbar" id="navbar">
@@ -660,7 +677,16 @@ body{animation:pageIn .6s ease-out;}
       <span id="summary-zh" data-lang-zh>市場情緒貪婪，美股上漲、台股下跌，金價走跌，原油承壓。</span>
       <span id="summary-en" data-lang-en>Sentiment: Greed. US equities rally, TW equities fall, gold edges down, crude slips.</span>
     </p>
-    <span class="data-source-tag" id="lastUpdatedTag">Data source: <span>Yahoo Finance</span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-24 16:24 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-23 16:28 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-22 18:14 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-19 16:32 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-18 17:17 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-17 16:56 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-16 18:29 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-15 18:42 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-12 16:46 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-11 17:37 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-10 17:24 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-09 16:33 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-08 17:24 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-05 16:31 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-04 16:56 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-03 18:23 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-02 18:06 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-06-01 19:21 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-29 17:36 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-28 17:35 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-27 17:22 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-26 17:28 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-25 16:25 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-22 16:28 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-21 16:40 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-20 16:55 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-19 16:51 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-18 16:49 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-15 16:05 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-14 16:11 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-13 16:23 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-12 16:23 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-11 16:34 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-08 15:27 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-07 19:57 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-06 19:13 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-05-05 18:56 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-09 17:44 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-08 17:46 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-08 15:40 UTC</span></span> &nbsp;&middot;&nbsp; Updated: <span>2026-04-07 15:13 UTC</span></span>
+    <div class="freshness-bar">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span style="font-weight:700;color:#22c55e;letter-spacing:.08em;font-size:.75rem">LIVE</span>
+      <span style="opacity:.4"> · </span>
+      <span style="font-weight:500">Yahoo Finance</span>
+      <span style="opacity:.4"> · </span>
+      <span id="freshnessTime" style="color:#fff">Updated recently</span>
+      <span style="opacity:.4"> · </span>
+      <span style="font-size:.75rem;opacity:.6">Next: Weekdays 6AM PT</span>
+    </div>
   </div>
 </section>
 
@@ -2424,9 +2450,9 @@ window.addEventListener('scroll', function() {
   const proto = document.getElementById('protoTag');
   proto.innerHTML = 'Prototype Preview &nbsp;&middot;&nbsp; Last updated: <span>' + timeStr + '</span> &nbsp;&middot;&nbsp; Sources: <span>TradingView, Yahoo Finance</span> &nbsp;&middot;&nbsp; Refresh: <span>Daily at market close</span>';
 
-  // ── Last Updated tag (snapshot section) ──
-  const tag = document.getElementById('lastUpdatedTag');
-  tag.innerHTML = 'Data source: <span>TradingView, Yahoo Finance</span> &nbsp;&middot;&nbsp; Updated: <span>' + timeStr + '</span>';
+  // ── Freshness bar relative time (snapshot section) ──
+  const tag = document.getElementById('freshnessTime');
+  if (tag) tag.textContent = 'Updated ' + timeStr;
 
   // ── Language toggle ──
   const body = document.body;
@@ -2558,6 +2584,7 @@ window.addEventListener('scroll', function() {
     else if(k==='?'){e.preventDefault();if(help)help.style.display=help.style.display==='flex'?'none':'flex';}
   });
 })();
+(function(){var b=document.getElementById('themeToggle');if(!b)return;if(localStorage.getItem('mp-theme')==='light'){document.body.classList.add('light-mode');b.textContent='☀️';}b.addEventListener('click',function(){var l=document.body.classList.toggle('light-mode');b.textContent=l?'☀️':'🌙';localStorage.setItem('mp-theme',l?'light':'dark');});})();
 </script>
 <button class="back-to-top" id="backToTop" aria-label="Back to top" title="回到頂部">↑</button>
 <!-- Keyboard Navigation -->
