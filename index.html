@@ -683,7 +683,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
       <span style="opacity:.4"> · </span>
       <span style="font-weight:500">Yahoo Finance</span>
       <span style="opacity:.4"> · </span>
-      <span id="freshnessTime" style="color:#fff">Updated recently</span>
+      <span id="freshnessTime" style="color:#fff">Updated 2026-07-14 15:25 UTC</span>
       <span style="opacity:.4"> · </span>
       <span style="font-size:.75rem;opacity:.6">Next: Weekdays 6AM PT</span>
     </div>
@@ -2445,14 +2445,7 @@ window.addEventListener('scroll', function() {
   const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
   document.getElementById('heroDate').textContent = d.toLocaleDateString('en-US', opts);
 
-  // ── Prototype preview tag ──
-  const timeStr = d.toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' });
-  const proto = document.getElementById('protoTag');
-  proto.innerHTML = 'Prototype Preview &nbsp;&middot;&nbsp; Last updated: <span>' + timeStr + '</span> &nbsp;&middot;&nbsp; Sources: <span>TradingView, Yahoo Finance</span> &nbsp;&middot;&nbsp; Refresh: <span>Daily at market close</span>';
-
-  // ── Freshness bar relative time (snapshot section) ──
-  const tag = document.getElementById('freshnessTime');
-  if (tag) tag.textContent = 'Updated ' + timeStr;
+  // Data freshness timestamps are written by the daily market-data workflow.
 
   // ── Language toggle ──
   const body = document.body;
