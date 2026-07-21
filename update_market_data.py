@@ -28,6 +28,19 @@ SYMBOLS = {
     "MSFT":  "Microsoft",
     "GOOGL": "Alphabet",
     "^VIX":  "VIX",
+    "0050.TW": "Yuanta Taiwan Top 50 ETF",
+    "0056.TW": "Yuanta Taiwan High Dividend ETF",
+    "00878.TW": "Cathay MSCI Taiwan ESG Sustainability High Dividend ETF",
+    "00919.TW": "Capital TIP Taiwan Select High Dividend ETF",
+    "00929.TW": "Fuh Hwa Taiwan Technology Dividend Highlight ETF",
+}
+
+TW_ETFS = {
+    "0050.TW": "0050",
+    "0056.TW": "0056",
+    "00878.TW": "00878",
+    "00919.TW": "00919",
+    "00929.TW": "00929",
 }
 
 # ── Data fetching ─────────────────────────────────────────────────────────────
@@ -54,7 +67,13 @@ def fetch_all():
                 result[symbol] = None
                 continue
 
-            close = hist["Close"]
+            # Yahoo occasionally appends an in-progress row whose Close is NaN.
+            # Ignore incomplete rows so charts and indicators keep the latest valid close.
+            close = hist["Close"].dropna()
+            if len(close) < 20:
+                print(f"  [WARN] {symbol}: insufficient valid closing prices")
+                result[symbol] = None
+                continue
             price = float(close.iloc[-1])
             prev  = float(close.iloc[-2])
             pct   = (price - prev) / prev * 100
@@ -63,14 +82,25 @@ def fetch_all():
             ma50  = float(close.rolling(50).mean().iloc[-1])
             ma200 = float(close.rolling(200).mean().iloc[-1])
 
-            tail20 = hist.tail(20)
+            tail20 = hist.loc[close.index].dropna(subset=["Low", "High"]).tail(20)
             support    = float(tail20["Low"].min())
             resistance = float(tail20["High"].max())
+
+            history = []
+            if symbol in TW_ETFS:
+                history = [
+                    {
+                        "date": timestamp.date().isoformat(),
+                        "close": round(float(value), 2),
+                    }
+                    for timestamp, value in close.tail(66).items()
+                ]
 
             result[symbol] = dict(
                 name=name, price=price, pct=pct,
                 rsi=rsi, ma50=ma50, ma200=ma200,
                 support=support, resistance=resistance,
+                history=history,
             )
             print(f"  {symbol:<8}  {price:>10.2f}  ({pct:+.2f}%)  RSI={rsi:.1f}")
         except Exception as exc:
@@ -290,6 +320,82 @@ def replace_signal_div(html, eid, sig):
     return re.sub(pattern, lambda _: replacement, html, flags=re.DOTALL)
 
 
+def render_tw_etf_chart(ticker, history):
+    """Render a dependency-free three-month SVG sparkline for one Taiwan ETF."""
+    points = []
+    for item in history or []:
+        try:
+            value = float(item["close"])
+            date = str(item["date"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if np.isfinite(value):
+            points.append((date, value))
+
+    if len(points) < 2:
+        return None
+
+    width, height = 300.0, 126.0
+    values = [value for _, value in points]
+    low, high = min(values), max(values)
+    spread = high - low
+    if spread == 0:
+        spread = max(abs(high) * 0.02, 1.0)
+    low -= spread * 0.08
+    high += spread * 0.08
+
+    def x_at(index):
+        return index / (len(points) - 1) * width
+
+    def y_at(value):
+        return (high - value) / (high - low) * height
+
+    coords = [(x_at(i), y_at(value)) for i, (_, value) in enumerate(points)]
+    line_path = "M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in coords)
+    area_path = (f"{line_path} L {coords[-1][0]:.1f},{height:.1f} "
+                 f"L {coords[0][0]:.1f},{height:.1f} Z")
+
+    first, latest = values[0], values[-1]
+    change = ((latest - first) / first * 100) if first else 0.0
+    change_class = "up" if change >= 0 else "down"
+    change_text = f"{change:+.2f}%"
+    start_date = points[0][0][5:].replace("-", "/")
+    end_date = points[-1][0][5:].replace("-", "/")
+    gradient_id = f"tw-etf-gradient-{ticker}"
+
+    return f'''      <div id="tw-etf-chart-{ticker}" class="tw-etf-chart" role="img" aria-label="{ticker} three-month price chart; latest NT$ {latest:.2f}; change {change_text}">
+        <div class="tw-etf-chart-summary">
+          <span class="tw-etf-chart-price">NT$ {latest:.2f}</span>
+          <span class="tw-etf-chart-change {change_class}">3M {change_text}</span>
+        </div>
+        <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="{gradient_id}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <line class="tw-etf-chart-grid" x1="0" y1="63" x2="300" y2="63"/>
+          <path class="tw-etf-chart-area" d="{area_path}" fill="url(#{gradient_id})"/>
+          <path class="tw-etf-chart-line" d="{line_path}"/>
+        </svg>
+        <div class="tw-etf-chart-range"><span>{start_date}</span><span>{end_date}</span></div>
+      </div>'''
+
+
+def replace_tw_etf_chart(html, ticker, chart_markup):
+    """Replace one marker-delimited chart without parsing nested HTML with regex."""
+    start = f"<!-- TW_ETF_CHART_{ticker}_START -->"
+    end = f"<!-- TW_ETF_CHART_{ticker}_END -->"
+    pattern = rf"({re.escape(start)}).*?({re.escape(end)})"
+    replacement = f"{start}\n{chart_markup}\n          {end}"
+    updated, count = re.subn(pattern, lambda _: replacement, html, flags=re.DOTALL)
+    if count != 1:
+        print(f"  [WARN] {ticker}: expected one chart marker block, found {count}")
+        return html
+    return updated
+
+
 def update_html(html, data, fg_score):
     now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).strftime("%Y-%m-%d %H:%M UTC")
 
@@ -355,6 +461,15 @@ def update_html(html, data, fg_score):
         html = replace_signal_div(html, f"{panel}-trend", trend)
         html = replace_signal_div(html, f"{panel}-rsi",   rsi_s)
         html = replace_signal_div(html, f"{panel}-ma",    ma_s)
+
+    # ── Self-hosted Taiwan ETF charts ──
+    for yahoo_symbol, ticker in TW_ETFS.items():
+        asset = data.get(yahoo_symbol)
+        chart = render_tw_etf_chart(ticker, asset.get("history") if asset else None)
+        if chart:
+            html = replace_tw_etf_chart(html, ticker, chart)
+        else:
+            print(f"  [WARN] {ticker}: keeping last-known-good chart")
 
     # ── Timestamps ──
     last_tag = (f'Data source: <span>Yahoo Finance</span>'
