@@ -7,6 +7,7 @@ Run from the repo root: python update_market_data.py
 
 import re
 import sys
+import time
 import datetime
 import numpy as np
 import yfinance as yf
@@ -30,6 +31,8 @@ SYMBOLS = {
     "^VIX":  "VIX",
 }
 
+CORE_SYMBOLS = ("SPY", "^TWII", "GC=F", "CL=F", "^VIX")
+
 # ── Data fetching ─────────────────────────────────────────────────────────────
 
 def calculate_rsi(prices, period=14):
@@ -42,17 +45,17 @@ def calculate_rsi(prices, period=14):
     return float(val) if not (np.isnan(val) or np.isinf(val)) else 50.0
 
 
-def fetch_all():
-    """Fetch OHLCV + indicators for all symbols. Returns dict keyed by symbol."""
-    print("Fetching market data from Yahoo Finance...")
-    result = {}
-    for symbol, name in SYMBOLS.items():
+def fetch_symbol(symbol, name, attempts=3):
+    """Fetch one symbol, retrying transient Yahoo Finance failures."""
+    last_error = None
+
+    for attempt in range(1, attempts + 1):
         try:
-            hist = yf.Ticker(symbol).history(period="250d", auto_adjust=True)
-            if hist.empty or len(hist) < 20:
-                print(f"  [WARN] {symbol}: insufficient data")
-                result[symbol] = None
-                continue
+            hist = yf.Ticker(symbol).history(
+                period="250d", auto_adjust=True, timeout=15
+            )
+            if hist.empty or len(hist) < 200:
+                raise RuntimeError(f"insufficient history ({len(hist)} rows)")
 
             close = hist["Close"]
             price = float(close.iloc[-1])
@@ -67,16 +70,34 @@ def fetch_all():
             support    = float(tail20["Low"].min())
             resistance = float(tail20["High"].max())
 
-            result[symbol] = dict(
+            result = dict(
                 name=name, price=price, pct=pct,
                 rsi=rsi, ma50=ma50, ma200=ma200,
                 support=support, resistance=resistance,
             )
             print(f"  {symbol:<8}  {price:>10.2f}  ({pct:+.2f}%)  RSI={rsi:.1f}")
+            return result
         except Exception as exc:
-            print(f"  [ERR]  {symbol}: {exc}")
-            result[symbol] = None
-    return result
+            last_error = exc
+            if attempt < attempts:
+                wait_seconds = attempt * 2
+                print(
+                    f"  [WARN] {symbol}: attempt {attempt}/{attempts} failed "
+                    f"({exc}); retrying in {wait_seconds}s"
+                )
+                time.sleep(wait_seconds)
+
+    print(f"  [ERR]  {symbol}: unavailable after {attempts} attempts ({last_error})")
+    return None
+
+
+def fetch_all():
+    """Fetch OHLCV + indicators for all symbols. Returns dict keyed by symbol."""
+    print("Fetching market data from Yahoo Finance...")
+    return {
+        symbol: fetch_symbol(symbol, name)
+        for symbol, name in SYMBOLS.items()
+    }
 
 
 # ── Fear & Greed approximation ────────────────────────────────────────────────
@@ -360,6 +381,7 @@ def update_html(html, data, fg_score):
     last_tag = (f'Data source: <span>Yahoo Finance</span>'
                 f' &nbsp;&middot;&nbsp; Updated: <span>{now}</span>')
     html = replace_inner(html, "lastUpdatedTag", last_tag, "span")
+    html = replace_inner(html, "freshnessTime", f"Updated {now}", "span")
 
     proto = (f'Auto-updated via GitHub Actions'
              f' &nbsp;&middot;&nbsp; Last updated: <span>{now}</span>'
@@ -377,6 +399,12 @@ def main():
     print("=" * 60)
 
     data = fetch_all()
+    missing_core = [symbol for symbol in CORE_SYMBOLS if not data.get(symbol)]
+    if missing_core:
+        print(f"\nERROR: Core market data unavailable ({', '.join(missing_core)}).")
+        print("Keeping the previously published briefing unchanged; retry on the next run.")
+        sys.exit(1)
+
     fg   = calc_fear_greed(data)
     print(f"\nFear & Greed: {fg} ({fg_label(fg, 'en')})")
 
