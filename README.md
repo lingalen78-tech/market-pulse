@@ -14,7 +14,8 @@ The workflow:
 1. Fetches live price, RSI, and moving average data via **Yahoo Finance** (`yfinance`)
 2. Calculates a composite **Fear & Greed** score
 3. Generates bilingual (EN/ZH) market analysis
-4. Rewrites `index.html` with updated values and commits the result
+4. Rebuilds five Taiwan ETF SVG charts from the latest 66 valid closes
+5. Rewrites `index.html` with updated values and commits the result
 
 To trigger a manual update, go to **Actions → Daily Market Update → Run workflow**.
 
@@ -26,9 +27,10 @@ To trigger a manual update, go to **Actions → Daily Market Update → Run work
 |---|---|
 | US equities (SPY, AAPL, NVDA, MSFT, GOOGL) | Yahoo Finance via `yfinance` |
 | Taiwan index (^TWII) + TSMC ADR (TSM) | Yahoo Finance via `yfinance` |
+| Taiwan ETFs (0050, 0056, 00878, 00919, 00929) | Yahoo Finance via `yfinance`; inline SVG charts |
 | Precious metals (GC=F Gold, SI=F Silver) | Yahoo Finance via `yfinance` |
 | Energy (CL=F Crude Oil, NG=F Natural Gas) | Yahoo Finance via `yfinance` |
-| Charts | TradingView embedded widgets |
+| Other charts | TradingView embedded widgets |
 
 ---
 
@@ -69,7 +71,7 @@ Then open `index.html` in your browser.
 ## Tech Stack
 
 - Pure HTML / CSS / JavaScript — no frontend build step
-- TradingView Widgets for interactive charts
+- TradingView Widgets plus self-hosted SVG charts for Taiwan ETFs
 - GitHub Pages for hosting
 - GitHub Actions for daily automation
 - Python + `yfinance` for data pipeline

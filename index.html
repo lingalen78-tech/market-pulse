@@ -329,6 +329,34 @@ footer a:hover { color: var(--text); }
   backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
   transition: border-color 0.3s, transform 0.3s;
 }
+.tw-etf-chart {
+  height: 200px; padding: 0.55rem 1.1rem 0.45rem;
+  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, rgba(240,185,11,0.035), transparent);
+}
+.tw-etf-chart-summary, .tw-etf-chart-range {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.tw-etf-chart-summary { min-height: 24px; gap: 0.75rem; }
+.tw-etf-chart-price { color: var(--text); font-size: 0.9rem; font-weight: 700; }
+.tw-etf-chart-change { font-size: 0.72rem; font-weight: 700; }
+.tw-etf-chart-change.up { color: var(--green); }
+.tw-etf-chart-change.down { color: var(--red); }
+.tw-etf-chart svg { width: 100%; flex: 1; min-height: 0; display: block; overflow: visible; }
+.tw-etf-chart-grid { stroke: rgba(255,255,255,0.08); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tw-etf-chart-line {
+  fill: none; stroke: var(--gold); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke;
+}
+.tw-etf-chart-range { color: var(--text-secondary); font-size: 0.61rem; line-height: 1; }
+.tw-etf-chart-empty {
+  height: 100%; display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary); font-size: 0.75rem; text-align: center;
+}
+body.light-mode .tw-etf-chart-price { color: #1a1a2e; }
+body.light-mode .tw-etf-chart-range,
+body.light-mode .tw-etf-chart-empty { color: rgba(26,26,46,0.55); }
+body.light-mode .tw-etf-chart-grid { stroke: rgba(26,26,46,0.1); }
 .etf-card-header { padding: 1rem 1.1rem 0.65rem; display: flex; align-items: flex-start; justify-content: space-between; }
 .etf-ticker { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
 .etf-full-name { font-size: 0.73rem; color: var(--text-secondary); margin-top: 0.15rem; }
@@ -1228,12 +1256,26 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
               <div class="etf-aum"><span data-lang-zh>規模最大</span><span data-lang-en>Largest AUM</span></div>
             </div>
           </div>
-          <div class="tradingview-widget-container" style="height:200px;">
-            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TWSE:0050","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- TW_ETF_CHART_0050_START -->
+      <div id="tw-etf-chart-0050" class="tw-etf-chart" role="img" aria-label="0050 three-month price chart; latest NT$ 99.20; change +16.71%">
+        <div class="tw-etf-chart-summary">
+          <span class="tw-etf-chart-price">NT$ 99.20</span>
+          <span class="tw-etf-chart-change up">3M +16.71%</span>
+        </div>
+        <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tw-etf-gradient-0050" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <line class="tw-etf-chart-grid" x1="0" y1="63" x2="300" y2="63"/>
+          <path class="tw-etf-chart-area" d="M 0.0,113.9 L 4.6,117.3 L 9.2,115.7 L 13.8,109.9 L 18.5,108.5 L 23.1,108.5 L 27.7,94.0 L 32.3,81.7 L 36.9,85.7 L 41.5,90.8 L 46.2,91.8 L 50.8,75.3 L 55.4,75.3 L 60.0,70.6 L 64.6,62.8 L 69.2,65.6 L 73.8,66.0 L 78.5,66.2 L 83.1,71.6 L 87.7,69.4 L 92.3,72.1 L 96.9,74.1 L 101.5,81.3 L 106.2,83.7 L 110.8,70.2 L 115.4,64.4 L 120.0,50.3 L 124.6,53.1 L 129.2,43.3 L 133.8,51.5 L 138.5,31.8 L 143.1,31.4 L 147.7,30.6 L 152.3,23.0 L 156.9,29.0 L 161.5,36.9 L 166.2,49.7 L 170.8,39.5 L 175.4,52.5 L 180.0,54.1 L 184.6,45.7 L 189.2,32.4 L 193.8,29.8 L 198.5,29.4 L 203.1,24.2 L 207.7,8.7 L 212.3,12.9 L 216.9,24.8 L 221.5,24.6 L 226.2,41.1 L 230.8,35.6 L 235.4,22.2 L 240.0,15.9 L 244.6,18.1 L 249.2,20.0 L 253.8,20.4 L 258.5,28.6 L 263.1,29.2 L 267.7,30.2 L 272.3,30.2 L 276.9,29.4 L 281.5,35.8 L 286.2,28.2 L 290.8,27.8 L 295.4,52.9 L 300.0,56.8 L 300.0,126.0 L 0.0,126.0 Z" fill="url(#tw-etf-gradient-0050)"/>
+          <path class="tw-etf-chart-line" d="M 0.0,113.9 L 4.6,117.3 L 9.2,115.7 L 13.8,109.9 L 18.5,108.5 L 23.1,108.5 L 27.7,94.0 L 32.3,81.7 L 36.9,85.7 L 41.5,90.8 L 46.2,91.8 L 50.8,75.3 L 55.4,75.3 L 60.0,70.6 L 64.6,62.8 L 69.2,65.6 L 73.8,66.0 L 78.5,66.2 L 83.1,71.6 L 87.7,69.4 L 92.3,72.1 L 96.9,74.1 L 101.5,81.3 L 106.2,83.7 L 110.8,70.2 L 115.4,64.4 L 120.0,50.3 L 124.6,53.1 L 129.2,43.3 L 133.8,51.5 L 138.5,31.8 L 143.1,31.4 L 147.7,30.6 L 152.3,23.0 L 156.9,29.0 L 161.5,36.9 L 166.2,49.7 L 170.8,39.5 L 175.4,52.5 L 180.0,54.1 L 184.6,45.7 L 189.2,32.4 L 193.8,29.8 L 198.5,29.4 L 203.1,24.2 L 207.7,8.7 L 212.3,12.9 L 216.9,24.8 L 221.5,24.6 L 226.2,41.1 L 230.8,35.6 L 235.4,22.2 L 240.0,15.9 L 244.6,18.1 L 249.2,20.0 L 253.8,20.4 L 258.5,28.6 L 263.1,29.2 L 267.7,30.2 L 272.3,30.2 L 276.9,29.4 L 281.5,35.8 L 286.2,28.2 L 290.8,27.8 L 295.4,52.9 L 300.0,56.8"/>
+        </svg>
+        <div class="tw-etf-chart-range"><span>04/16</span><span>07/20</span></div>
+      </div>
+          <!-- TW_ETF_CHART_0050_END -->
           <div class="etf-signals">
             <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
             <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val neutral">49</div></div>
@@ -1250,12 +1292,26 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
               <div class="etf-aum"><span data-lang-zh>高股息代表</span><span data-lang-en>High Dividend</span></div>
             </div>
           </div>
-          <div class="tradingview-widget-container" style="height:200px;">
-            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TWSE:0056","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- TW_ETF_CHART_0056_START -->
+      <div id="tw-etf-chart-0056" class="tw-etf-chart" role="img" aria-label="0056 three-month price chart; latest NT$ 50.75; change +29.10%">
+        <div class="tw-etf-chart-summary">
+          <span class="tw-etf-chart-price">NT$ 50.75</span>
+          <span class="tw-etf-chart-change up">3M +29.10%</span>
+        </div>
+        <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tw-etf-gradient-0056" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <line class="tw-etf-chart-grid" x1="0" y1="63" x2="300" y2="63"/>
+          <path class="tw-etf-chart-area" d="M 0.0,117.3 L 4.6,113.4 L 9.2,112.1 L 13.8,108.5 L 18.5,104.9 L 23.1,100.4 L 27.7,107.4 L 32.3,105.2 L 36.9,105.6 L 41.5,104.0 L 46.2,105.4 L 50.8,105.6 L 55.4,98.1 L 60.0,92.9 L 64.6,83.8 L 69.2,77.4 L 73.8,76.5 L 78.5,69.8 L 83.1,71.1 L 87.7,74.3 L 92.3,74.3 L 96.9,79.4 L 101.5,79.1 L 106.2,82.7 L 110.8,82.5 L 115.4,72.1 L 120.0,65.4 L 124.6,50.7 L 129.2,50.9 L 133.8,41.2 L 138.5,47.2 L 143.1,37.1 L 147.7,24.5 L 152.3,17.9 L 156.9,10.5 L 161.5,19.0 L 166.2,25.3 L 170.8,42.6 L 175.4,29.3 L 180.0,41.3 L 184.6,41.6 L 189.2,34.1 L 193.8,27.5 L 198.5,27.1 L 203.1,24.2 L 207.7,17.9 L 212.3,8.7 L 216.9,12.0 L 221.5,15.3 L 226.2,15.0 L 230.8,27.8 L 235.4,25.3 L 240.0,14.6 L 244.6,18.3 L 249.2,19.4 L 253.8,17.5 L 258.5,14.6 L 263.1,22.7 L 267.7,21.2 L 272.3,19.0 L 276.9,19.0 L 281.5,20.8 L 286.2,25.6 L 290.8,16.4 L 295.4,19.0 L 300.0,33.0 L 300.0,126.0 L 0.0,126.0 Z" fill="url(#tw-etf-gradient-0056)"/>
+          <path class="tw-etf-chart-line" d="M 0.0,117.3 L 4.6,113.4 L 9.2,112.1 L 13.8,108.5 L 18.5,104.9 L 23.1,100.4 L 27.7,107.4 L 32.3,105.2 L 36.9,105.6 L 41.5,104.0 L 46.2,105.4 L 50.8,105.6 L 55.4,98.1 L 60.0,92.9 L 64.6,83.8 L 69.2,77.4 L 73.8,76.5 L 78.5,69.8 L 83.1,71.1 L 87.7,74.3 L 92.3,74.3 L 96.9,79.4 L 101.5,79.1 L 106.2,82.7 L 110.8,82.5 L 115.4,72.1 L 120.0,65.4 L 124.6,50.7 L 129.2,50.9 L 133.8,41.2 L 138.5,47.2 L 143.1,37.1 L 147.7,24.5 L 152.3,17.9 L 156.9,10.5 L 161.5,19.0 L 166.2,25.3 L 170.8,42.6 L 175.4,29.3 L 180.0,41.3 L 184.6,41.6 L 189.2,34.1 L 193.8,27.5 L 198.5,27.1 L 203.1,24.2 L 207.7,17.9 L 212.3,8.7 L 216.9,12.0 L 221.5,15.3 L 226.2,15.0 L 230.8,27.8 L 235.4,25.3 L 240.0,14.6 L 244.6,18.3 L 249.2,19.4 L 253.8,17.5 L 258.5,14.6 L 263.1,22.7 L 267.7,21.2 L 272.3,19.0 L 276.9,19.0 L 281.5,20.8 L 286.2,25.6 L 290.8,16.4 L 295.4,19.0 L 300.0,33.0"/>
+        </svg>
+        <div class="tw-etf-chart-range"><span>04/15</span><span>07/17</span></div>
+      </div>
+          <!-- TW_ETF_CHART_0056_END -->
           <div class="etf-signals">
             <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
             <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val neutral">50</div></div>
@@ -1272,12 +1328,26 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
               <div class="etf-aum"><span data-lang-zh>ESG 高股息</span><span data-lang-en>ESG High Dividend</span></div>
             </div>
           </div>
-          <div class="tradingview-widget-container" style="height:200px;">
-            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TWSE:00878","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- TW_ETF_CHART_00878_START -->
+      <div id="tw-etf-chart-00878" class="tw-etf-chart" role="img" aria-label="00878 three-month price chart; latest NT$ 31.81; change +39.33%">
+        <div class="tw-etf-chart-summary">
+          <span class="tw-etf-chart-price">NT$ 31.81</span>
+          <span class="tw-etf-chart-change up">3M +39.33%</span>
+        </div>
+        <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tw-etf-gradient-00878" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <line class="tw-etf-chart-grid" x1="0" y1="63" x2="300" y2="63"/>
+          <path class="tw-etf-chart-area" d="M 0.0,117.3 L 4.6,113.5 L 9.2,111.0 L 13.8,106.7 L 18.5,104.8 L 23.1,101.2 L 27.7,105.4 L 32.3,102.1 L 36.9,102.1 L 41.5,99.3 L 46.2,99.3 L 50.8,98.5 L 55.4,91.3 L 60.0,87.3 L 64.6,80.3 L 69.2,75.0 L 73.8,75.7 L 78.5,71.3 L 83.1,72.8 L 87.7,74.4 L 92.3,72.9 L 96.9,74.9 L 101.5,75.8 L 106.2,77.2 L 110.8,77.9 L 115.4,70.4 L 120.0,65.0 L 124.6,53.3 L 129.2,52.0 L 133.8,43.0 L 138.5,48.3 L 143.1,41.0 L 147.7,29.2 L 152.3,24.4 L 156.9,16.6 L 161.5,22.5 L 166.2,26.0 L 170.8,37.6 L 175.4,26.1 L 180.0,32.9 L 184.6,32.9 L 189.2,28.6 L 193.8,23.2 L 198.5,20.3 L 203.1,16.9 L 207.7,13.0 L 212.3,8.7 L 216.9,10.0 L 221.5,13.1 L 226.2,12.2 L 230.8,22.3 L 235.4,20.4 L 240.0,14.7 L 244.6,16.4 L 249.2,17.3 L 253.8,16.3 L 258.5,14.8 L 263.1,19.8 L 267.7,17.5 L 272.3,17.6 L 276.9,17.6 L 281.5,18.2 L 286.2,22.2 L 290.8,17.4 L 295.4,19.9 L 300.0,30.9 L 300.0,126.0 L 0.0,126.0 Z" fill="url(#tw-etf-gradient-00878)"/>
+          <path class="tw-etf-chart-line" d="M 0.0,117.3 L 4.6,113.5 L 9.2,111.0 L 13.8,106.7 L 18.5,104.8 L 23.1,101.2 L 27.7,105.4 L 32.3,102.1 L 36.9,102.1 L 41.5,99.3 L 46.2,99.3 L 50.8,98.5 L 55.4,91.3 L 60.0,87.3 L 64.6,80.3 L 69.2,75.0 L 73.8,75.7 L 78.5,71.3 L 83.1,72.8 L 87.7,74.4 L 92.3,72.9 L 96.9,74.9 L 101.5,75.8 L 106.2,77.2 L 110.8,77.9 L 115.4,70.4 L 120.0,65.0 L 124.6,53.3 L 129.2,52.0 L 133.8,43.0 L 138.5,48.3 L 143.1,41.0 L 147.7,29.2 L 152.3,24.4 L 156.9,16.6 L 161.5,22.5 L 166.2,26.0 L 170.8,37.6 L 175.4,26.1 L 180.0,32.9 L 184.6,32.9 L 189.2,28.6 L 193.8,23.2 L 198.5,20.3 L 203.1,16.9 L 207.7,13.0 L 212.3,8.7 L 216.9,10.0 L 221.5,13.1 L 226.2,12.2 L 230.8,22.3 L 235.4,20.4 L 240.0,14.7 L 244.6,16.4 L 249.2,17.3 L 253.8,16.3 L 258.5,14.8 L 263.1,19.8 L 267.7,17.5 L 272.3,17.6 L 276.9,17.6 L 281.5,18.2 L 286.2,22.2 L 290.8,17.4 L 295.4,19.9 L 300.0,30.9"/>
+        </svg>
+        <div class="tw-etf-chart-range"><span>04/15</span><span>07/17</span></div>
+      </div>
+          <!-- TW_ETF_CHART_00878_END -->
           <div class="etf-signals">
             <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
             <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val neutral">48</div></div>
@@ -1294,12 +1364,26 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
               <div class="etf-aum"><span data-lang-zh>精選高息</span><span data-lang-en>Select High Income</span></div>
             </div>
           </div>
-          <div class="tradingview-widget-container" style="height:200px;">
-            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TWSE:00919","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- TW_ETF_CHART_00919_START -->
+      <div id="tw-etf-chart-00919" class="tw-etf-chart" role="img" aria-label="00919 three-month price chart; latest NT$ 28.55; change +26.66%">
+        <div class="tw-etf-chart-summary">
+          <span class="tw-etf-chart-price">NT$ 28.55</span>
+          <span class="tw-etf-chart-change up">3M +26.66%</span>
+        </div>
+        <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tw-etf-gradient-00919" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <line class="tw-etf-chart-grid" x1="0" y1="63" x2="300" y2="63"/>
+          <path class="tw-etf-chart-area" d="M 0.0,117.3 L 4.6,115.6 L 9.2,112.6 L 13.8,113.0 L 18.5,109.2 L 23.1,115.3 L 27.7,114.8 L 32.3,116.9 L 36.9,114.8 L 41.5,112.8 L 46.2,112.8 L 50.8,108.9 L 55.4,105.9 L 60.0,96.8 L 64.6,90.3 L 69.2,89.7 L 73.8,86.2 L 78.5,86.4 L 83.1,88.7 L 87.7,84.3 L 92.3,86.1 L 96.9,87.6 L 101.5,86.1 L 106.2,83.3 L 110.8,76.2 L 115.4,73.7 L 120.0,64.4 L 124.6,58.5 L 129.2,46.8 L 133.8,52.4 L 138.5,44.8 L 143.1,32.2 L 147.7,28.4 L 152.3,22.2 L 156.9,25.5 L 161.5,23.7 L 166.2,38.8 L 170.8,23.0 L 175.4,29.2 L 180.0,29.7 L 184.6,29.7 L 189.2,23.4 L 193.8,19.7 L 198.5,14.7 L 203.1,8.7 L 207.7,8.8 L 212.3,11.7 L 216.9,16.6 L 221.5,15.9 L 226.2,25.1 L 230.8,26.4 L 235.4,25.9 L 240.0,27.6 L 244.6,29.8 L 249.2,25.5 L 253.8,22.5 L 258.5,24.3 L 263.1,20.1 L 267.7,19.7 L 272.3,19.7 L 276.9,23.1 L 281.5,26.9 L 286.2,22.3 L 290.8,25.2 L 295.4,33.4 L 300.0,38.4 L 300.0,126.0 L 0.0,126.0 Z" fill="url(#tw-etf-gradient-00919)"/>
+          <path class="tw-etf-chart-line" d="M 0.0,117.3 L 4.6,115.6 L 9.2,112.6 L 13.8,113.0 L 18.5,109.2 L 23.1,115.3 L 27.7,114.8 L 32.3,116.9 L 36.9,114.8 L 41.5,112.8 L 46.2,112.8 L 50.8,108.9 L 55.4,105.9 L 60.0,96.8 L 64.6,90.3 L 69.2,89.7 L 73.8,86.2 L 78.5,86.4 L 83.1,88.7 L 87.7,84.3 L 92.3,86.1 L 96.9,87.6 L 101.5,86.1 L 106.2,83.3 L 110.8,76.2 L 115.4,73.7 L 120.0,64.4 L 124.6,58.5 L 129.2,46.8 L 133.8,52.4 L 138.5,44.8 L 143.1,32.2 L 147.7,28.4 L 152.3,22.2 L 156.9,25.5 L 161.5,23.7 L 166.2,38.8 L 170.8,23.0 L 175.4,29.2 L 180.0,29.7 L 184.6,29.7 L 189.2,23.4 L 193.8,19.7 L 198.5,14.7 L 203.1,8.7 L 207.7,8.8 L 212.3,11.7 L 216.9,16.6 L 221.5,15.9 L 226.2,25.1 L 230.8,26.4 L 235.4,25.9 L 240.0,27.6 L 244.6,29.8 L 249.2,25.5 L 253.8,22.5 L 258.5,24.3 L 263.1,20.1 L 267.7,19.7 L 272.3,19.7 L 276.9,23.1 L 281.5,26.9 L 286.2,22.3 L 290.8,25.2 L 295.4,33.4 L 300.0,38.4"/>
+        </svg>
+        <div class="tw-etf-chart-range"><span>04/16</span><span>07/20</span></div>
+      </div>
+          <!-- TW_ETF_CHART_00919_END -->
           <div class="etf-signals">
             <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val bullish"><span data-lang-zh>上升</span><span data-lang-en>Up</span></div></div>
             <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bullish">53</div></div>
@@ -1316,12 +1400,26 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
               <div class="etf-aum"><span data-lang-zh>科技優息</span><span data-lang-en>Tech Income</span></div>
             </div>
           </div>
-          <div class="tradingview-widget-container" style="height:200px;">
-            <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TWSE:00929","width":"100%","height":200,"locale":"en","dateRange":"3M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- TW_ETF_CHART_00929_START -->
+      <div id="tw-etf-chart-00929" class="tw-etf-chart" role="img" aria-label="00929 three-month price chart; latest NT$ 28.52; change +40.77%">
+        <div class="tw-etf-chart-summary">
+          <span class="tw-etf-chart-price">NT$ 28.52</span>
+          <span class="tw-etf-chart-change up">3M +40.77%</span>
+        </div>
+        <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tw-etf-gradient-00929" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <line class="tw-etf-chart-grid" x1="0" y1="63" x2="300" y2="63"/>
+          <path class="tw-etf-chart-area" d="M 0.0,117.3 L 4.6,113.8 L 9.2,111.1 L 13.8,107.3 L 18.5,104.3 L 23.1,98.8 L 27.7,105.6 L 32.3,102.3 L 36.9,102.6 L 41.5,100.9 L 46.2,103.3 L 50.8,102.0 L 55.4,94.9 L 60.0,90.1 L 64.6,82.5 L 69.2,76.4 L 73.8,76.2 L 78.5,68.2 L 83.1,67.8 L 87.7,71.1 L 92.3,67.2 L 96.9,70.1 L 101.5,70.8 L 106.2,75.0 L 110.8,75.3 L 115.4,62.5 L 120.0,57.2 L 124.6,41.5 L 129.2,37.9 L 133.8,30.3 L 138.5,36.2 L 143.1,28.5 L 147.7,23.5 L 152.3,22.2 L 156.9,21.8 L 161.5,26.5 L 166.2,31.2 L 170.8,48.1 L 175.4,35.9 L 180.0,47.8 L 184.6,44.3 L 189.2,35.2 L 193.8,26.3 L 198.5,25.0 L 203.1,23.2 L 207.7,18.4 L 212.3,8.7 L 216.9,13.3 L 221.5,14.3 L 226.2,11.4 L 230.8,28.8 L 235.4,28.5 L 240.0,21.3 L 244.6,21.3 L 249.2,17.5 L 253.8,16.2 L 258.5,16.0 L 263.1,24.4 L 267.7,28.7 L 272.3,26.7 L 276.9,26.7 L 281.5,28.2 L 286.2,33.0 L 290.8,27.3 L 295.4,29.3 L 300.0,41.9 L 300.0,126.0 L 0.0,126.0 Z" fill="url(#tw-etf-gradient-00929)"/>
+          <path class="tw-etf-chart-line" d="M 0.0,117.3 L 4.6,113.8 L 9.2,111.1 L 13.8,107.3 L 18.5,104.3 L 23.1,98.8 L 27.7,105.6 L 32.3,102.3 L 36.9,102.6 L 41.5,100.9 L 46.2,103.3 L 50.8,102.0 L 55.4,94.9 L 60.0,90.1 L 64.6,82.5 L 69.2,76.4 L 73.8,76.2 L 78.5,68.2 L 83.1,67.8 L 87.7,71.1 L 92.3,67.2 L 96.9,70.1 L 101.5,70.8 L 106.2,75.0 L 110.8,75.3 L 115.4,62.5 L 120.0,57.2 L 124.6,41.5 L 129.2,37.9 L 133.8,30.3 L 138.5,36.2 L 143.1,28.5 L 147.7,23.5 L 152.3,22.2 L 156.9,21.8 L 161.5,26.5 L 166.2,31.2 L 170.8,48.1 L 175.4,35.9 L 180.0,47.8 L 184.6,44.3 L 189.2,35.2 L 193.8,26.3 L 198.5,25.0 L 203.1,23.2 L 207.7,18.4 L 212.3,8.7 L 216.9,13.3 L 221.5,14.3 L 226.2,11.4 L 230.8,28.8 L 235.4,28.5 L 240.0,21.3 L 244.6,21.3 L 249.2,17.5 L 253.8,16.2 L 258.5,16.0 L 263.1,24.4 L 267.7,28.7 L 272.3,26.7 L 276.9,26.7 L 281.5,28.2 L 286.2,33.0 L 290.8,27.3 L 295.4,29.3 L 300.0,41.9"/>
+        </svg>
+        <div class="tw-etf-chart-range"><span>04/15</span><span>07/17</span></div>
+      </div>
+          <!-- TW_ETF_CHART_00929_END -->
           <div class="etf-signals">
             <div class="etf-signal"><div class="etf-signal-name">Trend</div><div class="etf-signal-val neutral"><span data-lang-zh>中性</span><span data-lang-en>Neutral</span></div></div>
             <div class="etf-signal"><div class="etf-signal-name">RSI</div><div class="etf-signal-val bearish">44</div></div>
@@ -2603,4 +2701,3 @@ window.addEventListener('scroll', function() {
 </div>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
