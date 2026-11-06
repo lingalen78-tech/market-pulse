@@ -87,11 +87,26 @@ An equal-weight average of three clipped 0–100 components (not the CNN Fear & 
 ```bash
 pip install -r requirements.txt
 python -m unittest -v test_market_data.py test_market_charts.py
-node --test test_data_status.cjs test_market_tabs.cjs
+node --test test_data_status.cjs test_market_tabs.cjs test_fade_in.cjs test_design_ui.cjs
 python update_market_data.py
 ```
 
 Then open `index.html` in your browser.
+
+### Visual design and UI checks
+
+`design-refresh.css` supplies the dark navy / light mist palette, compact reading paths,
+responsive navigation and higher-contrast text. `design-ui.js` adds keyboard-accessible
+asset/ETF tabs, chapter-menu state, theme persistence with a storage-denied fallback,
+correct document language and chart counts. Both are buildless; the data updater and
+the original GitHub Pages deployment remain unchanged.
+
+When changing markup, preserve the updater's target IDs **and element types**. Run all
+Python and Node tests, then check desktop and mobile in both themes, language switching,
+Escape/focus behavior, five Taiwan ETF charts and the other generated market charts.
+The color-token test is not a complete WCAG audit, and external TradingView widget
+styles remain controlled by their provider. The newsletter is explicitly unavailable;
+there is no email-collection backend or simulated successful signup.
 
 ---
 
