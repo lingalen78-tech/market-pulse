@@ -142,6 +142,38 @@ body.light-mode .tw-etf-chart-range, body.light-mode .tw-etf-chart-empty { color
 .about-text p { line-height: 1.8; }
 .about-text a { overflow-wrap: anywhere; }
 .method-card p, .method-note { line-height: 1.8; }
+/* Evidence stays close to the number; research notes use a quieter surface. */
+.quote-unit { display: block; color: var(--text-secondary); font-size: .7rem; margin-top: 3px; }
+.snap-card .change { white-space: nowrap; }
+.data-reading-guide { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-block: 1px solid var(--card-border); padding: 16px 0; margin-top: 18px; }
+.data-reading-guide p { display: grid; grid-template-columns: 60px 1fr; gap: 10px; color: var(--text-secondary); font-size: .78rem; line-height: 1.7; }
+.data-reading-guide strong { color: var(--text); font-weight: 600; }
+.sentiment-details, .formula-details { border: 1px solid var(--card-border); border-radius: 8px; margin-top: 18px; background: var(--surface-soft); padding: 0 18px 14px; }
+.sentiment-details:not([open]), .formula-details:not([open]) { padding-bottom: 0; }
+.sentiment-details summary, .formula-details summary { min-height: 48px; padding: 13px 0; cursor: pointer; color: var(--text); font-size: .84rem; line-height: 1.6; }
+.sentiment-details summary:hover, .formula-details summary:hover { color: var(--gold); }
+.sentiment-details p, .formula-details p, .formula-details li { font-size: .8rem; line-height: 1.85; color: var(--text-secondary); max-width: 78ch; }
+.sentiment-details a, .formula-details a { display: inline-block; min-height: 44px; padding-top: 12px; color: var(--gold); font-size: .78rem; }
+.sentiment-table { width: 100%; margin-top: 16px; border-collapse: collapse; font-size: .78rem; font-variant-numeric: tabular-nums; }
+.sentiment-table caption { text-align: left; color: var(--text-secondary); padding-bottom: 8px; }
+.sentiment-table th, .sentiment-table td { text-align: right; padding: 10px 6px; border-bottom: 1px solid var(--card-border); }
+.sentiment-table th:first-child { text-align: left; font-weight: 500; }
+.sentiment-table thead th { font-weight: 500; color: var(--text-secondary); }
+.formula-details { scroll-margin-top: 90px; }
+.formula-details ul { padding-left: 20px; }
+.formula-details code { overflow-wrap: anywhere; color: var(--text); font-size: .78rem; }
+.content-label { display: inline-block; color: var(--text); border: 1px solid var(--card-border); border-radius: 4px; padding: 1px 6px; margin-right: 6px; font-size: .72rem; font-weight: 600; }
+.static-note { margin-bottom: 20px; }
+.chart-period-note { margin-top: 6px; font-size: .68rem; line-height: 1.7; color: var(--text-secondary); }
+.signal-card { padding-block: 20px; }
+.signal-card .signal-value { line-height: 1.5; }
+.theme-icon, .theme-name-sub { display: none; }
+.theme-card { background: var(--surface-soft); border-left: 3px solid var(--card-border); }
+.theme-card-top { margin-bottom: 12px; }
+.theme-ticker-tag { background: transparent; border-color: var(--card-border); color: var(--text-secondary); font-weight: 400; }
+.theme-desc { margin-top: 14px; }
+.source-rights { border-left-color: var(--gold); }
+.source-rights a { color: var(--gold); }
 .back-to-top { background: var(--card); border-color: var(--card-border); color: var(--text); bottom: max(20px, env(safe-area-inset-bottom)); right: 20px; width: 44px; height: 44px; }
 .back-to-top:hover { transform: none; background: var(--surface-soft); box-shadow: none; }
 .reading-progress { background: var(--gold); box-shadow: none; height: 2px; }
@@ -192,6 +224,11 @@ body.light-mode .tw-etf-chart-range, body.light-mode .tw-etf-chart-empty { color
   .gauge-label { font-size: .7rem; }
 }
 @media (max-width: 500px) {
+  .data-reading-guide { grid-template-columns: 1fr; gap: 12px; }
+  .sentiment-details, .formula-details { padding-inline: 12px; }
+  .sentiment-table { font-size: .66rem; }
+  .sentiment-table th, .sentiment-table td { padding: 9px 3px; }
+  .sentiment-table td:last-child { overflow-wrap: anywhere; max-width: 7ch; }
   .hero { gap: 22px; }
   .hero-toc { padding-top: 14px; }
   .toc-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }

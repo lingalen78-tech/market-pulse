@@ -1,6 +1,6 @@
 # Market Pulse 市場脈動
 
-Daily 30-second market briefing covering US stocks, Taiwan equities, precious metals, and energy.
+Daily market data snapshots with dated prices, calculated indicators and research notes.
 
 Live site: [lingalen78-tech.github.io/market-pulse](https://lingalen78-tech.github.io/market-pulse/)
 
@@ -8,7 +8,7 @@ Live site: [lingalen78-tech.github.io/market-pulse](https://lingalen78-tech.gith
 
 ## Automated Daily Updates
 
-Market data is scheduled via **GitHub Actions** every weekday at **14:00 UTC** (6 AM PST / 7 AM PDT). Runs may be delayed. Daily bars can include an unfinished trading session; the page displays exchange-local bar dates separately from the UTC fetch timestamp.
+Market data is scheduled via **GitHub Actions** every weekday at **14:00 UTC** (6 AM PST / 7 AM PDT). Manual runs can occur at other times and scheduled runs may be delayed. The displayed fetch timestamp is neither the schedule nor the code-deployment timestamp. Daily bars can include an unfinished trading session; the page displays exchange-local bar dates separately from the UTC fetch timestamp.
 
 The workflow:
 1. Fetches adjusted daily prices via **Yahoo Finance** (`yfinance`) and computes RSI and moving averages
@@ -20,7 +20,9 @@ The workflow:
 
 Each source gets up to three attempts and must contain at least 200 valid closes, finite indicators, and a bar no more than seven calendar days old. If a core source (SPY, TAIEX, gold, oil or VIX) fails, the update exits nonzero without changing published files. Optional-source failures retain that asset's last valid snapshot (or display unavailable on first failure), visibly identify it as retained, and emit an Actions warning and job summary. Browser age checks flag an old overall snapshot without inventing a new update time.
 
-All ten ETF signal cards, five dashboard summaries, the main SPY chart analysis, sentiment labels and Bottom Line are generated from this snapshot. Sector/theme and other editorial text is explicitly static; it is not refreshed by this workflow. The separate daily optimization report does not itself deploy code.
+All ten ETF indicator cards, five dashboard summaries, the main SPY chart analysis, sentiment inputs, labels and Bottom Line are generated from this snapshot. Sector/theme text is explicitly static research questions, not current investment conclusions. Uncomputed market trend badges and undated AUM claims have been removed. `get_signals` is the sole classifier for the displayed indicator cards. Code maintenance is separate from this data-refresh workflow.
+
+The migration to Wilder RSI rejects cached assets without `rsi_method: wilder-14`, rather than silently displaying an old simple-average RSI under the new definition. Subsequent valid Wilder snapshots remain eligible for the existing last-good fallback.
 
 To trigger a manual update, go to **Actions → Daily Market Update → Run workflow**.
 
@@ -64,16 +66,26 @@ Market cards show 22 trading sessions; dashboard charts show 66. Index/futures b
 ### Indicators
 | Indicator | Definition |
 |---|---|
-| **RSI(14)** | Simple 14-day mean gains/losses on adjusted daily closes, not Wilder smoothing. >=70 = overbought, <=30 = oversold. |
+| **RSI(14)** | Wilder smoothing: seed with the first 14 gains/losses; update each average as `(previous * 13 + change) / 14`. RSI = `100 - 100/(1 + average gain/average loss)`. >=70 = overbought, <=30 = oversold, not trade instructions. A flat series returns 50, only gains 100, only losses 0. Requires at least 15 closes; production histories require at least 200. |
 | **SMA 50** | 50-day Simple Moving Average |
 | **SMA 200** | 200-day Simple Moving Average. Price above = bullish long-term bias. |
-| **MA Signal** | Bullish alignment = SMA50 >= SMA200; bearish alignment = SMA50 < SMA200. This is a state, not a newly detected crossover. |
+| **MA Signal** | Bullish alignment = SMA50 > SMA200; bearish alignment = SMA50 < SMA200; equality is neutral. This is a state, not a newly detected crossover. |
+
+Wilder RSI is calculated across the valid history returned by the two-year request, not just the plotted window. Initialization, price adjustment, bar timing and data providers can still cause differences from other platforms. See the [TradingView RSI calculation](https://www.tradingview.com/support/solutions/43000502338-relative-strength-index-rsi/).
+
+`1D` is `(latest close / previous close - 1) * 100`; it is not a rolling 24-hour return. Taiwan ETF `Window` change is `(last plotted close / first plotted close - 1) * 100`, with both ISO dates and the number of observations displayed. Sixty-six sessions need not equal three calendar months. TradingView embeds retain the provider's own timeframe and price basis.
 
 ### Fear & Greed Composite
 An equal-weight average of three clipped 0–100 components (not the CNN Fear & Greed Index):
-- **SPY RSI** — momentum proxy (RSI 30→70 maps to 10→90)
-- **VIX level** — volatility proxy (VIX 10→40 maps to 90→10)
-- **SPY vs 200-DMA** — trend proxy (% above/below 200-day SMA)
+- SPY RSI: `clip((RSI14 - 30) * 2 + 10)`
+- VIX: `clip(90 - (VIX - 10) * 80 / 30)`
+- SPY vs SMA200: `clip(50 + (price / SMA200 - 1) * 100 * 5)`
+
+Here `clip(x) = min(100, max(0, x))`. Each weight is 1/3. Round the mean to the nearest integer, ties to even. Missing any component aborts the data refresh; no silent reweighting. Labels: 0–24 extreme fear, 25–44 fear, 45–54 neutral, 55–74 greed, 75–100 extreme greed. These are site conventions, not empirically calibrated probabilities, recommendations or backtested predictors. The visible input table includes VIX, each component score, weight and bar date.
+
+### Data rights remain unresolved
+
+The [yfinance project](https://github.com/ranaroussi/yfinance#readme) warns that Yahoo's finance API is intended for personal use; its software license does not grant rights to redistribute market data. Public redistribution authorization for this site has not been confirmed. Attribution and an investment disclaimer do not resolve that issue. This release does **not** claim a licensed data-source migration. The [FRED terms](https://fred.stlouisfed.org/legal/) also require checking each series' copyright status and third-party restrictions. A future migration requires a source and series-level rights review; no paid plan, new key or account was created here.
 
 ### Key Levels
 - **Support** = 20-day rolling low
@@ -86,7 +98,7 @@ An equal-weight average of three clipped 0–100 components (not the CNN Fear & 
 
 ```bash
 pip install -r requirements.txt
-python -m unittest -v test_market_data.py test_market_charts.py
+python -m unittest discover -v
 node --test test_data_status.cjs test_market_tabs.cjs test_fade_in.cjs test_design_ui.cjs
 python update_market_data.py
 ```

@@ -9,7 +9,8 @@
       const generated = Date.parse(data.generated_at);
       const now = Date.now();
       const dates = Object.values(data.core_dates || {}).map(d => Date.parse(d + 'T00:00:00Z'));
-      const unknown = !Number.isFinite(generated) || !dates.length || dates.some(d => !Number.isFinite(d));
+      // Allow modest device-clock drift and exchange calendars up to UTC+14.
+      const unknown = !Number.isFinite(generated) || generated > now + 5 * 60000 || !dates.length || dates.some(d => !Number.isFinite(d) || d > now + 14 * 3600000);
       const stale = unknown || now - generated > 96 * 3600000 || now - Math.min(...dates) > 8 * 86400000;
       const partial = (data.failed || []).length > 0;
       status.textContent = unknown ? (en ? 'Date unavailable' : '日期暫缺') : stale ? (en ? 'Stale daily data' : '日線資料已過期') : partial ? (en ? 'Partial refresh' : '部分資料未更新') : (en ? 'Daily data' : '日線資料');
