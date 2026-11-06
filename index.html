@@ -90,8 +90,12 @@ section { padding: 3.5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 a
 .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
 
 /* fade in */
-.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in { opacity: 1; transform: translateY(0); }
+.js .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .js .fade-in { opacity: 1; transform: translateY(0); transition: none; }
+}
 
 /* ── Hero ── */
 .hero {
@@ -2637,15 +2641,26 @@ window.addEventListener('scroll', function() {
   });
 
   // ── Fade in on scroll ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  const fadeIns = document.querySelectorAll('.fade-in');
+  const revealAll = () => fadeIns.forEach(el => el.classList.add('visible'));
+  if (!('IntersectionObserver' in window)) {
+    revealAll();
+    return;
+  }
+  try {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeIns.forEach(el => observer.observe(el));
+    document.documentElement.classList.add('js');
+  } catch (error) {
+    revealAll();
+  }
 })();
 (function(){
   var btn = document.getElementById('backToTop');
