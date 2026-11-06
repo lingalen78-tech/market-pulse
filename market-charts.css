@@ -1,0 +1,28 @@
+.market-price-chart { padding: 1rem; color: var(--text); min-width: 0; }
+.market-card .market-chart:has(> .market-price-chart) { height: auto; }
+.market-price-summary { display: flex; align-items: baseline; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+.market-price-summary strong { font-size: 1.2rem; }
+.market-price-unit { font-size: .65rem; color: var(--text-secondary); }
+.market-price-change { margin-left: auto; font-size: .75rem; font-weight: 700; }
+.market-price-change.up { color: var(--green); }
+.market-price-change.down { color: var(--red); }
+.market-price-chart svg { display: block; width: 100%; height: 130px; overflow: visible; }
+.market-price-line { fill: none; stroke: var(--gold); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.market-price-area { fill: var(--gold); opacity: .12; }
+.market-price-grid { stroke: var(--text-secondary); opacity: .15; }
+.market-price-range { display: flex; justify-content: space-between; gap: .5rem; color: var(--text-secondary); font-size: .65rem; margin-top: .35rem; }
+.market-price-source { margin: .6rem 0 0; color: var(--text-secondary); font-size: .65rem; line-height: 1.6; overflow-wrap: anywhere; }
+.market-price-source a, .chart-unavailable a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.market-chart-group { padding-top: .75rem; }
+.market-chart-tabs { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 1rem; }
+.market-chart-tabs button { border: 1px solid var(--card-border); border-radius: .4rem; padding: .5rem .75rem; background: transparent; color: var(--text-secondary); font: inherit; font-size: .8rem; cursor: pointer; }
+.market-chart-tabs button[aria-selected="true"] { background: var(--gold); color: #171717; }
+.market-chart-tabs button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.market-chart-group .market-price-chart svg, #market-chart-taiex svg { height: 220px; }
+.market-chart-view[hidden] { display: none; }
+.market-chart-context { color: var(--text-secondary); padding: 0 1rem 1rem; margin: 0; font-size: .72rem; }
+.chart-unavailable { min-height: 230px; display: grid; align-content: center; }
+@media (max-width: 480px) {
+  .market-price-summary strong { font-size: 1.1rem; }
+  .market-chart-group .market-price-chart svg, #market-chart-taiex svg { height: 180px; }
+}

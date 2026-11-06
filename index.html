@@ -608,6 +608,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
 #dataHealth { font-size: .8rem; color: var(--gold); }
 .static-note { color: var(--text-secondary); font-size: .8rem; margin-bottom: 1rem; }
 </style>
+<link rel="stylesheet" href="market-charts.css">
 </head>
 <body class="lang-zh">
 <div class="reading-progress" id="readingProgress"></div>
@@ -696,11 +697,11 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
       </div>
       <div class="snap-card">
         <div class="label"><span data-lang-zh>黃金</span><span data-lang-en>Gold</span></div>
-        <div><span id="gold-price" class="value">4,056.10</span><span id="gold-change" class="change down">-1.40%</span></div>
+        <div><span id="gold-price" class="value">4,055.20</span><span id="gold-change" class="change down">-1.42%</span></div>
       </div>
       <div class="snap-card">
         <div class="label"><span data-lang-zh>原油</span><span data-lang-en>Crude Oil</span></div>
-        <div><span id="oil-price" class="value">91.58</span><span id="oil-change" class="change up">+1.17%</span></div>
+        <div><span id="oil-price" class="value">91.24</span><span id="oil-change" class="change up">+0.80%</span></div>
       </div>
     </div>
 
@@ -714,7 +715,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
       <span style="opacity:.4"> · </span>
       <span style="font-weight:500">Yahoo Finance</span>
       <span style="opacity:.4"> · </span>
-      <span id="freshnessTime"><time datetime="2026-11-06T07:00:34.260904+00:00">2026-11-06 07:00 UTC</time></span>
+      <span id="freshnessTime"><time datetime="2026-11-06T07:21:10.336959+00:00">2026-11-06 07:21 UTC</time></span>
       <span style="opacity:.4"> · </span>
       <span style="font-size:.75rem;opacity:.6">Schedule: weekdays 14:00 UTC · delays possible</span>
     </div>
@@ -852,21 +853,28 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
     <!-- US Equities -->
     <div class="tab-panel active" id="panel-us">
       <div class="widget-wrapper">
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
-          {
-            "symbols": [["SPY ETF","AMEX:SPY|1D"],["Dow Jones","DJI|1D"],["Nasdaq","IXIC|1D"]],
-            "chartOnly": false, "width": "100%", "height": 420, "locale": "en",
-            "colorTheme": "dark", "autosize": false, "showVolume": false,
-            "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
-            "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
-            "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
-            "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
-            "backgroundColor": "rgba(10, 14, 23, 1)", "gridLineColor": "rgba(255, 255, 255, 0.04)"
-          }
-          </script>
-        </div>
+        <div class="market-chart-group" data-market-group="us"><div class="market-chart-tabs" role="tablist" aria-label="Market charts"><button type="button" role="tab" id="market-tab-us-spy" aria-selected="true" aria-controls="market-view-us-spy" tabindex="0"><span data-lang-zh>SPY ETF</span><span data-lang-en>SPY ETF</span></button><button type="button" role="tab" id="market-tab-us-dow" aria-selected="false" aria-controls="market-view-us-dow" tabindex="-1"><span data-lang-zh>道瓊指數</span><span data-lang-en>Dow Jones</span></button><button type="button" role="tab" id="market-tab-us-nasdaq" aria-selected="false" aria-controls="market-view-us-nasdaq" tabindex="-1"><span data-lang-zh>那斯達克指數</span><span data-lang-en>Nasdaq Composite</span></button></div><div class="market-chart-view" role="tabpanel" id="market-view-us-spy" aria-labelledby="market-tab-us-spy"><!-- MARKET_CHART_us-spy_START -->
+<div class="market-price-chart" id="market-chart-us-spy" data-chart-key="us-spy" data-chart-state="current">
+  <div class="market-price-summary"><strong>733.00</strong><span class="market-price-unit"><span data-lang-zh>美元</span><span data-lang-en>USD</span></span><span class="market-price-change down">1D -4.41%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-us-spy"><title id="market-title-us-spy">SPY ETF; 2026-08-05 to 2026-11-05; latest 733.00 USD; daily change -4.41%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,50.14 L 13.85,54.27 L 27.69,38.49 L 41.54,39.26 L 55.38,47.56 L 69.23,41.08 L 83.08,22.97 L 96.92,28.15 L 110.77,40.47 L 124.62,58.00 L 138.46,52.60 L 152.31,74.29 L 166.15,63.81 L 180.00,71.37 L 193.85,63.17 L 207.69,62.60 L 221.54,45.74 L 235.38,51.62 L 249.23,59.35 L 263.08,77.04 L 276.92,65.69 L 290.77,38.79 L 304.62,48.80 L 318.46,63.01 L 332.31,74.96 L 346.15,90.31 L 360.00,68.62 L 373.85,80.07 L 387.69,91.79 L 401.54,103.00 L 415.38,74.29 L 429.23,70.99 L 443.08,31.23 L 456.92,31.64 L 470.77,50.39 L 484.62,52.51 L 498.46,38.47 L 512.31,57.80 L 526.15,62.54 L 540.00,67.83 L 553.85,63.25 L 567.69,44.23 L 581.54,26.76 L 595.38,12.41 L 609.23,18.71 L 623.08,29.79 L 636.92,14.16 L 650.77,15.75 L 664.62,16.05 L 678.46,44.36 L 692.31,36.99 L 706.15,65.74 L 720.00,54.87 L 733.85,46.22 L 747.69,32.61 L 761.54,63.35 L 775.38,76.79 L 789.23,58.61 L 803.08,44.16 L 816.92,35.24 L 830.77,45.17 L 844.62,91.09 L 858.46,103.28 L 872.31,95.71 L 886.15,53.76 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,50.14 L 13.85,54.27 L 27.69,38.49 L 41.54,39.26 L 55.38,47.56 L 69.23,41.08 L 83.08,22.97 L 96.92,28.15 L 110.77,40.47 L 124.62,58.00 L 138.46,52.60 L 152.31,74.29 L 166.15,63.81 L 180.00,71.37 L 193.85,63.17 L 207.69,62.60 L 221.54,45.74 L 235.38,51.62 L 249.23,59.35 L 263.08,77.04 L 276.92,65.69 L 290.77,38.79 L 304.62,48.80 L 318.46,63.01 L 332.31,74.96 L 346.15,90.31 L 360.00,68.62 L 373.85,80.07 L 387.69,91.79 L 401.54,103.00 L 415.38,74.29 L 429.23,70.99 L 443.08,31.23 L 456.92,31.64 L 470.77,50.39 L 484.62,52.51 L 498.46,38.47 L 512.31,57.80 L 526.15,62.54 L 540.00,67.83 L 553.85,63.25 L 567.69,44.23 L 581.54,26.76 L 595.38,12.41 L 609.23,18.71 L 623.08,29.79 L 636.92,14.16 L 650.77,15.75 L 664.62,16.05 L 678.46,44.36 L 692.31,36.99 L 706.15,65.74 L 720.00,54.87 L 733.85,46.22 L 747.69,32.61 L 761.54,63.35 L 775.38,76.79 L 789.23,58.61 L 803.08,44.16 L 816.92,35.24 L 830.77,45.17 L 844.62,91.09 L 858.46,103.28 L 872.31,95.71 L 886.15,53.76 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-08-05</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/SPY/" target="_blank" rel="noopener noreferrer">Yahoo Finance · SPY</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>復權日線</span><span data-lang-en>Adjusted daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_us-spy_END --></div><div class="market-chart-view" role="tabpanel" id="market-view-us-dow" aria-labelledby="market-tab-us-dow"><!-- MARKET_CHART_us-dow_START -->
+<div class="market-price-chart" id="market-chart-us-dow" data-chart-key="us-dow" data-chart-state="current">
+  <div class="market-price-summary"><strong>51,523.06</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -3.44%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-us-dow"><title id="market-title-us-dow">Dow Jones; 2026-08-05 to 2026-11-05; latest 51,523.06 pts; daily change -3.44%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,12.41 L 13.85,33.33 L 27.69,26.48 L 41.54,29.23 L 55.38,37.53 L 69.23,38.50 L 83.08,35.36 L 96.92,40.21 L 110.77,52.49 L 124.62,57.74 L 138.46,52.35 L 152.31,84.07 L 166.15,60.73 L 180.00,54.42 L 193.85,47.19 L 207.69,52.31 L 221.54,47.55 L 235.38,47.98 L 249.23,64.84 L 263.08,83.72 L 276.92,70.42 L 290.77,42.29 L 304.62,54.55 L 318.46,82.86 L 332.31,101.13 L 346.15,115.40 L 360.00,92.45 L 373.85,99.30 L 387.69,114.09 L 401.54,142.54 L 415.38,128.29 L 429.23,132.59 L 443.08,116.08 L 456.92,124.43 L 470.77,140.30 L 484.62,147.58 L 498.46,126.01 L 512.31,141.65 L 526.15,147.58 L 540.00,167.59 L 553.85,166.66 L 567.69,155.38 L 581.54,151.28 L 595.38,139.86 L 609.23,155.25 L 623.08,152.91 L 636.92,133.83 L 650.77,125.02 L 664.62,133.15 L 678.46,135.34 L 692.31,110.28 L 706.15,118.18 L 720.00,119.81 L 733.85,95.94 L 747.69,79.70 L 761.54,79.17 L 775.38,108.59 L 789.23,101.99 L 803.08,101.27 L 816.92,96.87 L 830.77,102.85 L 844.62,128.64 L 858.46,119.01 L 872.31,127.90 L 886.15,57.17 L 900.00,139.78 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,12.41 L 13.85,33.33 L 27.69,26.48 L 41.54,29.23 L 55.38,37.53 L 69.23,38.50 L 83.08,35.36 L 96.92,40.21 L 110.77,52.49 L 124.62,57.74 L 138.46,52.35 L 152.31,84.07 L 166.15,60.73 L 180.00,54.42 L 193.85,47.19 L 207.69,52.31 L 221.54,47.55 L 235.38,47.98 L 249.23,64.84 L 263.08,83.72 L 276.92,70.42 L 290.77,42.29 L 304.62,54.55 L 318.46,82.86 L 332.31,101.13 L 346.15,115.40 L 360.00,92.45 L 373.85,99.30 L 387.69,114.09 L 401.54,142.54 L 415.38,128.29 L 429.23,132.59 L 443.08,116.08 L 456.92,124.43 L 470.77,140.30 L 484.62,147.58 L 498.46,126.01 L 512.31,141.65 L 526.15,147.58 L 540.00,167.59 L 553.85,166.66 L 567.69,155.38 L 581.54,151.28 L 595.38,139.86 L 609.23,155.25 L 623.08,152.91 L 636.92,133.83 L 650.77,125.02 L 664.62,133.15 L 678.46,135.34 L 692.31,110.28 L 706.15,118.18 L 720.00,119.81 L 733.85,95.94 L 747.69,79.70 L 761.54,79.17 L 775.38,108.59 L 789.23,101.99 L 803.08,101.27 L 816.92,96.87 L 830.77,102.85 L 844.62,128.64 L 858.46,119.01 L 872.31,127.90 L 886.15,57.17 L 900.00,139.78"/></svg>
+  <div class="market-price-range"><span>2026-08-05</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EDJI/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^DJI</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_us-dow_END --></div><div class="market-chart-view" role="tabpanel" id="market-view-us-nasdaq" aria-labelledby="market-tab-us-nasdaq"><!-- MARKET_CHART_us-nasdaq_START -->
+<div class="market-price-chart" id="market-chart-us-nasdaq" data-chart-key="us-nasdaq" data-chart-state="current">
+  <div class="market-price-summary"><strong>24,315.00</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -5.52%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-us-nasdaq"><title id="market-title-us-nasdaq">Nasdaq Composite; 2026-08-05 to 2026-11-05; latest 24,315.00 pts; daily change -5.52%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,70.82 L 13.85,71.53 L 27.69,55.36 L 41.54,59.39 L 55.38,66.94 L 69.23,60.19 L 83.08,50.05 L 96.92,53.54 L 110.77,57.52 L 124.62,74.30 L 138.46,72.35 L 152.31,84.81 L 166.15,79.46 L 180.00,88.92 L 193.85,80.84 L 207.69,81.84 L 221.54,62.41 L 235.38,68.98 L 249.23,70.47 L 263.08,83.27 L 276.92,77.70 L 290.77,60.40 L 304.62,64.04 L 318.46,68.08 L 332.31,76.02 L 346.15,84.13 L 360.00,72.25 L 373.85,79.18 L 387.69,88.86 L 401.54,89.01 L 415.38,68.23 L 429.23,63.30 L 443.08,34.98 L 456.92,29.21 L 470.77,43.77 L 484.62,43.61 L 498.46,37.50 L 512.31,49.23 L 526.15,50.31 L 540.00,47.31 L 553.85,46.81 L 567.69,31.73 L 581.54,18.20 L 595.38,12.41 L 609.23,15.30 L 623.08,31.61 L 636.92,23.45 L 650.77,29.13 L 664.62,31.09 L 678.46,55.26 L 692.31,54.30 L 706.15,81.37 L 720.00,67.63 L 733.85,67.92 L 747.69,54.78 L 761.54,87.57 L 775.38,90.10 L 789.23,79.99 L 803.08,65.42 L 816.92,62.01 L 830.77,79.26 L 844.62,114.58 L 858.46,127.47 L 872.31,117.65 L 886.15,100.43 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,70.82 L 13.85,71.53 L 27.69,55.36 L 41.54,59.39 L 55.38,66.94 L 69.23,60.19 L 83.08,50.05 L 96.92,53.54 L 110.77,57.52 L 124.62,74.30 L 138.46,72.35 L 152.31,84.81 L 166.15,79.46 L 180.00,88.92 L 193.85,80.84 L 207.69,81.84 L 221.54,62.41 L 235.38,68.98 L 249.23,70.47 L 263.08,83.27 L 276.92,77.70 L 290.77,60.40 L 304.62,64.04 L 318.46,68.08 L 332.31,76.02 L 346.15,84.13 L 360.00,72.25 L 373.85,79.18 L 387.69,88.86 L 401.54,89.01 L 415.38,68.23 L 429.23,63.30 L 443.08,34.98 L 456.92,29.21 L 470.77,43.77 L 484.62,43.61 L 498.46,37.50 L 512.31,49.23 L 526.15,50.31 L 540.00,47.31 L 553.85,46.81 L 567.69,31.73 L 581.54,18.20 L 595.38,12.41 L 609.23,15.30 L 623.08,31.61 L 636.92,23.45 L 650.77,29.13 L 664.62,31.09 L 678.46,55.26 L 692.31,54.30 L 706.15,81.37 L 720.00,67.63 L 733.85,67.92 L 747.69,54.78 L 761.54,87.57 L 775.38,90.10 L 789.23,79.99 L 803.08,65.42 L 816.92,62.01 L 830.77,79.26 L 844.62,114.58 L 858.46,127.47 L 872.31,117.65 L 886.15,100.43 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-08-05</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EIXIC/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^IXIC</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_us-nasdaq_END --></div><p class="market-chart-context"><span data-lang-zh>下方訊號與摘要固定對應 SPY，不隨圖表分頁切換。</span><span data-lang-en>Signals and summary below always refer to SPY, independent of the selected chart.</span></p></div>
       </div>
       <div class="signals-grid">
         <div class="signal-card">
@@ -898,27 +906,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
         <div class="tw-chart-label">
           <span data-lang-zh>台股加權指數 (TWII)</span><span data-lang-en>TAIEX — Taiwan Weighted Index (TWII)</span>
         </div>
-        <div class="tradingview-widget-container" style="height:400px;">
-          <div class="tradingview-widget-container__widget" style="height:100%;width:100%;"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-          {
-            "autosize": true,
-            "symbol": "TVC:TWII",
-            "interval": "D",
-            "timezone": "Asia/Taipei",
-            "theme": "dark",
-            "style": "1",
-            "locale": "en",
-            "backgroundColor": "rgba(10, 14, 23, 1)",
-            "gridColor": "rgba(255, 255, 255, 0.04)",
-            "hide_top_toolbar": false,
-            "allow_symbol_change": false,
-            "save_image": false,
-            "calendar": false,
-            "support_host": "https://www.tradingview.com"
-          }
-          </script>
-        </div>
+        <!-- MARKET_CHART_taiex_START -->
+<div class="market-price-chart" id="market-chart-taiex" data-chart-key="taiex" data-chart-state="current">
+  <div class="market-price-summary"><strong>39,701.64</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -4.51%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-taiex"><title id="market-title-taiex">TAIEX; 2026-07-31 to 2026-11-06; latest 39,701.64 pts; daily change -4.51%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,115.18 L 13.85,111.09 L 27.69,111.49 L 41.54,92.31 L 55.38,95.60 L 69.23,98.22 L 83.08,87.44 L 96.92,84.50 L 110.77,78.41 L 124.62,70.69 L 138.46,73.92 L 152.31,73.21 L 166.15,81.62 L 180.00,90.66 L 193.85,87.37 L 207.69,82.91 L 221.54,90.00 L 235.38,83.75 L 249.23,73.59 L 263.08,71.40 L 276.92,65.94 L 290.77,69.05 L 304.62,56.47 L 318.46,68.50 L 332.31,73.20 L 346.15,62.57 L 360.00,50.69 L 373.85,54.07 L 387.69,52.88 L 401.54,56.60 L 415.38,68.19 L 429.23,73.13 L 443.08,78.51 L 456.92,73.34 L 470.77,66.61 L 484.62,52.92 L 498.46,44.67 L 512.31,43.42 L 526.15,37.95 L 540.00,39.98 L 553.85,46.00 L 567.69,41.27 L 581.54,34.94 L 595.38,33.06 L 609.23,14.11 L 623.08,12.41 L 636.92,12.66 L 650.77,20.22 L 664.62,20.40 L 678.46,35.12 L 692.31,30.76 L 706.15,56.15 L 720.00,53.98 L 733.85,58.42 L 747.69,66.53 L 761.54,57.41 L 775.38,70.39 L 789.23,69.55 L 803.08,55.14 L 816.92,65.37 L 830.77,83.10 L 844.62,87.58 L 858.46,112.30 L 872.31,117.80 L 886.15,138.87 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,115.18 L 13.85,111.09 L 27.69,111.49 L 41.54,92.31 L 55.38,95.60 L 69.23,98.22 L 83.08,87.44 L 96.92,84.50 L 110.77,78.41 L 124.62,70.69 L 138.46,73.92 L 152.31,73.21 L 166.15,81.62 L 180.00,90.66 L 193.85,87.37 L 207.69,82.91 L 221.54,90.00 L 235.38,83.75 L 249.23,73.59 L 263.08,71.40 L 276.92,65.94 L 290.77,69.05 L 304.62,56.47 L 318.46,68.50 L 332.31,73.20 L 346.15,62.57 L 360.00,50.69 L 373.85,54.07 L 387.69,52.88 L 401.54,56.60 L 415.38,68.19 L 429.23,73.13 L 443.08,78.51 L 456.92,73.34 L 470.77,66.61 L 484.62,52.92 L 498.46,44.67 L 512.31,43.42 L 526.15,37.95 L 540.00,39.98 L 553.85,46.00 L 567.69,41.27 L 581.54,34.94 L 595.38,33.06 L 609.23,14.11 L 623.08,12.41 L 636.92,12.66 L 650.77,20.22 L 664.62,20.40 L 678.46,35.12 L 692.31,30.76 L 706.15,56.15 L 720.00,53.98 L 733.85,58.42 L 747.69,66.53 L 761.54,57.41 L 775.38,70.39 L 789.23,69.55 L 803.08,55.14 L 816.92,65.37 L 830.77,83.10 L 844.62,87.58 L 858.46,112.30 L 872.31,117.80 L 886.15,138.87 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-07-31</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5ETWII/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^TWII</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_taiex_END -->
       </div>
       <div class="widget-wrapper">
         <div class="tw-chart-label">
@@ -1053,27 +1048,34 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
         <span data-lang-zh>定義：Trend = 收盤價 vs 50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線排列（非新交叉事件）</span>
         <span data-lang-en>Definitions: Trend = Price vs 50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA alignment (not a new crossover)</span>
       </p>
-      <p class="tab-explanation"><span id="metals-analysis-zh" data-lang-zh>Gold｜資料日期 2026-11-06；價格 4,056.10，單日變動 -1.40%；RSI(14) 43.0。下降趨勢，空頭排列；SMA50 4,230.05，SMA200 4,501.40。</span><span id="metals-analysis-en" data-lang-en>Gold | Bar date 2026-11-06; price 4,056.10, daily change -1.40%; RSI(14) 43.0. Downtrend; Bearish Alignment; SMA50 4,230.05, SMA200 4,501.40.</span></p>
+      <p class="tab-explanation"><span id="metals-analysis-zh" data-lang-zh>Gold｜資料日期 2026-11-06；價格 4,055.20，單日變動 -1.42%；RSI(14) 42.9。下降趨勢，空頭排列；SMA50 4,230.03，SMA200 4,501.40。</span><span id="metals-analysis-en" data-lang-en>Gold | Bar date 2026-11-06; price 4,055.20, daily change -1.42%; RSI(14) 42.9. Downtrend; Bearish Alignment; SMA50 4,230.03, SMA200 4,501.40.</span></p>
     </div>
 
     <!-- Energy -->
     <div class="tab-panel" id="panel-energy">
       <div class="widget-wrapper">
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
-          {
-            "symbols": [["Crude Oil","TVC:USOIL|1D"],["Brent","TVC:UKOIL|1D"],["Natural Gas","TVC:NATGAS|1D"]],
-            "chartOnly": false, "width": "100%", "height": 420, "locale": "en",
-            "colorTheme": "dark", "autosize": false, "showVolume": false,
-            "showMA": false, "hideDateRanges": false, "hideMarketStatus": false,
-            "hideSymbolLogo": false, "scalePosition": "right", "scaleMode": "Normal",
-            "fontFamily": "Inter, sans-serif", "fontSize": "10", "noTimeScale": false,
-            "valuesTracking": "1", "changeMode": "price-and-percent", "chartType": "area",
-            "backgroundColor": "rgba(10, 14, 23, 1)", "gridLineColor": "rgba(255, 255, 255, 0.04)"
-          }
-          </script>
-        </div>
+        <div class="market-chart-group" data-market-group="energy"><div class="market-chart-tabs" role="tablist" aria-label="Market charts"><button type="button" role="tab" id="market-tab-energy-wti" aria-selected="true" aria-controls="market-view-energy-wti" tabindex="0"><span data-lang-zh>WTI 期貨</span><span data-lang-en>WTI Futures</span></button><button type="button" role="tab" id="market-tab-energy-brent" aria-selected="false" aria-controls="market-view-energy-brent" tabindex="-1"><span data-lang-zh>Brent 期貨</span><span data-lang-en>Brent Futures</span></button><button type="button" role="tab" id="market-tab-energy-gas" aria-selected="false" aria-controls="market-view-energy-gas" tabindex="-1"><span data-lang-zh>天然氣期貨</span><span data-lang-en>Natural Gas Futures</span></button></div><div class="market-chart-view" role="tabpanel" id="market-view-energy-wti" aria-labelledby="market-tab-energy-wti"><!-- MARKET_CHART_energy-wti_START -->
+<div class="market-price-chart" id="market-chart-energy-wti" data-chart-key="energy-wti" data-chart-state="current">
+  <div class="market-price-summary"><strong>91.24</strong><span class="market-price-unit"><span data-lang-zh>美元／桶</span><span data-lang-en>USD/bbl</span></span><span class="market-price-change up">1D +0.80%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-energy-wti"><title id="market-title-energy-wti">WTI Futures; 2026-08-06 to 2026-11-06; latest 91.24 USD/bbl; daily change +0.80%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,167.59 L 13.85,162.75 L 27.69,141.27 L 41.54,135.45 L 55.38,135.07 L 69.23,146.06 L 83.08,139.80 L 96.92,128.39 L 110.77,125.99 L 124.62,121.15 L 138.46,110.28 L 152.31,114.47 L 166.15,125.61 L 180.00,140.02 L 193.85,140.73 L 207.69,133.66 L 221.54,134.37 L 235.38,121.53 L 249.23,97.29 L 263.08,92.99 L 276.92,91.41 L 290.77,90.43 L 304.62,82.01 L 318.46,65.59 L 332.31,30.63 L 346.15,43.84 L 360.00,36.55 L 373.85,12.41 L 387.69,30.90 L 401.54,33.73 L 415.38,42.48 L 429.23,67.06 L 443.08,73.53 L 456.92,86.74 L 470.77,73.42 L 484.62,85.38 L 498.46,84.35 L 512.31,101.85 L 526.15,96.20 L 540.00,82.88 L 553.85,92.45 L 567.69,101.58 L 581.54,101.53 L 595.38,107.83 L 609.23,90.38 L 623.08,88.42 L 636.92,78.15 L 650.77,75.97 L 664.62,70.81 L 678.46,55.15 L 692.31,36.45 L 706.15,24.21 L 720.00,34.38 L 733.85,59.61 L 747.69,46.99 L 761.54,26.33 L 775.38,34.54 L 789.23,44.66 L 803.08,29.00 L 816.92,33.24 L 830.77,21.71 L 844.62,63.36 L 858.46,65.37 L 872.31,108.70 L 886.15,95.65 L 900.00,91.74 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,167.59 L 13.85,162.75 L 27.69,141.27 L 41.54,135.45 L 55.38,135.07 L 69.23,146.06 L 83.08,139.80 L 96.92,128.39 L 110.77,125.99 L 124.62,121.15 L 138.46,110.28 L 152.31,114.47 L 166.15,125.61 L 180.00,140.02 L 193.85,140.73 L 207.69,133.66 L 221.54,134.37 L 235.38,121.53 L 249.23,97.29 L 263.08,92.99 L 276.92,91.41 L 290.77,90.43 L 304.62,82.01 L 318.46,65.59 L 332.31,30.63 L 346.15,43.84 L 360.00,36.55 L 373.85,12.41 L 387.69,30.90 L 401.54,33.73 L 415.38,42.48 L 429.23,67.06 L 443.08,73.53 L 456.92,86.74 L 470.77,73.42 L 484.62,85.38 L 498.46,84.35 L 512.31,101.85 L 526.15,96.20 L 540.00,82.88 L 553.85,92.45 L 567.69,101.58 L 581.54,101.53 L 595.38,107.83 L 609.23,90.38 L 623.08,88.42 L 636.92,78.15 L 650.77,75.97 L 664.62,70.81 L 678.46,55.15 L 692.31,36.45 L 706.15,24.21 L 720.00,34.38 L 733.85,59.61 L 747.69,46.99 L 761.54,26.33 L 775.38,34.54 L 789.23,44.66 L 803.08,29.00 L 816.92,33.24 L 830.77,21.71 L 844.62,63.36 L 858.46,65.37 L 872.31,108.70 L 886.15,95.65 L 900.00,91.74"/></svg>
+  <div class="market-price-range"><span>2026-08-06</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/CL%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · CL=F</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_energy-wti_END --></div><div class="market-chart-view" role="tabpanel" id="market-view-energy-brent" aria-labelledby="market-tab-energy-brent"><!-- MARKET_CHART_energy-brent_START -->
+<div class="market-price-chart" id="market-chart-energy-brent" data-chart-key="energy-brent" data-chart-state="current">
+  <div class="market-price-summary"><strong>99.37</strong><span class="market-price-unit"><span data-lang-zh>美元／桶</span><span data-lang-en>USD/bbl</span></span><span class="market-price-change up">1D +1.10%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-energy-brent"><title id="market-title-energy-brent">Brent Futures; 2026-08-06 to 2026-11-06; latest 99.37 USD/bbl; daily change +1.10%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,167.59 L 13.85,162.91 L 27.69,144.50 L 41.54,139.24 L 55.38,138.94 L 69.23,147.37 L 83.08,140.97 L 96.92,130.59 L 110.77,129.93 L 124.62,127.28 L 138.46,117.75 L 152.31,115.05 L 166.15,124.85 L 180.00,140.70 L 193.85,143.97 L 207.69,135.76 L 221.54,137.48 L 235.38,132.27 L 249.23,113.90 L 263.08,109.58 L 276.92,110.06 L 290.77,106.71 L 304.62,99.47 L 318.46,84.95 L 332.31,56.60 L 346.15,69.94 L 360.00,65.21 L 373.85,51.66 L 387.69,64.55 L 401.54,69.01 L 415.38,73.20 L 429.23,88.79 L 443.08,93.60 L 456.92,76.69 L 470.77,61.15 L 484.62,71.22 L 498.46,66.98 L 512.31,78.85 L 526.15,74.70 L 540.00,80.09 L 553.85,80.35 L 567.69,88.87 L 581.54,87.73 L 595.38,89.40 L 609.23,71.39 L 623.08,69.45 L 636.92,60.93 L 650.77,65.17 L 664.62,63.53 L 678.46,64.15 L 692.31,46.76 L 706.15,48.13 L 720.00,51.48 L 733.85,51.35 L 747.69,32.15 L 761.54,16.48 L 775.38,20.49 L 789.23,29.01 L 803.08,22.66 L 816.92,24.60 L 830.77,12.41 L 844.62,69.23 L 858.46,74.39 L 872.31,114.04 L 886.15,97.84 L 900.00,93.07 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,167.59 L 13.85,162.91 L 27.69,144.50 L 41.54,139.24 L 55.38,138.94 L 69.23,147.37 L 83.08,140.97 L 96.92,130.59 L 110.77,129.93 L 124.62,127.28 L 138.46,117.75 L 152.31,115.05 L 166.15,124.85 L 180.00,140.70 L 193.85,143.97 L 207.69,135.76 L 221.54,137.48 L 235.38,132.27 L 249.23,113.90 L 263.08,109.58 L 276.92,110.06 L 290.77,106.71 L 304.62,99.47 L 318.46,84.95 L 332.31,56.60 L 346.15,69.94 L 360.00,65.21 L 373.85,51.66 L 387.69,64.55 L 401.54,69.01 L 415.38,73.20 L 429.23,88.79 L 443.08,93.60 L 456.92,76.69 L 470.77,61.15 L 484.62,71.22 L 498.46,66.98 L 512.31,78.85 L 526.15,74.70 L 540.00,80.09 L 553.85,80.35 L 567.69,88.87 L 581.54,87.73 L 595.38,89.40 L 609.23,71.39 L 623.08,69.45 L 636.92,60.93 L 650.77,65.17 L 664.62,63.53 L 678.46,64.15 L 692.31,46.76 L 706.15,48.13 L 720.00,51.48 L 733.85,51.35 L 747.69,32.15 L 761.54,16.48 L 775.38,20.49 L 789.23,29.01 L 803.08,22.66 L 816.92,24.60 L 830.77,12.41 L 844.62,69.23 L 858.46,74.39 L 872.31,114.04 L 886.15,97.84 L 900.00,93.07"/></svg>
+  <div class="market-price-range"><span>2026-08-06</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/BZ%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · BZ=F</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_energy-brent_END --></div><div class="market-chart-view" role="tabpanel" id="market-view-energy-gas" aria-labelledby="market-tab-energy-gas"><!-- MARKET_CHART_energy-gas_START -->
+<div class="market-price-chart" id="market-chart-energy-gas" data-chart-key="energy-gas" data-chart-state="current">
+  <div class="market-price-summary"><strong>3.00</strong><span class="market-price-unit"><span data-lang-zh>美元／MMBtu</span><span data-lang-en>USD/MMBtu</span></span><span class="market-price-change up">1D +1.80%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-energy-gas"><title id="market-title-energy-gas">Natural Gas Futures; 2026-08-06 to 2026-11-06; latest 3.00 USD/MMBtu; daily change +1.80%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,159.10 L 13.85,154.19 L 27.69,124.72 L 41.54,130.75 L 55.38,122.49 L 69.23,139.68 L 83.08,138.34 L 96.92,147.94 L 110.77,128.74 L 124.62,120.25 L 138.46,138.34 L 152.31,129.41 L 166.15,127.40 L 180.00,130.08 L 193.85,114.00 L 207.69,99.49 L 221.54,103.73 L 235.38,93.24 L 249.23,100.16 L 263.08,88.55 L 276.92,98.15 L 290.77,84.31 L 304.62,97.48 L 318.46,118.47 L 332.31,115.79 L 346.15,116.46 L 360.00,101.94 L 373.85,96.81 L 387.69,103.06 L 401.54,100.83 L 415.38,98.37 L 429.23,115.34 L 443.08,86.54 L 456.92,73.59 L 470.77,12.41 L 484.62,34.96 L 498.46,78.72 L 512.31,76.27 L 526.15,72.92 L 540.00,86.09 L 553.85,70.91 L 567.69,63.99 L 581.54,53.27 L 595.38,33.40 L 609.23,41.22 L 623.08,29.61 L 636.92,41.44 L 650.77,15.54 L 664.62,34.52 L 678.46,26.03 L 692.31,52.83 L 706.15,65.78 L 720.00,86.99 L 733.85,125.61 L 747.69,124.27 L 761.54,159.10 L 775.38,167.59 L 789.23,146.38 L 803.08,119.58 L 816.92,89.44 L 830.77,101.50 L 844.62,110.88 L 858.46,102.17 L 872.31,87.88 L 886.15,90.56 L 900.00,78.72 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,159.10 L 13.85,154.19 L 27.69,124.72 L 41.54,130.75 L 55.38,122.49 L 69.23,139.68 L 83.08,138.34 L 96.92,147.94 L 110.77,128.74 L 124.62,120.25 L 138.46,138.34 L 152.31,129.41 L 166.15,127.40 L 180.00,130.08 L 193.85,114.00 L 207.69,99.49 L 221.54,103.73 L 235.38,93.24 L 249.23,100.16 L 263.08,88.55 L 276.92,98.15 L 290.77,84.31 L 304.62,97.48 L 318.46,118.47 L 332.31,115.79 L 346.15,116.46 L 360.00,101.94 L 373.85,96.81 L 387.69,103.06 L 401.54,100.83 L 415.38,98.37 L 429.23,115.34 L 443.08,86.54 L 456.92,73.59 L 470.77,12.41 L 484.62,34.96 L 498.46,78.72 L 512.31,76.27 L 526.15,72.92 L 540.00,86.09 L 553.85,70.91 L 567.69,63.99 L 581.54,53.27 L 595.38,33.40 L 609.23,41.22 L 623.08,29.61 L 636.92,41.44 L 650.77,15.54 L 664.62,34.52 L 678.46,26.03 L 692.31,52.83 L 706.15,65.78 L 720.00,86.99 L 733.85,125.61 L 747.69,124.27 L 761.54,159.10 L 775.38,167.59 L 789.23,146.38 L 803.08,119.58 L 816.92,89.44 L 830.77,101.50 L 844.62,110.88 L 858.46,102.17 L 872.31,87.88 L 886.15,90.56 L 900.00,78.72"/></svg>
+  <div class="market-price-range"><span>2026-08-06</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/NG%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · NG=F</a><br><span data-lang-zh>66 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>66 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_energy-gas_END --></div><p class="market-chart-context"><span data-lang-zh>下方訊號與摘要固定對應 WTI，不隨圖表分頁切換。</span><span data-lang-en>Signals and summary below always refer to WTI, independent of the selected chart.</span></p></div>
       </div>
       <div class="signals-grid">
         <div class="signal-card">
@@ -1096,7 +1098,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
         <span data-lang-zh>定義：Trend = 收盤價 vs 50/200日均線 | RSI = 14日收盤相對強弱 | MA Signal = 50日均線 vs 200日均線排列（非新交叉事件）</span>
         <span data-lang-en>Definitions: Trend = Price vs 50/200 DMA | RSI = 14-day close-based | MA Signal = 50 DMA vs 200 DMA alignment (not a new crossover)</span>
       </p>
-      <p class="tab-explanation"><span id="energy-analysis-zh" data-lang-zh>WTI｜資料日期 2026-11-06；價格 91.58，單日變動 +1.17%；RSI(14) 35.4。中性整理，多頭排列；SMA50 95.48，SMA200 87.16。</span><span id="energy-analysis-en" data-lang-en>WTI | Bar date 2026-11-06; price 91.58, daily change +1.17%; RSI(14) 35.4. Sideways; Bullish Alignment; SMA50 95.48, SMA200 87.16.</span></p>
+      <p class="tab-explanation"><span id="energy-analysis-zh" data-lang-zh>WTI｜資料日期 2026-11-06；價格 91.24，單日變動 +0.80%；RSI(14) 34.8。中性整理，多頭排列；SMA50 95.47，SMA200 87.16。</span><span id="energy-analysis-en" data-lang-en>WTI | Bar date 2026-11-06; price 91.24, daily change +0.80%; RSI(14) 34.8. Sideways; Bullish Alignment; SMA50 95.47, SMA200 87.16.</span></p>
     </div>
   </div>
 </section>
@@ -1802,7 +1804,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
   <div class="fade-in">
     <p class="section-label"><span data-lang-zh>歐洲股市</span><span data-lang-en>European Markets</span></p>
     <h2 class="section-title">🌍 <span data-lang-zh>歐洲股市</span><span data-lang-en>European Markets</span></h2>
-<p class="static-note"><span data-lang-zh>趨勢標籤為靜態示範，非每日更新訊號；外嵌行情由 TradingView 提供。</span><span data-lang-en>Trend badges are static examples, not daily signals. Embedded quotes are provided by TradingView.</span></p>
+<p class="static-note"><span data-lang-zh>趨勢標籤仍為靜態示範；圖表來源與資料日期見各圖。Yahoo Finance 圖為日線快照，非即時報價。</span><span data-lang-en>Trend badges remain static examples. Each chart lists its source and bar date; Yahoo Finance charts are daily snapshots, not live quotes.</span></p>
     <div class="markets-grid">
 
       <!-- FTSE 100 -->
@@ -1815,12 +1817,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge neutral">Neutral</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:UKX","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_ftse_START -->
+<div class="market-price-chart" id="market-chart-ftse" data-chart-key="ftse" data-chart-state="current">
+  <div class="market-price-summary"><strong>10,782.70</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -0.43%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-ftse"><title id="market-title-ftse">FTSE 100; 2026-10-07 to 2026-11-05; latest 10,782.70 pts; daily change -0.43%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,161.63 L 42.86,167.59 L 85.71,128.64 L 128.57,91.92 L 171.43,94.04 L 214.29,67.74 L 257.14,27.04 L 300.00,12.41 L 342.86,53.72 L 385.71,64.89 L 428.57,57.88 L 471.43,67.71 L 514.29,79.90 L 557.14,52.80 L 600.00,81.28 L 642.86,78.46 L 685.71,68.73 L 728.57,66.02 L 771.43,54.92 L 814.29,98.23 L 857.14,30.99 L 900.00,47.37 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,161.63 L 42.86,167.59 L 85.71,128.64 L 128.57,91.92 L 171.43,94.04 L 214.29,67.74 L 257.14,27.04 L 300.00,12.41 L 342.86,53.72 L 385.71,64.89 L 428.57,57.88 L 471.43,67.71 L 514.29,79.90 L 557.14,52.80 L 600.00,81.28 L 642.86,78.46 L 685.71,68.73 L 728.57,66.02 L 771.43,54.92 L 814.29,98.23 L 857.14,30.99 L 900.00,47.37"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EFTSE/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^FTSE</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_ftse_END -->
         </div>
       </div>
 
@@ -1853,12 +1857,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge neutral">Neutral</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:CAC40","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_cac_START -->
+<div class="market-price-chart" id="market-chart-cac" data-chart-key="cac" data-chart-state="current">
+  <div class="market-price-summary"><strong>8,205.37</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change up">1D +0.34%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-cac"><title id="market-title-cac">CAC 40; 2026-10-07 to 2026-11-05; latest 8,205.37 pts; daily change +0.34%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,154.69 L 42.86,167.59 L 85.71,143.56 L 128.57,133.92 L 171.43,135.64 L 214.29,120.80 L 257.14,100.71 L 300.00,93.53 L 342.86,122.45 L 385.71,132.09 L 428.57,104.96 L 471.43,140.98 L 514.29,150.25 L 557.14,129.21 L 600.00,116.22 L 642.86,116.28 L 685.71,89.19 L 728.57,89.38 L 771.43,63.85 L 814.29,72.78 L 857.14,21.38 L 900.00,12.41 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,154.69 L 42.86,167.59 L 85.71,143.56 L 128.57,133.92 L 171.43,135.64 L 214.29,120.80 L 257.14,100.71 L 300.00,93.53 L 342.86,122.45 L 385.71,132.09 L 428.57,104.96 L 471.43,140.98 L 514.29,150.25 L 557.14,129.21 L 600.00,116.22 L 642.86,116.28 L 685.71,89.19 L 728.57,89.38 L 771.43,63.85 L 814.29,72.78 L 857.14,21.38 L 900.00,12.41"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EFCHI/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^FCHI</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_cac_END -->
         </div>
       </div>
 
@@ -1872,12 +1878,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge neutral">Neutral</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:SX5E","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_stoxx_START -->
+<div class="market-price-chart" id="market-chart-stoxx" data-chart-key="stoxx" data-chart-state="current">
+  <div class="market-price-summary"><strong>6,231.54</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -0.55%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-stoxx"><title id="market-title-stoxx">Euro Stoxx 50; 2026-10-07 to 2026-11-05; latest 6,231.54 pts; daily change -0.55%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,79.53 L 42.86,121.61 L 85.71,84.97 L 128.57,63.09 L 171.43,89.96 L 214.29,71.61 L 257.14,88.98 L 300.00,60.72 L 342.86,107.41 L 385.71,125.60 L 428.57,58.14 L 471.43,152.82 L 514.29,167.59 L 557.14,129.86 L 600.00,91.79 L 642.86,89.34 L 685.71,58.49 L 728.57,118.01 L 771.43,82.85 L 814.29,107.60 L 857.14,12.41 L 900.00,39.26 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,79.53 L 42.86,121.61 L 85.71,84.97 L 128.57,63.09 L 171.43,89.96 L 214.29,71.61 L 257.14,88.98 L 300.00,60.72 L 342.86,107.41 L 385.71,125.60 L 428.57,58.14 L 471.43,152.82 L 514.29,167.59 L 557.14,129.86 L 600.00,91.79 L 642.86,89.34 L 685.71,58.49 L 728.57,118.01 L 771.43,82.85 L 814.29,107.60 L 857.14,12.41 L 900.00,39.26"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5ESTOXX50E/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^STOXX50E</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_stoxx_END -->
         </div>
       </div>
 
@@ -1891,12 +1899,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bearish">Bearish 📉</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:SMI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_smi_START -->
+<div class="market-price-chart" id="market-chart-smi" data-chart-key="smi" data-chart-state="current">
+  <div class="market-price-summary"><strong>14,967.73</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -0.37%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-smi"><title id="market-title-smi">SMI; 2026-10-07 to 2026-11-05; latest 14,967.73 pts; daily change -0.37%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,148.39 L 42.86,167.59 L 85.71,150.75 L 128.57,140.62 L 171.43,135.06 L 214.29,112.39 L 257.14,87.81 L 300.00,83.13 L 342.86,85.65 L 385.71,73.38 L 428.57,65.09 L 471.43,65.59 L 514.29,75.17 L 557.14,66.60 L 600.00,60.03 L 642.86,61.88 L 685.71,42.20 L 728.57,36.17 L 771.43,37.08 L 814.29,43.74 L 857.14,12.41 L 900.00,18.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,148.39 L 42.86,167.59 L 85.71,150.75 L 128.57,140.62 L 171.43,135.06 L 214.29,112.39 L 257.14,87.81 L 300.00,83.13 L 342.86,85.65 L 385.71,73.38 L 428.57,65.09 L 471.43,65.59 L 514.29,75.17 L 557.14,66.60 L 600.00,60.03 L 642.86,61.88 L 685.71,42.20 L 728.57,36.17 L 771.43,37.08 L 814.29,43.74 L 857.14,12.41 L 900.00,18.59"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-05</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5ESSMI/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^SSMI</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-05（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-05 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-05" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_smi_END -->
         </div>
       </div>
 
@@ -1909,7 +1919,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
   <div class="fade-in">
     <p class="section-label"><span data-lang-zh>亞洲股市</span><span data-lang-en>Asian Markets</span></p>
     <h2 class="section-title">🌏 <span data-lang-zh>亞洲股市</span><span data-lang-en>Asian Markets</span></h2>
-<p class="static-note"><span data-lang-zh>趨勢標籤為靜態示範，非每日更新訊號；外嵌行情由 TradingView 提供。</span><span data-lang-en>Trend badges are static examples, not daily signals. Embedded quotes are provided by TradingView.</span></p>
+<p class="static-note"><span data-lang-zh>趨勢標籤仍為靜態示範；圖表來源與資料日期見各圖。Yahoo Finance 圖為日線快照，非即時報價。</span><span data-lang-en>Trend badges remain static examples. Each chart lists its source and bar date; Yahoo Finance charts are daily snapshots, not live quotes.</span></p>
     <div class="markets-grid">
 
       <!-- Nikkei 225 -->
@@ -1922,12 +1932,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bearish">Bearish 📉</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:NI225","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_nikkei_START -->
+<div class="market-price-chart" id="market-chart-nikkei" data-chart-key="nikkei" data-chart-state="current">
+  <div class="market-price-summary"><strong>57,434.77</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -5.96%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-nikkei"><title id="market-title-nikkei">Nikkei 225; 2026-10-06 to 2026-11-06; latest 57,434.77 pts; daily change -5.96%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,12.41 L 42.86,20.01 L 85.71,31.64 L 128.57,31.77 L 171.43,46.45 L 214.29,46.84 L 257.14,85.71 L 300.00,75.19 L 342.86,79.96 L 385.71,89.81 L 428.57,83.42 L 471.43,103.49 L 514.29,106.00 L 557.14,111.90 L 600.00,99.26 L 642.86,91.23 L 685.71,82.97 L 728.57,99.01 L 771.43,101.45 L 814.29,111.91 L 857.14,124.92 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,12.41 L 42.86,20.01 L 85.71,31.64 L 128.57,31.77 L 171.43,46.45 L 214.29,46.84 L 257.14,85.71 L 300.00,75.19 L 342.86,79.96 L 385.71,89.81 L 428.57,83.42 L 471.43,103.49 L 514.29,106.00 L 557.14,111.90 L 600.00,99.26 L 642.86,91.23 L 685.71,82.97 L 728.57,99.01 L 771.43,101.45 L 814.29,111.91 L 857.14,124.92 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-10-06</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EN225/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^N225</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_nikkei_END -->
         </div>
       </div>
 
@@ -1941,12 +1953,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge neutral">Neutral</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:HSI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_hangseng_START -->
+<div class="market-price-chart" id="market-chart-hangseng" data-chart-key="hangseng" data-chart-state="current">
+  <div class="market-price-summary"><strong>24,506.38</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -1.17%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-hangseng"><title id="market-title-hangseng">Hang Seng; 2026-10-07 to 2026-11-06; latest 24,506.38 pts; daily change -1.17%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,67.95 L 42.86,96.67 L 85.71,61.21 L 128.57,56.22 L 171.43,50.06 L 214.29,52.64 L 257.14,73.59 L 300.00,63.25 L 342.86,89.84 L 385.71,107.83 L 428.57,167.59 L 471.43,154.36 L 514.29,144.49 L 557.14,158.70 L 600.00,154.24 L 642.86,165.59 L 685.71,137.61 L 728.57,129.37 L 771.43,118.32 L 814.29,85.53 L 857.14,12.41 L 900.00,36.63 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,67.95 L 42.86,96.67 L 85.71,61.21 L 128.57,56.22 L 171.43,50.06 L 214.29,52.64 L 257.14,73.59 L 300.00,63.25 L 342.86,89.84 L 385.71,107.83 L 428.57,167.59 L 471.43,154.36 L 514.29,144.49 L 557.14,158.70 L 600.00,154.24 L 642.86,165.59 L 685.71,137.61 L 728.57,129.37 L 771.43,118.32 L 814.29,85.53 L 857.14,12.41 L 900.00,36.63"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EHSI/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^HSI</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_hangseng_END -->
         </div>
       </div>
 
@@ -1960,12 +1974,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bearish">Bearish 📉</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:KOSPI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_kospi_START -->
+<div class="market-price-chart" id="market-chart-kospi" data-chart-key="kospi" data-chart-state="current">
+  <div class="market-price-summary"><strong>5,059.69</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -6.02%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-kospi"><title id="market-title-kospi">KOSPI; 2026-10-07 to 2026-11-06; latest 5,059.69 pts; daily change -6.02%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,12.41 L 42.86,28.25 L 85.71,49.75 L 128.57,80.79 L 171.43,83.15 L 214.29,123.59 L 257.14,113.46 L 300.00,104.57 L 342.86,123.72 L 385.71,107.45 L 428.57,125.41 L 471.43,123.94 L 514.29,131.13 L 557.14,116.11 L 600.00,82.83 L 642.86,89.48 L 685.71,107.89 L 728.57,96.47 L 771.43,115.18 L 814.29,112.06 L 857.14,138.75 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,12.41 L 42.86,28.25 L 85.71,49.75 L 128.57,80.79 L 171.43,83.15 L 214.29,123.59 L 257.14,113.46 L 300.00,104.57 L 342.86,123.72 L 385.71,107.45 L 428.57,125.41 L 471.43,123.94 L 514.29,131.13 L 557.14,116.11 L 600.00,82.83 L 642.86,89.48 L 685.71,107.89 L 728.57,96.47 L 771.43,115.18 L 814.29,112.06 L 857.14,138.75 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EKS11/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^KS11</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_kospi_END -->
         </div>
       </div>
 
@@ -1979,12 +1995,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge neutral">Neutral</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:STI","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_sti_START -->
+<div class="market-price-chart" id="market-chart-sti" data-chart-key="sti" data-chart-state="current">
+  <div class="market-price-summary"><strong>5,152.12</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -2.72%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-sti"><title id="market-title-sti">Straits Times Index; 2026-10-08 to 2026-11-06; latest 5,152.12 pts; daily change -2.72%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,26.00 L 42.86,32.01 L 85.71,24.63 L 128.57,16.48 L 171.43,20.37 L 214.29,31.14 L 257.14,24.61 L 300.00,26.52 L 342.86,30.85 L 385.71,12.41 L 428.57,24.82 L 471.43,21.01 L 514.29,24.40 L 557.14,34.65 L 600.00,34.17 L 642.86,35.19 L 685.71,45.66 L 728.57,85.24 L 771.43,103.99 L 814.29,104.34 L 857.14,89.35 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,26.00 L 42.86,32.01 L 85.71,24.63 L 128.57,16.48 L 171.43,20.37 L 214.29,31.14 L 257.14,24.61 L 300.00,26.52 L 342.86,30.85 L 385.71,12.41 L 428.57,24.82 L 471.43,21.01 L 514.29,24.40 L 557.14,34.65 L 600.00,34.17 L 642.86,35.19 L 685.71,45.66 L 728.57,85.24 L 771.43,103.99 L 814.29,104.34 L 857.14,89.35 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5ESTI/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^STI</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_sti_END -->
         </div>
       </div>
 
@@ -1998,12 +2016,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bullish">Bullish 📈</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:NIFTY","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_nifty_START -->
+<div class="market-price-chart" id="market-chart-nifty" data-chart-key="nifty" data-chart-state="current">
+  <div class="market-price-summary"><strong>24,692.80</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change up">1D +0.64%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-nifty"><title id="market-title-nifty">Nifty 50; 2026-10-07 to 2026-11-06; latest 24,692.80 pts; daily change +0.64%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,144.18 L 42.86,167.59 L 85.71,149.39 L 128.57,159.29 L 171.43,136.68 L 214.29,142.94 L 257.14,119.32 L 300.00,109.93 L 342.86,126.15 L 385.71,131.04 L 428.57,138.84 L 471.43,144.37 L 514.29,134.71 L 557.14,134.93 L 600.00,138.14 L 642.86,123.14 L 685.71,115.80 L 728.57,91.36 L 771.43,68.02 L 814.29,58.58 L 857.14,22.26 L 900.00,12.41 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,144.18 L 42.86,167.59 L 85.71,149.39 L 128.57,159.29 L 171.43,136.68 L 214.29,142.94 L 257.14,119.32 L 300.00,109.93 L 342.86,126.15 L 385.71,131.04 L 428.57,138.84 L 471.43,144.37 L 514.29,134.71 L 557.14,134.93 L 600.00,138.14 L 642.86,123.14 L 685.71,115.80 L 728.57,91.36 L 771.43,68.02 L 814.29,58.58 L 857.14,22.26 L 900.00,12.41"/></svg>
+  <div class="market-price-range"><span>2026-10-07</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5ENSEI/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^NSEI</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_nifty_END -->
         </div>
       </div>
 
@@ -2017,12 +2037,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bearish">Bearish 📉</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"TVC:AS51","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_asx_START -->
+<div class="market-price-chart" id="market-chart-asx" data-chart-key="asx" data-chart-state="current">
+  <div class="market-price-summary"><strong>9,020.80</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -0.49%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-asx"><title id="market-title-asx">S&amp;P/ASX 200; 2026-10-08 to 2026-11-06; latest 9,020.80 pts; daily change -0.49%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,167.59 L 42.86,146.20 L 85.71,120.64 L 128.57,120.37 L 171.43,141.86 L 214.29,145.01 L 257.14,111.61 L 300.00,96.64 L 342.86,107.70 L 385.71,102.17 L 428.57,116.80 L 471.43,116.03 L 514.29,110.38 L 557.14,94.95 L 600.00,96.03 L 642.86,78.94 L 685.71,72.69 L 728.57,92.50 L 771.43,80.86 L 814.29,100.94 L 857.14,12.41 L 900.00,29.42 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,167.59 L 42.86,146.20 L 85.71,120.64 L 128.57,120.37 L 171.43,141.86 L 214.29,145.01 L 257.14,111.61 L 300.00,96.64 L 342.86,107.70 L 385.71,102.17 L 428.57,116.80 L 471.43,116.03 L 514.29,110.38 L 557.14,94.95 L 600.00,96.03 L 642.86,78.94 L 685.71,72.69 L 728.57,92.50 L 771.43,80.86 L 814.29,100.94 L 857.14,12.41 L 900.00,29.42"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/%5EAXJO/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ^AXJO</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>指數日線</span><span data-lang-en>Index daily bars</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_asx_END -->
         </div>
       </div>
 
@@ -2287,7 +2309,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
   <div class="fade-in">
     <p class="section-label"><span data-lang-zh>期貨市場</span><span data-lang-en>Futures</span></p>
     <h2 class="section-title">📊 <span data-lang-zh>期貨</span><span data-lang-en>Futures</span></h2>
-<p class="static-note"><span data-lang-zh>趨勢標籤為靜態示範，非每日更新訊號；外嵌行情由 TradingView 提供。</span><span data-lang-en>Trend badges are static examples, not daily signals. Embedded quotes are provided by TradingView.</span></p>
+<p class="static-note"><span data-lang-zh>趨勢標籤仍為靜態示範；圖表來源與資料日期見各圖。Yahoo Finance 圖為日線快照，非即時報價。</span><span data-lang-en>Trend badges remain static examples. Each chart lists its source and bar date; Yahoo Finance charts are daily snapshots, not live quotes.</span></p>
     <div class="markets-grid">
 
       <!-- S&P 500 E-mini -->
@@ -2300,12 +2322,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bearish">Bearish 📉</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"CME_MINI:ES1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_es_START -->
+<div class="market-price-chart" id="market-chart-es" data-chart-key="es" data-chart-state="current">
+  <div class="market-price-summary"><strong>7,372.75</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change down">1D -0.14%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-es"><title id="market-title-es">S&amp;P 500 E-mini Futures; 2026-10-08 to 2026-11-06; latest 7,372.75 pts; daily change -0.14%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,26.27 L 42.86,12.41 L 85.71,12.97 L 128.57,13.69 L 171.43,40.93 L 214.29,34.32 L 257.14,61.96 L 300.00,52.32 L 342.86,45.71 L 385.71,31.37 L 428.57,61.88 L 471.43,76.14 L 514.29,58.69 L 557.14,44.75 L 600.00,36.79 L 642.86,46.03 L 685.71,90.72 L 728.57,103.30 L 771.43,96.21 L 814.29,56.78 L 857.14,164.32 L 900.00,167.59 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,26.27 L 42.86,12.41 L 85.71,12.97 L 128.57,13.69 L 171.43,40.93 L 214.29,34.32 L 257.14,61.96 L 300.00,52.32 L 342.86,45.71 L 385.71,31.37 L 428.57,61.88 L 471.43,76.14 L 514.29,58.69 L 557.14,44.75 L 600.00,36.79 L 642.86,46.03 L 685.71,90.72 L 728.57,103.30 L 771.43,96.21 L 814.29,56.78 L 857.14,164.32 L 900.00,167.59"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/ES%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ES=F</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_es_END -->
         </div>
       </div>
 
@@ -2319,12 +2343,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bearish">Bearish 📉</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"CME_MINI:NQ1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_nq_START -->
+<div class="market-price-chart" id="market-chart-nq" data-chart-key="nq" data-chart-state="current">
+  <div class="market-price-summary"><strong>26,918.75</strong><span class="market-price-unit"><span data-lang-zh>點</span><span data-lang-en>pts</span></span><span class="market-price-change up">1D +0.62%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-nq"><title id="market-title-nq">Nasdaq 100 E-mini Futures; 2026-10-08 to 2026-11-06; latest 26,918.75 pts; daily change +0.62%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,17.37 L 42.86,12.41 L 85.71,19.91 L 128.57,23.71 L 171.43,45.39 L 214.29,46.78 L 257.14,73.58 L 300.00,61.79 L 342.86,63.47 L 385.71,51.65 L 428.57,82.46 L 471.43,83.33 L 514.29,71.95 L 557.14,58.60 L 600.00,52.63 L 642.86,67.50 L 685.71,104.12 L 728.57,118.60 L 771.43,112.25 L 814.29,102.95 L 857.14,167.59 L 900.00,161.65 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,17.37 L 42.86,12.41 L 85.71,19.91 L 128.57,23.71 L 171.43,45.39 L 214.29,46.78 L 257.14,73.58 L 300.00,61.79 L 342.86,63.47 L 385.71,51.65 L 428.57,82.46 L 471.43,83.33 L 514.29,71.95 L 557.14,58.60 L 600.00,52.63 L 642.86,67.50 L 685.71,104.12 L 728.57,118.60 L 771.43,112.25 L 814.29,102.95 L 857.14,167.59 L 900.00,161.65"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/NQ%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · NQ=F</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_nq_END -->
         </div>
       </div>
 
@@ -2338,12 +2364,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bullish">Bullish 📈</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"NYMEX:CL1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_wti_START -->
+<div class="market-price-chart" id="market-chart-wti" data-chart-key="wti" data-chart-state="current">
+  <div class="market-price-summary"><strong>91.24</strong><span class="market-price-unit"><span data-lang-zh>美元／桶</span><span data-lang-en>USD/bbl</span></span><span class="market-price-change up">1D +0.80%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-wti"><title id="market-title-wti">WTI Crude Oil Futures; 2026-10-08 to 2026-11-06; latest 91.24 USD/bbl; daily change +0.80%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,134.90 L 42.86,131.41 L 85.71,113.08 L 128.57,109.20 L 171.43,99.99 L 214.29,72.06 L 257.14,38.70 L 300.00,16.88 L 342.86,35.01 L 385.71,80.01 L 428.57,57.51 L 471.43,20.66 L 514.29,35.30 L 557.14,53.34 L 600.00,25.41 L 642.86,32.97 L 685.71,12.41 L 728.57,86.70 L 771.43,90.29 L 814.29,167.59 L 857.14,144.31 L 900.00,137.33 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,134.90 L 42.86,131.41 L 85.71,113.08 L 128.57,109.20 L 171.43,99.99 L 214.29,72.06 L 257.14,38.70 L 300.00,16.88 L 342.86,35.01 L 385.71,80.01 L 428.57,57.51 L 471.43,20.66 L 514.29,35.30 L 557.14,53.34 L 600.00,25.41 L 642.86,32.97 L 685.71,12.41 L 728.57,86.70 L 771.43,90.29 L 814.29,167.59 L 857.14,144.31 L 900.00,137.33"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/CL%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · CL=F</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_wti_END -->
         </div>
       </div>
 
@@ -2357,12 +2385,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bullish">Bullish 📈</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"COMEX:GC1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_gold_START -->
+<div class="market-price-chart" id="market-chart-gold" data-chart-key="gold" data-chart-state="current">
+  <div class="market-price-summary"><strong>4,055.20</strong><span class="market-price-unit"><span data-lang-zh>美元／盎司</span><span data-lang-en>USD/oz</span></span><span class="market-price-change down">1D -1.42%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-gold"><title id="market-title-gold">Gold Futures; 2026-10-08 to 2026-11-06; latest 4,055.20 USD/oz; daily change -1.42%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,41.40 L 42.86,12.41 L 85.71,24.98 L 128.57,31.48 L 171.43,65.41 L 214.29,35.00 L 257.14,29.62 L 300.00,39.89 L 342.86,48.44 L 385.71,44.83 L 428.57,88.63 L 471.43,114.30 L 514.29,99.39 L 557.14,81.69 L 600.00,92.93 L 642.86,102.81 L 685.71,167.59 L 728.57,133.02 L 771.43,147.30 L 814.29,82.47 L 857.14,62.67 L 900.00,91.17 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,41.40 L 42.86,12.41 L 85.71,24.98 L 128.57,31.48 L 171.43,65.41 L 214.29,35.00 L 257.14,29.62 L 300.00,39.89 L 342.86,48.44 L 385.71,44.83 L 428.57,88.63 L 471.43,114.30 L 514.29,99.39 L 557.14,81.69 L 600.00,92.93 L 642.86,102.81 L 685.71,167.59 L 728.57,133.02 L 771.43,147.30 L 814.29,82.47 L 857.14,62.67 L 900.00,91.17"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/GC%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · GC=F</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_gold_END -->
         </div>
       </div>
 
@@ -2376,12 +2406,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge neutral">Neutral</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"CBOT:ZC1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_corn_START -->
+<div class="market-price-chart" id="market-chart-corn" data-chart-key="corn" data-chart-state="current">
+  <div class="market-price-summary"><strong>440.50</strong><span class="market-price-unit"><span data-lang-zh>美分／英斗</span><span data-lang-en>US cents/bu</span></span><span class="market-price-change up">1D +0.11%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-corn"><title id="market-title-corn">Corn Futures; 2026-10-08 to 2026-11-06; latest 440.50 US cents/bu; daily change +0.11%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,12.41 L 42.86,65.21 L 85.71,56.84 L 128.57,57.48 L 171.43,62.64 L 214.29,69.72 L 257.14,79.38 L 300.00,98.05 L 342.86,110.93 L 385.71,107.71 L 428.57,114.79 L 471.43,126.38 L 514.29,128.95 L 557.14,145.05 L 600.00,137.32 L 642.86,138.61 L 685.71,147.63 L 728.57,146.34 L 771.43,161.15 L 814.29,156.64 L 857.14,167.59 L 900.00,166.30 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,12.41 L 42.86,65.21 L 85.71,56.84 L 128.57,57.48 L 171.43,62.64 L 214.29,69.72 L 257.14,79.38 L 300.00,98.05 L 342.86,110.93 L 385.71,107.71 L 428.57,114.79 L 471.43,126.38 L 514.29,128.95 L 557.14,145.05 L 600.00,137.32 L 642.86,138.61 L 685.71,147.63 L 728.57,146.34 L 771.43,161.15 L 814.29,156.64 L 857.14,167.59 L 900.00,166.30"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/ZC%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ZC=F</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_corn_END -->
         </div>
       </div>
 
@@ -2395,12 +2427,14 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
           <span class="trend-badge bullish">Bullish 📈</span>
         </div>
         <div class="market-chart">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-            {"symbol":"CBOT:ZN1!","width":"100%","height":"200","locale":"en","dateRange":"1M","colorTheme":"dark","isTransparent":true,"autosize":false,"largeChartUrl":""}
-            </script>
-          </div>
+          <!-- MARKET_CHART_treasury_START -->
+<div class="market-price-chart" id="market-chart-treasury" data-chart-key="treasury" data-chart-state="current">
+  <div class="market-price-summary"><strong>107.42</strong><span class="market-price-unit"><span data-lang-zh>價格點（非殖利率）</span><span data-lang-en>price pts (not yield)</span></span><span class="market-price-change up">1D +0.09%</span></div>
+  <svg viewBox="0 0 900 180" preserveAspectRatio="none" role="img" aria-labelledby="market-title-treasury"><title id="market-title-treasury">10-Year T-Note Futures; 2026-10-08 to 2026-11-06; latest 107.42 price pts (not yield); daily change +0.09%</title><line class="market-price-grid" x1="0" y1="90" x2="900" y2="90"/><path class="market-price-area" d="M 0.00,159.10 L 42.86,165.89 L 85.71,167.59 L 128.57,158.26 L 171.43,150.63 L 214.29,115.02 L 257.14,119.26 L 300.00,130.28 L 342.86,126.89 L 385.71,137.91 L 428.57,67.53 L 471.43,81.10 L 514.29,83.64 L 557.14,87.03 L 600.00,100.60 L 642.86,79.40 L 685.71,54.81 L 728.57,42.94 L 771.43,62.44 L 814.29,41.25 L 857.14,17.50 L 900.00,12.41 L 900,180 L 0,180 Z"/><path class="market-price-line" d="M 0.00,159.10 L 42.86,165.89 L 85.71,167.59 L 128.57,158.26 L 171.43,150.63 L 214.29,115.02 L 257.14,119.26 L 300.00,130.28 L 342.86,126.89 L 385.71,137.91 L 428.57,67.53 L 471.43,81.10 L 514.29,83.64 L 557.14,87.03 L 600.00,100.60 L 642.86,79.40 L 685.71,54.81 L 728.57,42.94 L 771.43,62.44 L 814.29,41.25 L 857.14,17.50 L 900.00,12.41"/></svg>
+  <div class="market-price-range"><span>2026-10-08</span><span>2026-11-06</span></div>
+  <p class="market-price-source"><a href="https://finance.yahoo.com/quote/ZN%3DF/" target="_blank" rel="noopener noreferrer">Yahoo Finance · ZN=F</a><br><span data-lang-zh>22 個交易日 · 資料日期 2026-11-06（非即時）</span><span data-lang-en>22 sessions · Bar date 2026-11-06 (not live)</span><br><span data-lang-zh>期貨日線；合約切換可能跳空</span><span data-lang-en>Futures daily bars; rolls may cause gaps</span><span class="asset-age" data-as-of="2026-11-06" data-fetch-state="current"></span></p>
+</div>
+<!-- MARKET_CHART_treasury_END -->
         </div>
       </div>
 
@@ -2450,8 +2484,8 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
     <div class="method-grid">
       <div class="method-card">
         <div class="method-card-label"><span data-lang-zh>數據來源</span><span data-lang-en>Data Sources</span></div>
-        <p data-block-zh>Yahoo Finance：復權日線、ETF 圖與自算指標<br>TradingView：其他外嵌圖表<br>自製市場情緒：SPY RSI、VIX、SPY 相對 SMA200 的等權平均（非 CNN 指數）</p>
-        <p data-block-en>Yahoo Finance: adjusted daily bars, ETF charts and calculated indicators<br>TradingView: other embedded charts<br>Custom sentiment: equal-weight SPY RSI, VIX and SPY vs SMA200 (not the CNN index)</p>
+        <p data-block-zh>Yahoo Finance：ETF 復權日線、指數／期貨日線與自算指標<br>TradingView：其他外嵌圖表<br>自製市場情緒：SPY RSI、VIX、SPY 相對 SMA200 的等權平均（非 CNN 指數）</p>
+        <p data-block-en>Yahoo Finance: adjusted ETF bars, index/futures daily bars and calculated indicators<br>TradingView: other embedded charts<br>Custom sentiment: equal-weight SPY RSI, VIX and SPY vs SMA200 (not the CNN index)</p>
       </div>
       <div class="method-card">
         <div class="method-card-label"><span data-lang-zh>更新頻率</span><span data-lang-en>Update Frequency</span></div>
@@ -2687,7 +2721,8 @@ window.addEventListener('scroll', function() {
     </div>
   </div>
 </div>
-<script id="market-data-status" type="application/json">{"generated_at": "2026-11-06T07:00:34.260904+00:00", "failed": [], "core_dates": {"CL=F": "2026-11-06", "GC=F": "2026-11-06", "SPY": "2026-11-05", "^TWII": "2026-11-06", "^VIX": "2026-11-05"}}</script>
+<script id="market-data-status" type="application/json">{"generated_at": "2026-11-06T07:21:10.336959+00:00", "failed": [], "core_dates": {"CL=F": "2026-11-06", "GC=F": "2026-11-06", "SPY": "2026-11-05", "^TWII": "2026-11-06", "^VIX": "2026-11-05"}}</script>
 <script src="data-status.js" defer></script>
+<script src="market-charts.js" defer></script>
 </body>
 </html>

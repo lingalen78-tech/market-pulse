@@ -14,6 +14,7 @@ import time
 from pathlib import Path
 import numpy as np
 import yfinance as yf
+from market_charts import SOURCE_SPECS, history_points, update_charts, validate_charts
 
 INDEX_HTML = "index.html"
 
@@ -51,6 +52,8 @@ TW_ETFS = {
     "00929.TW": "00929",
 }
 
+SYMBOLS.update({symbol: spec['name'] for symbol, spec in SOURCE_SPECS.items()})
+
 ETF_SYMBOLS = {**{s: s for s in ("SPY", "IVV", "VOO", "VTI", "QQQ")}, **TW_ETFS}
 CORE_SYMBOLS = {"SPY", "^TWII", "GC=F", "CL=F", "^VIX"}
 SNAPSHOT_PATH = Path("data/market-data.json")
@@ -83,7 +86,7 @@ def analyze_history(hist, symbol, now=None):
         resistance=float(tail["High"].max()), as_of=as_of.isoformat(),
         fetched_at=now.isoformat(),
         history=[{"date": stamp.date().isoformat(), "close": round(float(v), 4)}
-                 for stamp, v in close.tail(66).items()] if symbol in TW_ETFS else [],
+                 for stamp, v in close.tail(66).items()] if symbol in TW_ETFS or symbol in SOURCE_SPECS else [],
     )
     if not all(np.isfinite(asset[k]) for k in
                ("price", "pct", "rsi", "ma50", "ma200", "support", "resistance")):
@@ -110,8 +113,21 @@ def fetch_all():
         result[symbol] = None
         for attempt in range(MAX_ATTEMPTS):
             try:
-                hist = yf.Ticker(symbol).history(period="2y", auto_adjust=True, timeout=15)
-                result[symbol] = analyze_history(hist, symbol)
+                ticker = yf.Ticker(symbol)
+                spec = SOURCE_SPECS.get(symbol)
+                adjusted = not spec or spec['kind'] == 'ETF'
+                hist = ticker.history(period="2y", auto_adjust=adjusted, timeout=15)
+                asset = analyze_history(hist, symbol)
+                if spec:
+                    meta = ticker.history_metadata
+                    if meta.get('symbol') != symbol or meta.get('instrumentType') != spec['kind']:
+                        raise ValueError(f"Unexpected source identity for {symbol}")
+                    expected_currency = 'USX' if symbol == 'ZC=F' else 'USD' if spec['kind'] in ('FUTURE', 'ETF') else None
+                    if expected_currency and meta.get('currency') != expected_currency:
+                        raise ValueError(f"Unexpected quote currency for {symbol}: {meta.get('currency')}")
+                    asset.update(source_symbol=meta['symbol'], instrument_type=meta['instrumentType'],
+                                 currency=meta.get('currency'), price_basis='adjusted' if adjusted else 'unadjusted')
+                result[symbol] = asset
                 print(f"  {symbol}: {result[symbol]['as_of']} price={result[symbol]['price']:.2f}")
                 break
             except Exception as exc:
@@ -498,6 +514,8 @@ def update_html(html, data, fg_score, now=None, failed=None):
                 '<div class="tw-etf-chart"><span data-lang-zh>圖表資料暫缺</span>'
                 '<span data-lang-en>Chart data unavailable</span></div>')
 
+    html = update_charts(html, data, failed)
+
     # ── Timestamps ──
     dates = sorted({data[s]["as_of"] for s in CORE_SYMBOLS})
     date_range = dates[0] if len(dates) == 1 else f"{dates[0]} — {dates[-1]}"
@@ -534,6 +552,11 @@ def main():
         for symbol in failed:
             cached = previous.get("assets", {}).get(symbol)
             if cached and cached.get("as_of"):
+                if symbol in SOURCE_SPECS:
+                    try:
+                        history_points(cached, SOURCE_SPECS[symbol]['sessions'])
+                    except (ValueError, TypeError, KeyError):
+                        continue
                 data[symbol] = cached
     fg   = calc_fear_greed(data)
     print(f"\nFear & Greed: {fg} ({fg_label(fg, 'en')})")
@@ -578,6 +601,7 @@ def report_health(message, error=False, warning=False):
 
 
 def validate_output(html, data, score):
+    validate_charts(html, data)
     if "\x00" in html or re.search(r">\s*(?:nan|inf|-inf)\s*<", html, re.I):
         raise ValueError("Invalid numeric output or NUL padding")
     if f'id="fear-greed-label-en" data-lang-en>{fg_label(score)}<' not in html:

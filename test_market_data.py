@@ -49,6 +49,7 @@ class MarketDataTests(unittest.TestCase):
     def test_retries_then_success(self):
         with patch.dict(m.SYMBOLS, {'SPY': 'SPY'}, clear=True), patch.object(m.yf, 'Ticker') as ticker, patch.object(m, 'utc_now', return_value=NOW), patch.object(m.time, 'sleep'):
             ticker.return_value.history.side_effect = [RuntimeError('timeout'), history()]
+            ticker.return_value.history_metadata = {'symbol': 'SPY', 'instrumentType': 'ETF', 'currency': 'USD'}
             self.assertIsNotNone(m.fetch_all()['SPY'])
             self.assertEqual(ticker.return_value.history.call_count, 2)
 
