@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101c2e">
 <title>Market Pulse 市場脈動 | 每日30秒掌握全球市場</title>
 <meta name="description" content="Daily 30-second market briefing covering US stocks, Taiwan equities, precious metals, and energy. Quantitative signals, technical analysis, and actionable insights.">
 <meta property="og:title" content="Market Pulse 市場脈動">
@@ -117,7 +118,7 @@ section { padding: 3.5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 a
 .toc-links a {
   font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none;
   padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
-  transition: all 0.3s ease; display: inline-flex; align-items: center;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s; display: inline-flex; align-items: center;
 }
 .toc-links a:hover { border-color: var(--gold); color: var(--text); background: rgba(240,185,11,0.05); }
 
@@ -211,7 +212,7 @@ section { padding: 3.5rem clamp(1rem, 5vw, 4rem); max-width: 1100px; margin: 0 a
 .tab-btn {
   background: var(--card); border: 1px solid var(--card-border);
   color: var(--text-secondary); padding: 8px 18px; border-radius: 8px;
-  font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.2s;
+  font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s, background-color 0.2s;
 }
 .tab-btn.active { background: var(--gold); color: #0a0e17; border-color: var(--gold); }
 .tab-panel, .etf-tab-panel {
@@ -323,7 +324,7 @@ footer a:hover { color: var(--text); }
 .etf-tab-btn {
   background: var(--card); border: 1px solid var(--card-border);
   color: var(--text-secondary); padding: 8px 18px; border-radius: 8px;
-  font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.2s;
+  font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s, background-color 0.2s;
 }
 .etf-tab-btn.active { background: var(--gold); color: #0a0e17; border-color: var(--gold); }
 .etf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem; }
@@ -601,26 +602,27 @@ body{animation:pageIn .6s ease-out;}
 /* ── Theme Toggle ── */
 .theme-toggle{position:fixed;top:70px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(240,185,11,.3);background:rgba(10,14,23,.8);backdrop-filter:blur(8px);color:#f0b90b;font-size:18px;cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s}
 .theme-toggle:hover{transform:scale(1.1) rotate(15deg);box-shadow:0 0 15px rgba(240,185,11,.3)}
-body.light-mode{--text:#1a1a2e;--text-secondary:#596273;--green:#16834a;--red:#d7193f;background:#f0f2f5!important;color:#1a1a2e!important}
-body.light-mode nav{background:rgba(240,242,245,.95)!important}
-body.light-mode section,body.light-mode .snapshot-card,body.light-mode .theme-card,body.light-mode .market-card,body.light-mode .signal-card,body.light-mode .etf-card,body.light-mode .snap-card{background:rgba(255,255,255,.9)!important;color:#1a1a2e!important;border-color:rgba(0,0,0,.1)!important}
-body.light-mode h1,body.light-mode h2,body.light-mode h3,body.light-mode strong{color:#0a0e17!important}
-body.light-mode .theme-toggle{background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.15)}
-body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,.1),transparent)}
 @media(max-width:640px){.theme-toggle{top:65px;right:12px;width:36px;height:36px;font-size:16px}}
 .etf-data-date { padding: 0 1.1rem 1rem; margin: 0; font-size: .72rem; color: var(--text-secondary); overflow-wrap: anywhere; }
 #dataHealth { font-size: .8rem; color: var(--gold); }
 .static-note { color: var(--text-secondary); font-size: .8rem; margin-bottom: 1rem; }
 </style>
 <link rel="stylesheet" href="market-charts.css">
+<link rel="stylesheet" href="design-refresh.css">
 </head>
 <body class="lang-zh">
+<a class="skip-link" href="#mainContent"><span data-lang-zh>跳到主要內容</span><span data-lang-en>Skip to content</span></a>
 <div class="reading-progress" id="readingProgress"></div>
-<button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="切換主題">🌙</button>
 
 <!-- ═══ Navbar ═══ -->
-<nav class="navbar" id="navbar">
-  <div class="nav-logo">Market Pulse</div>
+<nav class="navbar" id="navbar" aria-label="主要導覽 / Main navigation">
+  <a class="nav-logo" href="#hero" translate="no"><svg class="brand-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M2 19h6l4-10 7 17 4-11h7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Market Pulse</a>
+  <div class="nav-shortcuts">
+    <a href="#snapshot"><span data-lang-zh>市場快照</span><span data-lang-en>Overview</span></a>
+    <a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a>
+    <a href="#etf">ETF</a>
+    <a href="#methodology"><span data-lang-zh>方法論</span><span data-lang-en>Methodology</span></a>
+  </div>
   <ul class="nav-links" id="navLinks">
     <li><a href="#snapshot"><span class="nav-icon">📊</span><span data-lang-zh>快照</span><span data-lang-en>Snap</span></a></li>
     <li><a href="#chart"><span class="nav-icon">📈</span><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a></li>
@@ -633,25 +635,27 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
     <li><a href="#crypto"><span class="nav-icon">₿</span><span data-lang-zh>加密</span><span data-lang-en>Crypto</span></a></li>
     <li><a href="#forex"><span class="nav-icon">💱</span><span data-lang-zh>貨幣</span><span data-lang-en>FX</span></a></li>
     <li><a href="#futures"><span class="nav-icon">⚡</span><span data-lang-zh>期貨</span><span data-lang-en>Futures</span></a></li>
-    <li><a href="#subscribe"><span class="nav-icon">✉️</span><span data-lang-zh>訂閱</span><span data-lang-en>Sub</span></a></li>
+    <li><a href="#subscribe"><span class="nav-icon">✉️</span><span data-lang-zh>電子報</span><span data-lang-en>Newsletter</span></a></li>
     <li><a href="#methodology"><span class="nav-icon">⚙️</span><span data-lang-zh>方法論</span><span data-lang-en>Method</span></a></li>
     <li><a href="#about"><span class="nav-icon">ℹ️</span><span data-lang-zh>關於</span><span data-lang-en>About</span></a></li>
-    <li><button class="lang-toggle" id="langToggle">EN</button></li>
   </ul>
-  <button class="nav-hamburger" id="hamburger">&#9776;</button>
+  <div class="nav-controls">
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English">EN</button>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="切換到淺色主題" title="切換到淺色主題">☀</button>
+    <button class="nav-hamburger" id="hamburger" type="button" aria-label="瀏覽全部章節 / Explore all sections" aria-controls="navLinks" aria-expanded="false"><span aria-hidden="true">☰</span><span data-lang-zh>章節</span><span data-lang-en>Explore</span></button>
+  </div>
 </nav>
 
+<main id="mainContent" tabindex="-1">
 <!-- ═══ Hero ═══ -->
 <section class="hero" id="hero">
-  <div class="fade-in">
-    <p class="section-label">Daily Brief</p>
-    <h1 class="hero-title">Market Pulse<br><span class="gold">市場脈動</span></h1>
-    <p class="hero-tagline" data-lang-zh>你的每日 30 秒市場簡報</p>
-    <p class="hero-tagline" data-lang-en>Your 30-Second Daily Market Brief</p>
+  <div class="hero-intro">
+    <p class="hero-kicker"><span data-lang-zh>全球市場，每日一覽</span><span data-lang-en>Your daily view of global markets</span></p>
+    <h1 class="hero-title"><span translate="no">Market Pulse</span><span class="hero-title-local">市場脈動</span></h1>
+    <p class="hero-tagline" data-lang-zh>30 秒看重點，按需深入市場。</p>
+    <p class="hero-tagline" data-lang-en>The essentials in 30 seconds. Explore at your own pace.</p>
+    <p class="hero-date-label"><span data-lang-zh>行情日期區間</span><span data-lang-en>Market date range</span></p>
     <p class="hero-date" id="heroDate">2026-11-05 — 2026-11-06</p>
-  </div>
-  <div class="hero-scroll-hint">&#8595;</div>
-
   <div class="reading-meta" aria-label="閱讀資訊">
     <span class="reading-meta__chip"><span class="reading-meta__icon">📖</span><span class="reading-meta__label" data-lang-zh>約 <strong id="readingTime">8</strong> 分鐘閱讀</span><span class="reading-meta__label" data-lang-en>~<strong id="readingTimeEn">8</strong> min read</span></span>
     <span class="reading-meta__divider">·</span>
@@ -659,14 +663,15 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
     <span class="reading-meta__divider">·</span>
     <span class="reading-meta__chip"><span class="reading-meta__icon">📊</span><span class="reading-meta__label" data-lang-zh><strong id="chartCount">6</strong> 張圖表</span><span class="reading-meta__label" data-lang-en><strong id="chartCountEn">6</strong> charts</span></span>
   </div>
+  </div>
 
   <!-- Quick Navigation -->
   <div class="hero-toc">
-    <p class="toc-label"><span data-lang-zh>今日內容</span><span data-lang-en>Today's Brief</span></p>
+    <p class="toc-label"><span data-lang-zh>選擇你的閱讀路徑</span><span data-lang-en>Start with what matters to you</span></p>
     <div class="toc-links">
-      <a href="#snapshot"><span data-lang-zh>快照</span><span data-lang-en>Snapshot</span></a>
-      <a href="#chart"><span data-lang-zh>圖表</span><span data-lang-en>Chart</span></a>
-      <a href="#dashboard"><span data-lang-zh>儀表板</span><span data-lang-en>Dashboard</span></a>
+      <a href="#snapshot"><span class="toc-title"><span data-lang-zh>快速掌握市場</span><span data-lang-en>The market at a glance</span></span><span class="toc-description"><span data-lang-zh>市場情緒、四大資產與資料日期</span><span data-lang-en>Sentiment, key assets and data dates</span></span><span class="toc-arrow" aria-hidden="true">↗</span></a>
+      <a href="#dashboard"><span class="toc-title"><span data-lang-zh>比較市場走勢</span><span data-lang-en>Compare the markets</span></span><span class="toc-description"><span data-lang-zh>切換美股、台股、科技與商品</span><span data-lang-en>Equities, technology and commodities</span></span><span class="toc-arrow" aria-hidden="true">↗</span></a>
+      <a href="#etf"><span class="toc-title"><span data-lang-zh>查看 ETF 訊號</span><span data-lang-en>Explore ETF signals</span></span><span class="toc-description"><span data-lang-zh>美股與台股 ETF 的趨勢和動能</span><span data-lang-en>US and Taiwan trends and momentum</span></span><span class="toc-arrow" aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
@@ -679,16 +684,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
 
     <div class="prototype-tag" id="protoTag"><span data-lang-zh>行情日期（交易所當地）：2026-11-05 — 2026-11-06 · 日線資料可能含當日未收盤行情</span><span data-lang-en>Exchange bar dates: 2026-11-05 — 2026-11-06 · Daily bars may include an unfinished session</span></div>
 
-    <!-- Gauge -->
-    <div class="gauge-wrapper">
-      <div class="gauge">
-        <div class="gauge-bg"></div>
-        <div id="fear-greed-needle" class="gauge-needle" style="--angle: -19"></div>
-      </div>
-      <div id="fear-greed-value" class="gauge-value">39</div>
-      <div class="gauge-label">Market Pulse Sentiment &mdash; <span id="fear-greed-label-zh" data-lang-zh>恐慌</span><span id="fear-greed-label-en" data-lang-en>Fear</span></div>
-    </div>
-
+    <div class="snapshot-overview">
     <!-- Cards -->
     <div class="snapshot-grid">
       <div class="snap-card">
@@ -709,6 +705,17 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
       </div>
     </div>
 
+    <!-- Gauge: the same generated sentiment, beside the price summary. -->
+    <div class="gauge-wrapper">
+      <div class="gauge" aria-hidden="true">
+        <div class="gauge-bg"></div>
+        <div id="fear-greed-needle" class="gauge-needle" style="--angle: -19"></div>
+      </div>
+      <div class="gauge-score"><div id="fear-greed-value" class="gauge-value">39</div><span class="gauge-scale"> / 100</span></div>
+      <div class="gauge-label"><span data-lang-zh>自製市場情緒</span><span data-lang-en>Market Pulse sentiment</span> &mdash; <span id="fear-greed-label-zh" data-lang-zh>恐慌</span><span id="fear-greed-label-en" data-lang-en>Fear</span></div>
+      <a class="gauge-method" href="#methodology"><span data-lang-zh>了解計算方式</span><span data-lang-en>How it is calculated</span></a>
+    </div>
+    </div>
     <p class="snap-summary">
       <span id="summary-zh" data-lang-zh>市場情緒恐慌，美股下跌、台股下跌，金價走跌，原油走升。</span>
       <span id="summary-en" data-lang-en>Sentiment: Fear. US equities decline, TW equities fall, gold edges down, crude gains.</span>
@@ -2449,33 +2456,20 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
 <!-- ═══ Newsletter CTA ═══ -->
 <div class="cta-section" id="subscribe">
   <div class="fade-in" style="max-width:1100px;margin:0 auto;">
-    <p class="section-label">Newsletter</p>
+    <p class="section-label"><span data-lang-zh>電子報規劃中</span><span data-lang-en>Newsletter in development</span></p>
     <h2 class="section-title">
-      <span data-lang-zh>加入等候名單</span>
-      <span data-lang-en>Join the Waitlist</span>
+      <span data-lang-zh>先把市場脈動留在書籤</span>
+      <span data-lang-en>Keep Market Pulse in your bookmarks</span>
     </h2>
     <p class="cta-subtitle">
-      <span data-lang-zh>鎖定每日 5 分鐘市場脈動，不錯過任何關鍵轉折</span>
-      <span data-lang-en>Lock in your daily 5-min market pulse. Never miss a key turning point.</span>
+      <span data-lang-zh>電子報尚未開放；市場快照仍會依排程更新。</span>
+      <span data-lang-en>The newsletter is not open yet. Market snapshots continue to update on schedule.</span>
     </p>
     <div class="cta-what-you-get">
-      <span data-lang-zh>每日簡報內容：一張圖 + 三句分析 + 關鍵價位，每個交易日早上準時送達。</span>
-      <span data-lang-en>What you'll get: One chart + 3-sentence analysis + key levels, every market morning.</span>
+      <span data-lang-zh>目前不收集電子郵件，也不會寄送通知。下次回來時，請先確認行情日期與更新狀態。</span>
+      <span data-lang-en>No email addresses are collected and no notifications are sent. Check the data dates and update status on your next visit.</span>
     </div>
-    <form class="cta-form" id="ctaForm" onsubmit="return false;">
-      <input class="cta-input" type="email" placeholder="your@email.com" required>
-      <button class="cta-button" type="submit">
-        <span data-lang-zh>加入通知</span><span data-lang-en>Notify Me</span>
-      </button>
-    </form>
-    <p class="cta-fine-print">
-      <span data-lang-zh>免費。隨時退訂。絕不濫發廣告。</span>
-      <span data-lang-en>Free. Unsubscribe anytime. No spam.</span>
-    </p>
-    <p class="cta-success" id="ctaSuccess">
-      <span data-lang-zh>已加入！上線時第一時間通知你。</span>
-      <span data-lang-en>You're on the list. We'll notify you at launch.</span>
-    </p>
+    <a class="cta-button" href="#snapshot"><span data-lang-zh>回到市場快照</span><span data-lang-en>Return to the market overview</span></a>
   </div>
 </div>
 
@@ -2520,7 +2514,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
     <div class="about-content">
       <div class="about-avatar">KL</div>
       <div class="about-text">
-        <p><strong>Ke Lin &nbsp;|&nbsp; 柯林</strong></p>
+        <p><strong>Ke Lin &nbsp;|&nbsp; 林格</strong></p>
         <p>UCI Paul Merage School of Business &mdash; Master of Finance (STEM)</p>
         <p>CFA Level I Candidate</p>
         <p style="margin-top:0.75rem;">
@@ -2554,6 +2548,7 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
 </section>
 
 <!-- ═══ Footer ═══ -->
+</main>
 <footer>
   <p>
     <span data-lang-zh>本網站內容僅供參考，不構成任何投資建議。投資有風險，請謹慎評估。</span>
@@ -2569,6 +2564,9 @@ body.light-mode .freshness-bar{background:linear-gradient(90deg,rgba(240,185,11,
 
 <!-- ═══ Scripts ═══ -->
 <script>
+function scrollBehavior() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+}
 window.addEventListener('scroll', function() {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -2597,29 +2595,6 @@ window.addEventListener('scroll', function() {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // ── Hamburger ──
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-
-  // ── Tabs ──
-  document.querySelectorAll('.tab-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById('panel-' + b.dataset.tab).classList.add('active');
-    });
-  });
-
-  // ── Newsletter ──
-  document.getElementById('ctaForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    document.getElementById('ctaSuccess').classList.add('show');
-    e.target.querySelector('input').value = '';
-  });
-
   // ── Copy link ──
   document.getElementById('copyLinkBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -2627,16 +2602,6 @@ window.addEventListener('scroll', function() {
       const orig = b.innerHTML;
       b.innerHTML = '<span>&#10003; Copied!</span>';
       setTimeout(() => b.innerHTML = orig, 1500);
-    });
-  });
-
-  // ── ETF Tabs ──
-  document.querySelectorAll('.etf-tab-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.etf-tab-btn').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.etf-tab-panel').forEach(p => p.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById('etf-panel-' + b.dataset.etfTab).classList.add('active');
     });
   });
 
@@ -2669,7 +2634,7 @@ window.addEventListener('scroll', function() {
   window.addEventListener('scroll', function(){
     if(!ticking){ requestAnimationFrame(function(){ btn.classList.toggle('visible', window.scrollY > 400); ticking = false; }); ticking = true; }
   }, {passive:true});
-  btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:scrollBehavior()}); });
 })();
 
 (function(){var m=document.querySelector('main')||document.body;var t=m.innerText||'';var cn=(t.match(/[一-鿿]/g)||[]).length;var en=(t.replace(/[一-鿿]/g,'').trim().split(/\s+/).filter(Boolean)).length;var min=Math.max(1,Math.round((cn/350)+(en/220)));['readingTime','readingTimeEn'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=min;});var secs=document.querySelectorAll('section[id]').length||11;['sectionCount','sectionCountEn'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=secs;});})();
@@ -2696,7 +2661,7 @@ window.addEventListener('scroll', function() {
 
 (function(){
   var secs=[];
-  document.querySelectorAll('.hero-toc a[href^="#"]').forEach(function(a){
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(a){
     var t=document.querySelector(a.getAttribute('href'));
     if(t)secs.push(t);
   });
@@ -2711,15 +2676,14 @@ window.addEventListener('scroll', function() {
     if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.isContentEditable)return;
     if(e.metaKey||e.ctrlKey||e.altKey)return;
     var k=e.key;
-    if(k==='j'){e.preventDefault();var n=Math.min(getCur()+1,secs.length-1);secs[n].scrollIntoView({behavior:'smooth'});}
-    else if(k==='k'){e.preventDefault();var p=Math.max(getCur()-1,0);secs[p].scrollIntoView({behavior:'smooth'});}
-    else if(k>='1'&&k<='9'){var i=parseInt(k)-1;if(i<secs.length){e.preventDefault();secs[i].scrollIntoView({behavior:'smooth'});}}
-    else if(k==='0'){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}
-    else if(k==='s'){e.preventDefault();var sub=document.getElementById('subscribe')||document.querySelector('[id*=waitlist]')||document.querySelector('[id*=newsletter]');if(sub)sub.scrollIntoView({behavior:'smooth'});}
+    if(k==='j'){e.preventDefault();var n=Math.min(getCur()+1,secs.length-1);secs[n].scrollIntoView({behavior:scrollBehavior()});}
+    else if(k==='k'){e.preventDefault();var p=Math.max(getCur()-1,0);secs[p].scrollIntoView({behavior:scrollBehavior()});}
+    else if(k>='1'&&k<='9'){var i=parseInt(k)-1;if(i<secs.length){e.preventDefault();secs[i].scrollIntoView({behavior:scrollBehavior()});}}
+    else if(k==='0'){e.preventDefault();window.scrollTo({top:0,behavior:scrollBehavior()});}
+    else if(k==='s'){e.preventDefault();var sub=document.getElementById('subscribe')||document.querySelector('[id*=waitlist]')||document.querySelector('[id*=newsletter]');if(sub)sub.scrollIntoView({behavior:scrollBehavior()});}
     else if(k==='?'){e.preventDefault();if(help)help.style.display=help.style.display==='flex'?'none':'flex';}
   });
 })();
-(function(){var b=document.getElementById('themeToggle');if(!b)return;if(localStorage.getItem('mp-theme')==='light'){document.body.classList.add('light-mode');b.textContent='☀️';}b.addEventListener('click',function(){var l=document.body.classList.toggle('light-mode');b.textContent=l?'☀️':'🌙';localStorage.setItem('mp-theme',l?'light':'dark');});})();
 </script>
 <button class="back-to-top" id="backToTop" aria-label="Back to top" title="回到頂部">↑</button>
 <!-- Keyboard Navigation -->
@@ -2739,5 +2703,6 @@ window.addEventListener('scroll', function() {
 <script id="market-data-status" type="application/json">{"generated_at": "2026-11-06T07:29:15.621475+00:00", "failed": [], "core_dates": {"CL=F": "2026-11-06", "GC=F": "2026-11-06", "SPY": "2026-11-05", "^TWII": "2026-11-06", "^VIX": "2026-11-05"}}</script>
 <script src="data-status.js" defer></script>
 <script src="market-charts.js" defer></script>
+<script src="design-ui.js" defer></script>
 </body>
 </html>
