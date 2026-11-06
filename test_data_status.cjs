@@ -22,6 +22,8 @@ test('current source timestamp stays unchanged', () => assert.equal(render(valid
 test('old generation is stale even if bar dates look fresh', () => assert.equal(render({...valid, generated_at: '2026-10-01T00:00:00Z'}).status.dataset.state, 'stale'));
 test('old source bars are stale even if generated today', () => assert.equal(render({...valid, core_dates: {SPY:'2026-10-01'}}).status.dataset.state, 'stale'));
 test('missing dates are unknown', () => assert.equal(render({}).status.dataset.state, 'unknown'));
+test('future generation is not shown as current', () => assert.equal(render({...valid, generated_at: '2026-11-07T06:00:00Z'}).status.dataset.state, 'unknown'));
+test('impossible future exchange date is not shown as current', () => assert.equal(render({...valid, core_dates: {SPY: '2026-11-09'}}).status.dataset.state, 'unknown'));
 test('retained source is visibly identified in English', () => {
   const result = render({...valid, failed: ['0050.TW']}, {en:true, state:'retained'});
   assert.equal(result.status.textContent, 'Partial refresh');

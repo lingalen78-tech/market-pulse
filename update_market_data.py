@@ -81,7 +81,8 @@ def analyze_history(hist, symbol, now=None):
     asset = dict(
         name=SYMBOLS[symbol], price=float(close.iloc[-1]),
         pct=float((close.iloc[-1] / close.iloc[-2] - 1) * 100),
-        rsi=calculate_rsi(close), ma50=float(close.tail(50).mean()),
+        rsi=calculate_rsi(close), rsi_method="wilder-14", indicator_sessions=len(close),
+        ma50=float(close.tail(50).mean()),
         ma200=float(close.tail(200).mean()), support=float(tail["Low"].min()),
         resistance=float(tail["High"].max()), as_of=as_of.isoformat(),
         fetched_at=now.isoformat(),
@@ -96,13 +97,19 @@ def analyze_history(hist, symbol, now=None):
 # ── Data fetching ─────────────────────────────────────────────────────────────
 
 def calculate_rsi(prices, period=14):
-    delta = prices.diff()
-    gain = delta.where(delta > 0, 0.0).rolling(window=period).mean()
-    loss = (-delta.where(delta < 0, 0.0)).rolling(window=period).mean()
-    rs = gain / loss
-    rsi = 100 - (100 / (1 + rs))
-    val = rsi.iloc[-1]
-    return float(val) if not (np.isnan(val) or np.isinf(val)) else 50.0
+    """Wilder RSI: mean of the first n changes, then recursive 1/n smoothing."""
+    values = np.asarray(prices, dtype=float)
+    if period < 1 or len(values) <= period or not np.isfinite(values).all():
+        raise ValueError("RSI requires finite prices and at least period + 1 closes")
+    delta = np.diff(values)
+    gains, losses = np.maximum(delta, 0), np.maximum(-delta, 0)
+    gain, loss = float(gains[:period].mean()), float(losses[:period].mean())
+    for up, down in zip(gains[period:], losses[period:]):
+        gain = (gain * (period - 1) + up) / period
+        loss = (loss * (period - 1) + down) / period
+    if loss == 0:
+        return 50.0 if gain == 0 else 100.0
+    return float(100 - 100 / (1 + gain / loss))
 
 
 def fetch_all():
@@ -139,28 +146,39 @@ def fetch_all():
 
 # ── Fear & Greed approximation ────────────────────────────────────────────────
 
-def calc_fear_greed(data):
-    scores = []
+def sentiment_components(data):
+    """Three equally weighted descriptive proxies, never silently reweighted."""
     spy = data.get("SPY")
     vix = data.get("^VIX")
+    if not spy or not vix or spy.get('ma200', 0) <= 0:
+        raise ValueError("Sentiment requires SPY RSI, SPY/SMA200 and VIX")
+    inputs = (spy['rsi'], vix['price'], (spy['price'] / spy['ma200'] - 1) * 100)
+    if not all(np.isfinite(v) for v in inputs):
+        raise ValueError("Non-finite sentiment input")
+    scores = ((inputs[0] - 30) * 2 + 10, 90 - (inputs[1] - 10) * (80 / 30), 50 + inputs[2] * 5)
+    return [dict(name=name, value=value, score=max(0., min(100., score)))
+            for name, value, score in zip(('SPY RSI(14)', 'VIX', 'SPY vs SMA200'), inputs, scores)]
 
-    # RSI of SPY → map 30‥70 → 10‥90
-    if spy:
-        s = max(0.0, min(100.0, (spy["rsi"] - 30) * 2.0 + 10))
-        scores.append(s)
 
-    # VIX: 10 → 90 (greed), 40 → 10 (fear)
-    if vix:
-        s = max(0.0, min(100.0, 90 - (vix["price"] - 10) * (80 / 30)))
-        scores.append(s)
+def calc_fear_greed(data):
+    return int(round(sum(c['score'] for c in sentiment_components(data)) / 3))
 
-    # SPY vs 200-DMA
-    if spy and spy["ma200"]:
-        pct_above = (spy["price"] - spy["ma200"]) / spy["ma200"] * 100
-        s = max(0.0, min(100.0, 50 + pct_above * 5))
-        scores.append(s)
 
-    return int(round(sum(scores) / len(scores))) if scores else 50
+def render_sentiment_inputs(data):
+    rows = []
+    for component, symbol in zip(sentiment_components(data), ('SPY', '^VIX', 'SPY')):
+        date = data[symbol]['as_of']
+        value = f"{component['value']:.2f}" + ('%' if component['name'] == 'SPY vs SMA200' else '')
+        rows.append(f'<tr><th scope="row">{component["name"]}</th><td>{value}</td>'
+                    f'<td>{component["score"]:.1f}</td><td>1/3</td><td>{date}</td></tr>')
+    return ('<table class="sentiment-table"><caption><span data-lang-zh>情緒分數的三項輸入</span>'
+            '<span data-lang-en>Inputs to the sentiment score</span></caption><thead><tr>'
+            '<th scope="col"><span data-lang-zh>指標</span><span data-lang-en>Input</span></th>'
+            '<th scope="col"><span data-lang-zh>數值</span><span data-lang-en>Value</span></th>'
+            '<th scope="col"><span data-lang-zh>分數</span><span data-lang-en>Score</span></th>'
+            '<th scope="col"><span data-lang-zh>權重</span><span data-lang-en>Weight</span></th>'
+            '<th scope="col"><span data-lang-zh>資料日期</span><span data-lang-en>Bar date</span></th>'
+            '</tr></thead><tbody>' + ''.join(rows) + '</tbody></table>')
 
 
 def fg_label(score, lang="en"):
@@ -219,21 +237,23 @@ def get_signals(d):
     # RSI
     ri = int(round(rsi))
     if rsi >= 70:
-        rsi_s = dict(cls="bearish", zh=f"超買 {ri}", en=f"Overbought {ri}")
+        rsi_s = dict(cls="neutral", zh=f"超買 {ri}", en=f"Overbought {ri}")
     elif rsi <= 30:
-        rsi_s = dict(cls="bullish", zh=f"超賣 {ri}", en=f"Oversold {ri}")
+        rsi_s = dict(cls="neutral", zh=f"超賣 {ri}", en=f"Oversold {ri}")
     elif rsi >= 55:
-        rsi_s = dict(cls="bullish", zh=f"偏多 {ri}", en=f"Bullish {ri}")
+        rsi_s = dict(cls="neutral", zh=f"動能偏強 {ri}", en=f"Stronger momentum {ri}")
     elif rsi <= 45:
-        rsi_s = dict(cls="bearish", zh=f"偏空 {ri}", en=f"Bearish {ri}")
+        rsi_s = dict(cls="neutral", zh=f"動能偏弱 {ri}", en=f"Weaker momentum {ri}")
     else:
         rsi_s = dict(cls="neutral", zh=f"中性 {ri}", en=f"Neutral {ri}")
 
     # MA cross
-    if ma50 >= ma200:
+    if ma50 > ma200:
         ma_s = dict(cls="bullish", zh="多頭排列", en="Bullish Alignment")
-    else:
+    elif ma50 < ma200:
         ma_s = dict(cls="bearish", zh="空頭排列", en="Bearish Alignment")
+    else:
+        ma_s = dict(cls="neutral", zh="均線相等", en="Equal averages")
 
     return trend, rsi_s, ma_s
 
@@ -324,7 +344,7 @@ def replace_signal_div(html, eid, sig, css_class="signal-value"):
 
 
 def render_tw_etf_chart(ticker, history):
-    """Render a dependency-free three-month SVG sparkline for one Taiwan ETF."""
+    """Render a price-window SVG with an explicitly dated cumulative change."""
     points = []
     for item in history or []:
         try:
@@ -362,14 +382,13 @@ def render_tw_etf_chart(ticker, history):
     change = ((latest - first) / first * 100) if first else 0.0
     change_class = "up" if change >= 0 else "down"
     change_text = f"{change:+.2f}%"
-    start_date = points[0][0][5:].replace("-", "/")
-    end_date = points[-1][0][5:].replace("-", "/")
+    start_date, end_date = points[0][0], points[-1][0]
     gradient_id = f"tw-etf-gradient-{ticker}"
 
-    return f'''      <div id="tw-etf-chart-{ticker}" class="tw-etf-chart" role="img" aria-label="{ticker} three-month price chart; latest NT$ {latest:.2f}; change {change_text}">
+    return f'''      <div id="tw-etf-chart-{ticker}" class="tw-etf-chart" role="img" aria-label="{ticker} price chart; {start_date} to {end_date}; latest NT$ {latest:.2f}; window change {change_text}">
         <div class="tw-etf-chart-summary">
           <span class="tw-etf-chart-price">NT$ {latest:.2f}</span>
-          <span class="tw-etf-chart-change {change_class}">3M {change_text}</span>
+          <span class="tw-etf-chart-change {change_class}"><span data-lang-zh>區間</span><span data-lang-en>Window</span> {change_text}</span>
         </div>
         <svg viewBox="0 0 300 126" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <defs>
@@ -383,6 +402,7 @@ def render_tw_etf_chart(ticker, history):
           <path class="tw-etf-chart-line" d="{line_path}"/>
         </svg>
         <div class="tw-etf-chart-range"><span>{start_date}</span><span>{end_date}</span></div>
+        <p class="chart-period-note"><span data-lang-zh>{len(points)} 筆日線，變動為上列首尾價格比較</span><span data-lang-en>{len(points)} daily closes; change compares the dated endpoints above</span></p>
       </div>'''
 
 
@@ -428,6 +448,7 @@ def update_html(html, data, fg_score, now=None, failed=None):
     angle = score_to_angle(fg_score)
     html = re.sub(r"(--angle:\s*)-?\d+", rf"\g<1>{angle}", html)
     html = replace_inner(html, "fear-greed-value", str(fg_score), "div")
+    html = replace_inner(html, "sentiment-inputs", render_sentiment_inputs(data), "div")
     for lang in ("zh", "en"):
         html = replace_inner(html, f"fear-greed-label-{lang}", fg_label(fg_score, lang), "span")
         sentiment = (f"自製市場情緒 {fg_score}/100（{fg_label(fg_score, lang)}）。" if lang == "zh"
@@ -438,19 +459,19 @@ def update_html(html, data, fg_score, now=None, failed=None):
     # ── Snapshot cards ──
     html = replace_inner(html, "sp500-price", fmt_price(spy.get("price")), "span")
     html = replace_span_full(html, "sp500-change",
-                             change_class(spy.get("pct")), fmt_pct(spy.get("pct")))
+                             change_class(spy.get("pct")), "1D " + fmt_pct(spy.get("pct")))
 
     html = replace_inner(html, "twii-price", fmt_price(twii.get("price")), "span")
     html = replace_span_full(html, "twii-change",
-                             change_class(twii.get("pct")), fmt_pct(twii.get("pct")))
+                             change_class(twii.get("pct")), "1D " + fmt_pct(twii.get("pct")))
 
     html = replace_inner(html, "gold-price", fmt_price(gold.get("price")), "span")
     html = replace_span_full(html, "gold-change",
-                             change_class(gold.get("pct")), fmt_pct(gold.get("pct")))
+                             change_class(gold.get("pct")), "1D " + fmt_pct(gold.get("pct")))
 
     html = replace_inner(html, "oil-price", fmt_price(oil.get("price")), "span")
     html = replace_span_full(html, "oil-change",
-                             change_class(oil.get("pct")), fmt_pct(oil.get("pct")))
+                             change_class(oil.get("pct")), "1D " + fmt_pct(oil.get("pct")))
 
     # ── Summary ──
     html = replace_inner(html, "summary-zh", gen_summary(data, fg_score, "zh"), "span")
@@ -551,7 +572,7 @@ def main():
         previous = json.loads(SNAPSHOT_PATH.read_text(encoding="utf-8"))
         for symbol in failed:
             cached = previous.get("assets", {}).get(symbol)
-            if cached and cached.get("as_of"):
+            if cached and cached.get("as_of") and cached.get("rsi_method") == "wilder-14":
                 if symbol in SOURCE_SPECS:
                     try:
                         history_points(cached, SOURCE_SPECS[symbol]['sessions'])
@@ -602,6 +623,8 @@ def report_health(message, error=False, warning=False):
 
 def validate_output(html, data, score):
     validate_charts(html, data)
+    if re.search(r'<[^>]+class="[^"]*\btrend-badge\b', html):
+        raise ValueError("Refusing uncomputed directional badges")
     if "\x00" in html or re.search(r">\s*(?:nan|inf|-inf)\s*<", html, re.I):
         raise ValueError("Invalid numeric output or NUL padding")
     if f'id="fear-greed-label-en" data-lang-en>{fg_label(score)}<' not in html:
