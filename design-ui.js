@@ -89,6 +89,23 @@
     });
   }
 
+  function initLocation(doc, win) {
+    const links = Array.from(doc.querySelectorAll('.navbar a[href^="#"]'));
+    const sections = links.map(link => ({ link, section: doc.querySelector(link.getAttribute('href')) })).filter(item => item.section);
+    function syncLocation() {
+      const readingPosition = (win.scrollY || 0) + 100;
+      let current = sections[0] && sections[0].section;
+      sections.forEach(item => { if (item.section.offsetTop <= readingPosition) current = item.section; });
+      links.forEach(link => {
+        if (current && link.getAttribute('href') === '#' + current.id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    win.addEventListener('scroll', syncLocation, { passive: true });
+    win.addEventListener('hashchange', syncLocation);
+    syncLocation();
+  }
+
   function init(doc, win) {
     initMenu(doc);
     initTheme(doc, win);
@@ -98,16 +115,8 @@
     ['chartCount', 'chartCountEn'].forEach(id => { doc.getElementById(id).textContent = charts; });
     const sections = doc.querySelectorAll('main section[id]:not(#hero)').length;
     ['sectionCount', 'sectionCountEn'].forEach(id => { doc.getElementById(id).textContent = sections; });
-    const links = doc.querySelectorAll('.navbar a[href^="#"]');
-    function syncLocation() {
-      links.forEach(link => {
-        if (link.getAttribute('href') === win.location.hash) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
-      });
-    }
-    win.addEventListener('hashchange', syncLocation);
-    syncLocation();
+    initLocation(doc, win);
   }
-  if (typeof module !== 'undefined' && module.exports) module.exports = { initTabs, initMenu, initTheme };
+  if (typeof module !== 'undefined' && module.exports) module.exports = { initTabs, initMenu, initTheme, initLocation };
   else init(document, window);
 })();
